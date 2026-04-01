@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('partials/head', { title: 'Error — StreamX' }) %></head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex items-center justify-center">
+  <div class="text-center px-6">
+    <p class="text-6xl font-black text-zinc-800 mb-4"><%= typeof status !== 'undefined' ? status : 500 %></p>
+    <p class="text-zinc-300 text-lg mb-6"><%= typeof message !== 'undefined' ? message : 'Error interno' %></p>
+    <a href="/" class="inline-block bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">← Volver al catálogo</a>
+  </div>
+</body>
+</html>

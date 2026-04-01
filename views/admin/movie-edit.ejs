@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('../partials/head', { title: movie.title + ' — Editar' }) %></head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex antialiased">
+<%- include('partials/nav') %>
+
+<div class="flex-1 overflow-y-auto">
+  <div class="max-w-4xl mx-auto px-6 py-8">
+
+    <div class="flex items-center gap-3 mb-6">
+      <a href="/admin/movies" class="text-zinc-500 hover:text-white transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </a>
+      <h1 class="text-xl font-bold text-white truncate"><%= movie.title %></h1>
+      <% if (movie.featured) { %>
+      <span class="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-700/40 px-2 py-0.5 rounded-full font-medium">★ Destacada</span>
+      <% } %>
+    </div>
+
+    <% if (typeof msg !== 'undefined' && msg) { %>
+    <div class="mb-4 rounded-lg bg-green-950/50 border border-green-800 px-4 py-3 text-sm text-green-300"><%= msg %></div>
+    <% } %>
+    <% if (typeof error !== 'undefined' && error) { %>
+    <div class="mb-4 rounded-lg bg-red-950/50 border border-red-800 px-4 py-3 text-sm text-red-300"><%= error %></div>
+    <% } %>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Poster preview -->
+      <div class="md:col-span-1">
+        <% if (movie.posterPath) { %>
+        <img src="<%= movie.posterPath %>" alt="" class="w-full rounded-xl border border-zinc-800 object-cover" />
+        <% } else { %>
+        <div class="aspect-[2/3] rounded-xl border border-dashed border-zinc-700 flex items-center justify-center">
+          <p class="text-xs text-zinc-600">Sin poster</p>
+        </div>
+        <% } %>
+        <div class="mt-3 flex gap-2 text-xs text-zinc-500">
+          <span>TMDB: <%= movie.tmdbId %></span>
+          <span>·</span>
+          <span><%= movie.viewCount || 0 %> vistas</span>
+        </div>
+      </div>
+
+      <!-- Formulario -->
+      <div class="md:col-span-2 space-y-5">
+
+        <!-- Datos TMDB -->
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5">
+          <h2 class="text-sm font-semibold text-white mb-4">Datos de la película</h2>
+          <form method="POST" action="/admin/movies/<%= movie._id %>/update" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Título</label>
+                <input type="text" name="title" value="<%= movie.title %>" required
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Fecha de estreno</label>
+                <input type="text" name="releaseDate" value="<%= movie.releaseDate %>"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Poster URL</label>
+                <input type="text" name="posterPath" value="<%= movie.posterPath %>"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Backdrop URL</label>
+                <input type="text" name="backdropPath" value="<%= movie.backdropPath %>"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-zinc-400 mb-1.5">Sinopsis</label>
+                <textarea name="overview" rows="3"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition resize-none"><%= movie.overview %></textarea>
+              </div>
+              <div class="flex items-center gap-5 flex-wrap">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="featured" class="rounded border-zinc-600 bg-zinc-800 text-violet-500 focus:ring-violet-500" <%= movie.featured ? 'checked' : '' %> />
+                  <span class="text-sm text-zinc-300">Destacada</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" name="active" value="on" class="rounded border-zinc-600 bg-zinc-800 text-emerald-500 focus:ring-emerald-500" <%= movie.active !== false ? 'checked' : '' %> />
+                  <span class="text-sm text-zinc-300">Activa</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer" title="Usar Vimeus como servidor automático">
+                  <input type="checkbox" name="vimeusEnabled" value="on" class="rounded border-zinc-600 bg-zinc-800 text-emerald-400 focus:ring-emerald-400" <%= movie.vimeusEnabled !== false ? 'checked' : '' %> />
+                  <span class="text-sm text-zinc-300 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>Vimeus
+                  </span>
+                </label>
+              </div>
+            </div>
+            <button type="submit" class="bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">
+              Guardar cambios
+            </button>
+          </form>
+        </div>
+
+        <!-- Links de reproducción -->
+        <% var movieLinks = (movie.links && Array.isArray(movie.links)) ? movie.links : []; %>
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5">
+          <h2 class="text-sm font-semibold text-white mb-4">Servidores de reproducción (<%= movieLinks.length %>)</h2>
+
+          <% if (movieLinks.length > 0) { %>
+          <div class="space-y-2 mb-5">
+            <% movieLinks.forEach(function(link, i) { %>
+            <div class="flex items-center gap-2 bg-zinc-800/60 rounded-lg px-3 py-2">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-white truncate">
+                  <%= link.serverName %>
+                  <% if (link.quality) { %><span class="ml-1 text-[10px] bg-zinc-700 text-zinc-400 px-1.5 py-0.5 rounded font-bold"><%= link.quality %></span><% } %>
+                  <% if (link.language) { %><span class="ml-1 text-xs text-zinc-500"><%= link.language %></span><% } %>
+                </p>
+                <p class="text-xs text-zinc-600 truncate"><%= link.url.slice(0, 60) %>...</p>
+              </div>
+              <form method="POST" action="/admin/movies/<%= movie._id %>/links/<%= i %>/remove">
+                <button type="submit" class="text-red-500 hover:text-red-400 text-xs px-2 py-1 rounded hover:bg-red-950/30 transition" onclick="return confirm('¿Eliminar este enlace?')">✕</button>
+              </form>
+            </div>
+            <% }); %>
+          </div>
+          <% } %>
+
+          <form method="POST" action="/admin/movies/<%= movie._id %>/links" class="space-y-3">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-zinc-500 mb-1">Nombre del servidor</label>
+                <input type="text" name="serverName" placeholder="Servidor 1" required
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition placeholder-zinc-600" />
+              </div>
+              <div>
+                <label class="block text-xs text-zinc-500 mb-1">Calidad</label>
+                <select name="quality" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition">
+                  <option value="">— Sin especificar</option>
+                  <option value="SD">SD</option>
+                  <option value="HD">HD</option>
+                  <option value="FHD">Full HD</option>
+                  <option value="4K">4K</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-zinc-500 mb-1">Idioma</label>
+                <input type="text" name="language" value="Latino" placeholder="Latino"
+                  class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs text-zinc-500 mb-1">URL del iframe</label>
+              <input type="url" name="url" placeholder="https://..." required
+                class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition placeholder-zinc-600" />
+            </div>
+            <button type="submit" class="bg-emerald-700 hover:bg-emerald-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+              + Agregar enlace
+            </button>
+          </form>
+        </div>
+
+        <!-- Zona peligrosa -->
+        <div class="rounded-xl border border-red-900/40 bg-red-950/10 p-5">
+          <h2 class="text-sm font-semibold text-red-400 mb-3">Zona peligrosa</h2>
+          <form method="POST" action="/admin/movies/<%= movie._id %>/delete" onsubmit="return confirm('¿Eliminar «<%= movie.title %>» definitivamente?')">
+            <button type="submit" class="bg-red-700 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+              Eliminar película
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

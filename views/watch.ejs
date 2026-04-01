@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('partials/head', { title: content.title + ' — StreamX' }) %></head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen antialiased">
+
+<header class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-md">
+  <div class="mx-auto max-w-6xl px-4 py-3 flex items-center gap-4">
+    <a href="/" class="flex items-center gap-2 text-zinc-400 hover:text-white transition shrink-0">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      <span class="text-sm hidden sm:block">Catálogo</span>
+    </a>
+    <div class="flex-1 flex flex-col items-center gap-0.5 overflow-hidden px-2 text-center min-w-0">
+      <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full
+        <%= contentType === 'series' ? 'bg-blue-600/20 text-blue-400 border border-blue-700/40' : 'bg-violet-600/20 text-violet-400 border border-violet-700/40' %>">
+        <%= badge %>
+      </span>
+      <h1 class="truncate text-base font-bold text-white sm:text-lg w-full"><%= content.title %></h1>
+    </div>
+    <span class="shrink-0 text-xs text-zinc-600 hidden sm:block">
+      <%= content.viewCount > 0 ? content.viewCount + ' vistas' : '' %>
+    </span>
+  </div>
+</header>
+
+<main class="mx-auto max-w-6xl px-4 py-6">
+
+<%
+// ─── Helpers Vimeus ───────────────────────────────────────────────────────────
+var VIMEUS_VIEW_KEY = process.env.VIMEUS_VIEW_KEY || '';
+var VIMEUS_ENABLED  = process.env.VIMEUS_ENABLED !== 'false' && VIMEUS_VIEW_KEY;
+
+function vimeusMovieUrl(tmdbId) {
+  if (!VIMEUS_ENABLED || !tmdbId) return null;
+  return 'https://vimeus.com/e/movie?tmdb=' + tmdbId + '&view_key=' + VIMEUS_VIEW_KEY;
+}
+function vimeusSerieUrl(tmdbId, season, episode) {
+  if (!VIMEUS_ENABLED || !tmdbId) return null;
+  return 'https://vimeus.com/e/serie?tmdb=' + tmdbId + '&se=' + season + '&ep=' + episode + '&view_key=' + VIMEUS_VIEW_KEY;
+}
+%>
+
+<% if (contentType === 'movie') { %>
+  <!-- ═══════ PELÍCULA ═══════ -->
+  <%
+    var movieLinks = (content.links && Array.isArray(content.links)) ? content.links : [];
+    // Vimeus como primer servidor si está habilitado para esta película
+    var vUrl = (content.vimeusEnabled !== false) ? vimeusMovieUrl(content.tmdbId) : null;
+    var allMovieLinks = [];
+    if (vUrl) allMovieLinks.push({ serverName: 'Vimeus', url: vUrl, quality: 'HD', language: 'Latino', isVimeus: true });
+    allMovieLinks = allMovieLinks.concat(movieLinks);
+    var firstLink = allMovieLinks.length ? allMovieLinks[0] : null;
+  %>
+
+  <div class="overflow-hidden rounded-2xl border border-zinc-800 bg-black shadow-2xl">
+    <% if (firstLink) { %>
+    <div class="relative w-full bg-black" style="padding-top:56.25%">
+      <iframe id="player" title="Reproductor StreamX" src="<%= firstLink.url %>"
+        class="absolute inset-0 h-full w-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowfullscreen referrerpolicy="origin"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
+    </div>
+    <% } else { %>
+    <div class="flex aspect-video items-center justify-center bg-zinc-900">
+      <p class="text-sm text-zinc-500 text-center px-6">Sin enlaces. Añadílos desde el <a href="/admin/login" class="text-violet-400 underline">panel admin</a>.</p>
+    </div>
+    <% } %>
+
+    <!-- Selector de servidores -->
+    <% if (allMovieLinks.length > 0) { %>
+    <div class="border-t border-zinc-800 bg-zinc-900/60 px-4 py-3">
+      <p class="text-[10px] text-zinc-600 uppercase tracking-wider mb-2">Servidor</p>
+      <div class="flex flex-wrap gap-2">
+        <% allMovieLinks.forEach(function(link, i) { %>
+        <button type="button" data-url="<%= link.url %>"
+          class="server-btn flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition
+            <%= i === 0 ? 'border-violet-500 bg-violet-600/20 text-violet-200' : 'border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:bg-zinc-800' %>">
+          <% if (link.isVimeus) { %>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+          <% } else { %>
+          <svg class="w-3.5 h-3.5 opacity-60" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <% } %>
+          <%= link.serverName %>
+          <% if (link.quality) { %><span class="text-[9px] font-bold bg-zinc-700/80 px-1.5 rounded"><%= link.quality %></span><% } %>
+        </button>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+<% } else { %>
+  <!-- ═══════ SERIE ═══════ -->
+  <%
+    var seasons   = (content.seasons && Array.isArray(content.seasons)) ? content.seasons : [];
+    var activeSeason = parseInt((typeof query !== 'undefined' && query && query.t) ? query.t : '') || (seasons.length ? seasons[0].number : 1);
+    var activeEpNum  = parseInt((typeof query !== 'undefined' && query && query.e) ? query.e : '') || 1;
+    var currentSeason = seasons.find(function(s){ return s.number === activeSeason; }) || seasons[0];
+    var currentEp     = currentSeason ? (currentSeason.episodes.find(function(e){ return e.number === activeEpNum; }) || currentSeason.episodes[0]) : null;
+    var epLinks       = (currentEp && currentEp.links && Array.isArray(currentEp.links)) ? currentEp.links : [];
+
+    // Vimeus como primer servidor del episodio
+    var vSerieUrl = (content.vimeusEnabled !== false && currentSeason && currentEp)
+      ? vimeusSerieUrl(content.tmdbId, currentSeason.number, currentEp.number)
+      : null;
+
+    var allEpLinks = [];
+    if (vSerieUrl) allEpLinks.push({ serverName: 'Vimeus', url: vSerieUrl, quality: 'HD', language: 'Latino', isVimeus: true });
+    allEpLinks = allEpLinks.concat(epLinks);
+    var firstEpLink = allEpLinks.length ? allEpLinks[0] : null;
+  %>
+
+  <!-- Player -->
+  <div class="overflow-hidden rounded-2xl border border-zinc-800 bg-black shadow-2xl mb-5">
+    <% if (firstEpLink) { %>
+    <div class="relative w-full bg-black" style="padding-top:56.25%">
+      <iframe id="player" title="<%= content.title %>" src="<%= firstEpLink.url %>"
+        class="absolute inset-0 h-full w-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowfullscreen referrerpolicy="origin"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
+    </div>
+    <% } else { %>
+    <div class="flex aspect-video items-center justify-center bg-zinc-900">
+      <p class="text-sm text-zinc-500 text-center px-6">
+        <% if (seasons.length === 0) { %>Sin temporadas importadas aún.
+        <% } else { %>Sin enlaces para este episodio.<% } %>
+      </p>
+    </div>
+    <% } %>
+
+    <!-- Selector de servidores del episodio -->
+    <% if (allEpLinks.length > 0) { %>
+    <div class="border-t border-zinc-800 bg-zinc-900/60 px-4 py-3">
+      <p class="text-[10px] text-zinc-600 uppercase tracking-wider mb-2">Servidor</p>
+      <div class="flex flex-wrap gap-2">
+        <% allEpLinks.forEach(function(link, i) { %>
+        <button type="button" data-url="<%= link.url %>"
+          class="server-btn flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition
+            <%= i === 0 ? 'border-blue-500 bg-blue-600/20 text-blue-200' : 'border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:bg-zinc-800' %>">
+          <% if (link.isVimeus) { %>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+          <% } else { %>
+          <svg class="w-3 h-3 opacity-60" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <% } %>
+          <%= link.serverName %>
+          <% if (link.quality) { %><span class="text-[9px] font-bold bg-zinc-700/80 px-1.5 rounded"><%= link.quality %></span><% } %>
+        </button>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <!-- Info del episodio activo -->
+  <% if (currentEp) { %>
+  <div class="mb-5 flex items-start gap-3">
+    <% if (currentEp.stillPath) { %>
+    <img src="<%= currentEp.stillPath %>" alt="" class="w-28 rounded-lg object-cover shrink-0 border border-zinc-800" />
+    <% } %>
+    <div>
+      <p class="text-xs text-blue-400 font-semibold uppercase tracking-wider mb-1">
+        T<%= currentSeason.number %> · E<%= currentEp.number %>
+      </p>
+      <p class="text-base font-bold text-white"><%= currentEp.title || 'Episodio ' + currentEp.number %></p>
+      <% if (currentEp.airDate) { %><p class="text-xs text-zinc-500 mt-0.5"><%= currentEp.airDate %></p><% } %>
+      <% if (currentEp.overview) { %><p class="text-sm text-zinc-400 mt-1.5 leading-relaxed line-clamp-3"><%= currentEp.overview %></p><% } %>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- Selector de temporadas + lista episodios -->
+  <% if (seasons.length > 0) { %>
+  <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 overflow-hidden mb-6">
+    <!-- Tabs temporadas -->
+    <div class="flex overflow-x-auto border-b border-zinc-800 bg-zinc-900/60">
+      <% seasons.forEach(function(season) { %>
+      <a href="/watch/series/<%= content._id %>?t=<%= season.number %>&e=1"
+        class="shrink-0 px-4 py-3 text-xs font-semibold transition whitespace-nowrap border-b-2
+          <%= activeSeason === season.number ? 'border-blue-500 text-blue-400' : 'border-transparent text-zinc-500 hover:text-white hover:border-zinc-600' %>">
+        T<%= season.number %>: <%= season.title || 'Temporada ' + season.number %>
+      </a>
+      <% }); %>
+    </div>
+
+    <!-- Episodios -->
+    <% if (currentSeason) { %>
+    <div class="divide-y divide-zinc-800/50 max-h-96 overflow-y-auto">
+      <% currentSeason.episodes.forEach(function(ep) { %>
+      <%
+        var epIsActive = currentEp && ep._id && currentEp._id && ep._id.toString() === currentEp._id.toString();
+        var epHasLinks = (ep.links && ep.links.length > 0);
+        // Vimeus cuenta como "disponible"
+        var epAvailable = epHasLinks || (content.vimeusEnabled !== false && VIMEUS_ENABLED);
+      %>
+      <a href="/watch/series/<%= content._id %>?t=<%= currentSeason.number %>&e=<%= ep.number %>"
+        class="flex items-center gap-3 px-4 py-3 transition group
+          <%= epIsActive ? 'bg-blue-950/40 border-l-2 border-blue-500' : 'hover:bg-zinc-800/40' %>">
+        <span class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center text-xs font-bold
+          <%= epIsActive ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-400 group-hover:bg-zinc-700' %>">
+          <%= ep.number %>
+        </span>
+        <% if (ep.stillPath) { %>
+        <img src="<%= ep.stillPath %>" alt="" class="w-16 h-10 object-cover rounded shrink-0 border border-zinc-700" loading="lazy" />
+        <% } %>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium <%= epIsActive ? 'text-blue-200' : 'text-zinc-200 group-hover:text-white' %> truncate">
+            <%= ep.title || 'Episodio ' + ep.number %>
+          </p>
+          <% if (ep.airDate) { %><p class="text-[10px] text-zinc-600"><%= ep.airDate %></p><% } %>
+        </div>
+        <% if (epAvailable) { %>
+        <svg class="w-4 h-4 shrink-0 <%= epHasLinks ? 'text-emerald-500' : 'text-zinc-600' %>" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <% } else { %>
+        <span class="shrink-0 w-4 h-4 rounded-full border border-zinc-700"></span>
+        <% } %>
+      </a>
+      <% }); %>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+
+<% } %> <!-- fin series -->
+
+<!-- Sinopsis + info lateral -->
+<div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-5">
+  <div class="md:col-span-2 space-y-4">
+    <% if (content.backdropPath) { %>
+    <div class="overflow-hidden rounded-xl border border-zinc-800">
+      <img src="<%= content.backdropPath %>" alt="" class="w-full object-cover" loading="lazy" style="max-height:220px;object-position:top" />
+    </div>
+    <% } %>
+    <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+      <h2 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Sinopsis</h2>
+      <p class="text-sm leading-relaxed text-zinc-400"><%= content.overview || 'Sin descripción disponible.' %></p>
+    </div>
+  </div>
+  <div>
+    <div class="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 space-y-3">
+      <h2 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Información</h2>
+      <% if (dateLabel) { %>
+      <div>
+        <p class="text-[10px] text-zinc-600 uppercase tracking-wider">Estreno</p>
+        <p class="text-sm text-zinc-200"><%= dateLabel.split(': ')[1] || dateLabel %></p>
+      </div>
+      <% } %>
+      <% if (content.genres && content.genres.length > 0) { %>
+      <div>
+        <p class="text-[10px] text-zinc-600 uppercase tracking-wider mb-1.5">Géneros</p>
+        <div class="flex flex-wrap gap-1.5">
+          <% content.genres.forEach(function(g) { %>
+          <a href="/?genre=<%= encodeURIComponent(g) %>" class="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-md transition"><%= g %></a>
+          <% }); %>
+        </div>
+      </div>
+      <% } %>
+      <% if (contentType === 'series') { %>
+      <div>
+        <p class="text-[10px] text-zinc-600 uppercase tracking-wider">Temporadas</p>
+        <p class="text-sm text-zinc-200"><%= content.totalSeasons || (content.seasons ? content.seasons.length : 0) %></p>
+      </div>
+      <% } %>
+      <!-- Indicador Vimeus -->
+      <% if (process.env.VIMEUS_ENABLED !== 'false' && content.vimeusEnabled !== false) { %>
+      <div class="flex items-center gap-1.5 pt-1 border-t border-zinc-800/50">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="text-[10px] text-zinc-500">Vimeus disponible</span>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+(function() {
+  var iframe  = document.getElementById('player');
+  var buttons = document.querySelectorAll('.server-btn');
+  if (!iframe || !buttons.length) return;
+  buttons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var url = btn.dataset.url; if (!url) return;
+      iframe.src = url;
+      buttons.forEach(function(b) {
+        b.classList.remove('border-violet-500','bg-violet-600/20','text-violet-200',
+                           'border-blue-500','bg-blue-600/20','text-blue-200');
+        b.classList.add('border-zinc-700','text-zinc-400');
+      });
+      btn.classList.remove('border-zinc-700','text-zinc-400');
+      // Color según tipo
+      var isMovie = '<%= contentType %>' === 'movie';
+      btn.classList.add(isMovie ? 'border-violet-500' : 'border-blue-500',
+                        isMovie ? 'bg-violet-600/20' : 'bg-blue-600/20',
+                        isMovie ? 'text-violet-200' : 'text-blue-200');
+    });
+  });
+})();
+</script>
+</body>
+</html>

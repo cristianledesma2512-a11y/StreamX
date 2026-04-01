@@ -1,0 +1,37 @@
+{
+  "name": "streamx",
+  "version": "2.0.0",
+  "description": "StreamX — Plataforma de streaming con Node.js, Express y MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint .",
+    "seed": "node scripts/seed.js",
+    "migrate:cloud": "node scripts/migrateToCloud.js",
+    "import:vimeus": "node scripts/importFromVimeus.js",
+    "import:vimeus:movies": "node scripts/importFromVimeus.js movies",
+    "import:vimeus:series": "node scripts/importFromVimeus.js series"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.1",
+    "helmet": "^7.2.0",
+    "mongoose": "^8.9.3",
+    "morgan": "^1.10.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

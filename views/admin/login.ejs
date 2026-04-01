@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('../partials/head', { title: 'Login — StreamX Admin' }) %></head>
+<body class="bg-zinc-950 min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-sm">
+    <div class="text-center mb-8">
+      <div class="w-12 h-12 rounded-2xl bg-violet-600 flex items-center justify-center font-bold text-xl text-white mx-auto mb-4">S</div>
+      <h1 class="text-xl font-bold text-white">StreamX Admin</h1>
+      <p class="text-sm text-zinc-500 mt-1">Panel de administración</p>
+    </div>
+
+    <div class="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6">
+      <% if (typeof error !== 'undefined' && error) { %>
+      <div class="mb-4 rounded-lg bg-red-950/50 border border-red-800 px-4 py-3 text-sm text-red-300"><%= error %></div>
+      <% } %>
+
+      <form method="POST" action="/admin/login" class="space-y-4">
+        <input type="hidden" name="next" value="<%= typeof next !== 'undefined' ? next : '/admin' %>" />
+        <div>
+          <label class="block text-xs font-medium text-zinc-400 mb-1.5">Usuario</label>
+          <input type="text" name="username" required autocomplete="username"
+            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 transition placeholder-zinc-600"
+            placeholder="admin" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-zinc-400 mb-1.5">Contraseña</label>
+          <input type="password" name="password" required autocomplete="current-password"
+            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 transition" />
+        </div>
+        <button type="submit"
+          class="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold text-sm py-2.5 rounded-lg transition">
+          Entrar
+        </button>
+      </form>
+    </div>
+
+    <p class="text-center mt-6 text-xs text-zinc-700">StreamX &copy; TECNOCOM</p>
+  </div>
+</body>
+</html>

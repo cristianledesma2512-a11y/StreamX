@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('../partials/head', { title: 'Error — StreamX Admin' }) %></head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex antialiased">
+<%- include('partials/nav') %>
+<div class="flex-1 flex items-center justify-center">
+  <div class="text-center px-6">
+    <p class="text-5xl font-black text-zinc-800 mb-4">Error</p>
+    <p class="text-zinc-400 mb-6"><%= typeof message !== 'undefined' ? message : 'Error interno' %></p>
+    <a href="/admin" class="text-sm text-violet-400 hover:underline">← Volver al dashboard</a>
+  </div>
+</div>
+</body>
+</html>

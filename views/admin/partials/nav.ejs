@@ -1,0 +1,43 @@
+<nav class="w-56 shrink-0 flex flex-col border-r border-zinc-800 bg-zinc-900 min-h-screen">
+  <div class="p-4 border-b border-zinc-800">
+    <a href="/admin" class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-md bg-violet-600 flex items-center justify-center text-white font-bold text-xs">S</div>
+      <span class="text-sm font-bold text-white">StreamX Admin</span>
+    </a>
+    <p class="text-xs text-zinc-500 mt-1"><%= typeof adminUser !== 'undefined' && adminUser ? adminUser.username : '' %></p>
+  </div>
+
+  <div class="flex-1 p-3 space-y-1">
+    <a href="/admin" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm <%= req && req.path === '/admin' ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white' %> transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      Dashboard
+    </a>
+    <a href="/admin/movies" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm <%= req && req.path.startsWith('/admin/movies') ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white' %> transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+      Películas
+    </a>
+    <a href="/admin/series" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm <%= req && req.path.startsWith('/admin/series') ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white' %> transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+      Series
+    </a>
+    <% if (typeof adminUser !== 'undefined' && adminUser && adminUser.role === 'super') { %>
+    <a href="/admin/admins" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm <%= req && req.path.startsWith('/admin/admins') ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white' %> transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      Administradores
+    </a>
+    <% } %>
+  </div>
+
+  <div class="p-3 border-t border-zinc-800 space-y-1">
+    <a href="/" target="_blank" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-zinc-500 hover:text-white hover:bg-zinc-800 transition">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      Ver sitio
+    </a>
+    <form method="POST" action="/admin/logout">
+      <button type="submit" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-zinc-500 hover:text-red-400 hover:bg-zinc-800 transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        Cerrar sesión
+      </button>
+    </form>
+  </div>
+</nav>

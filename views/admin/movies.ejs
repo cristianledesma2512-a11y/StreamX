@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('../partials/head', { title: 'Películas — StreamX Admin' }) %></head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex antialiased">
+<%- include('partials/nav') %>
+
+<div class="flex-1 overflow-y-auto">
+  <div class="max-w-6xl mx-auto px-6 py-8">
+
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-xl font-bold text-white">Películas <span class="text-zinc-500 font-normal text-base">(<%= movies.length %>)</span></h1>
+    </div>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+    <div class="mb-4 rounded-lg bg-red-950/50 border border-red-800 px-4 py-3 text-sm text-red-300"><%= error %></div>
+    <% } %>
+    <% if (typeof msg !== 'undefined' && msg) { %>
+    <div class="mb-4 rounded-lg bg-green-950/50 border border-green-800 px-4 py-3 text-sm text-green-300"><%= msg %></div>
+    <% } %>
+
+    <!-- Importar -->
+    <div class="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 mb-6">
+      <p class="text-xs text-zinc-500 font-medium mb-3 uppercase tracking-wider">Importar desde TMDB</p>
+      <form method="POST" action="/admin/movies/import" class="flex gap-2">
+        <input type="number" name="tmdbId" placeholder="ID de TMDB (ej: 27205)" required
+          class="flex-1 max-w-xs bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition placeholder-zinc-600" />
+        <button type="submit" class="bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+          + Importar
+        </button>
+      </form>
+    </div>
+
+    <!-- Búsqueda -->
+    <form method="GET" class="mb-4">
+      <div class="relative max-w-sm">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input type="text" name="q" value="<%= typeof search !== 'undefined' ? search : '' %>"
+          placeholder="Buscar película..."
+          class="w-full bg-zinc-800 border border-zinc-700 rounded-lg pl-9 pr-4 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition placeholder-zinc-600" />
+      </div>
+    </form>
+
+    <!-- Lista -->
+    <% if (!movies || movies.length === 0) { %>
+    <div class="rounded-xl border border-dashed border-zinc-800 py-16 text-center">
+      <p class="text-zinc-500 text-sm">Sin películas aún. Importá una desde TMDB.</p>
+    </div>
+    <% } else { %>
+    <div class="rounded-xl border border-zinc-800 overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-900 border-b border-zinc-800">
+          <tr>
+            <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium">Poster</th>
+            <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium">Título</th>
+            <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium hidden md:table-cell">Año</th>
+            <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium hidden md:table-cell">Links</th>
+            <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium hidden md:table-cell">Vistas</th>
+            <th class="text-left px-4 py-3 text-xs text-zinc-500 font-medium hidden md:table-cell">Estado</th>
+            <th class="px-4 py-3"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-800/50">
+          <% movies.forEach(function(movie) { %>
+          <tr class="hover:bg-zinc-900/50 transition">
+            <td class="px-4 py-3">
+              <% if (movie.posterPath) { %>
+              <img src="<%= movie.posterPath %>" alt="" class="w-8 h-12 object-cover rounded" loading="lazy" />
+              <% } else { %>
+              <div class="w-8 h-12 rounded bg-zinc-800 flex items-center justify-center">
+                <svg class="w-3 h-3 text-zinc-600" fill="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/></svg>
+              </div>
+              <% } %>
+            </td>
+            <td class="px-4 py-3">
+              <p class="font-medium text-white leading-snug line-clamp-2 max-w-xs"><%= movie.title %></p>
+              <p class="text-xs text-zinc-600 mt-0.5">TMDB: <%= movie.tmdbId %></p>
+            </td>
+            <td class="px-4 py-3 text-zinc-400 hidden md:table-cell"><%= (movie.releaseDate || '').slice(0,4) || '—' %></td>
+            <td class="px-4 py-3 hidden md:table-cell">
+              <span class="<%= movie.links.length > 0 ? 'text-emerald-400' : 'text-zinc-600' %>"><%= movie.links.length %></span>
+            </td>
+            <td class="px-4 py-3 text-zinc-400 hidden md:table-cell"><%= movie.viewCount || 0 %></td>
+            <td class="px-4 py-3 hidden md:table-cell">
+              <span class="text-xs px-2 py-0.5 rounded-full font-medium <%= movie.active !== false ? 'bg-emerald-900/40 text-emerald-400' : 'bg-zinc-800 text-zinc-500' %>">
+                <%= movie.active !== false ? 'Activa' : 'Inactiva' %>
+              </span>
+            </td>
+            <td class="px-4 py-3 text-right">
+              <a href="/admin/movies/<%= movie._id %>/edit"
+                class="inline-flex items-center gap-1 text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-3 py-1.5 rounded-lg transition">
+                Editar
+              </a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head><%- include('partials/head', { title: 'StreamX — Catálogo' }) %></head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen antialiased">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-4 py-3 flex items-center gap-4">
+    <a href="/" class="flex items-center gap-2 shrink-0">
+      <div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center font-bold text-sm text-white">S</div>
+      <span class="text-xl font-bold text-white hidden sm:block">StreamX</span>
+    </a>
+
+    <!-- Búsqueda -->
+    <form method="GET" action="/" class="flex-1 max-w-xl">
+      <div class="relative">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input type="text" name="q" value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+          placeholder="Buscar películas o series..."
+          class="w-full bg-zinc-800 border border-zinc-700 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition" />
+      </div>
+    </form>
+
+    <a href="/admin/login" class="shrink-0 text-xs text-zinc-400 hover:text-violet-400 transition hidden sm:block">Admin</a>
+  </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-4 py-6">
+
+  <!-- Filtros por género -->
+  <% if (typeof genres !== 'undefined' && genres.length > 0) { %>
+  <div class="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
+    <a href="/" class="shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition <%= !activeGenre ? 'bg-violet-600 text-white' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' %>">
+      Todos
+    </a>
+    <% genres.forEach(function(g) { %>
+    <a href="/?genre=<%= encodeURIComponent(g) %>" class="shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition <%= activeGenre === g ? 'bg-violet-600 text-white' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' %>">
+      <%= g %>
+    </a>
+    <% }); %>
+  </div>
+  <% } %>
+
+  <!-- Error -->
+  <% if (typeof error !== 'undefined' && error) { %>
+  <div class="mb-6 rounded-lg border border-red-800 bg-red-950/40 px-4 py-3 text-sm text-red-300"><%= error %></div>
+  <% } %>
+
+  <!-- Info de búsqueda -->
+  <% if (typeof searchQuery !== 'undefined' && searchQuery) { %>
+  <p class="mb-4 text-sm text-zinc-400">Resultados para: <span class="text-white font-medium">"<%= searchQuery %>"</span>
+    — <a href="/" class="text-violet-400 hover:underline">limpiar</a></p>
+  <% } %>
+
+  <!-- Catálogo -->
+  <% const items = typeof catalogItems !== 'undefined' ? catalogItems : []; %>
+  <% if (!items || items.length === 0) { %>
+  <div class="flex flex-col items-center justify-center py-32 text-center">
+    <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center mb-4">
+      <svg class="w-8 h-8 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+      </svg>
+    </div>
+    <p class="text-zinc-400 text-sm">No hay contenido aún.</p>
+    <a href="/admin/login" class="mt-3 text-violet-400 text-sm hover:underline">Importar desde el panel →</a>
+  </div>
+
+  <% } else { %>
+
+  <!-- Grid de contenido -->
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+    <% items.forEach(function(item) { %>
+    <a href="<%= item.kind === 'series' ? '/watch/series/' + item._id : '/watch/movie/' + item._id %>"
+      class="group block overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 transition-all hover:border-violet-500/60 hover:scale-[1.02] hover:shadow-xl hover:shadow-violet-900/20">
+      <!-- Poster -->
+      <div class="relative aspect-[2/3] bg-zinc-800 overflow-hidden">
+        <% if (item.posterPath) { %>
+        <img src="<%= item.posterPath %>" alt="<%= item.title %>"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy" decoding="async" />
+        <% } else { %>
+        <div class="flex h-full items-center justify-center">
+          <svg class="w-10 h-10 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <% } %>
+
+        <!-- Badges -->
+        <div class="absolute top-2 left-2 flex gap-1">
+          <span class="rounded-md px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide <%= item.kind === 'series' ? 'bg-blue-600 text-white' : 'bg-violet-600 text-white' %>">
+            <%= item.kind === 'series' ? 'Serie' : 'Película' %>
+          </span>
+        </div>
+        <% if (item.featured) { %>
+        <div class="absolute top-2 right-2">
+          <span class="rounded-md bg-yellow-500 px-1.5 py-0.5 text-[9px] font-bold uppercase text-black">★</span>
+        </div>
+        <% } %>
+
+        <!-- Hover overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+          <span class="text-white text-xs font-medium flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Ver ahora
+          </span>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="p-2.5">
+        <h2 class="line-clamp-2 text-xs font-semibold text-white group-hover:text-violet-300 transition-colors leading-snug">
+          <%= item.title %>
+        </h2>
+        <% const fecha = item.releaseDate || item.firstAirDate; %>
+        <% if (fecha) { %>
+        <p class="mt-1 text-[10px] text-zinc-500"><%= fecha.slice(0, 4) %></p>
+        <% } %>
+        <% if (item.viewCount > 0) { %>
+        <p class="text-[10px] text-zinc-600"><%= item.viewCount %> vistas</p>
+        <% } %>
+      </div>
+    </a>
+    <% }); %>
+  </div>
+
+  <!-- Paginación -->
+  <% if (typeof pagination !== 'undefined' && pagination && pagination.totalPages > 1) { %>
+  <div class="mt-10 flex items-center justify-center gap-2">
+    <% if (pagination.page > 1) { %>
+    <a href="?page=<%= pagination.page - 1 %><%= activeGenre ? '&genre=' + activeGenre : '' %><%= searchQuery ? '&q=' + searchQuery : '' %>"
+      class="px-4 py-2 rounded-lg bg-zinc-800 text-zinc-300 text-sm hover:bg-zinc-700 transition">← Anterior</a>
+    <% } %>
+    <span class="px-4 py-2 text-sm text-zinc-400">Página <%= pagination.page %> de <%= pagination.totalPages %></span>
+    <% if (pagination.page < pagination.totalPages) { %>
+    <a href="?page=<%= pagination.page + 1 %><%= activeGenre ? '&genre=' + activeGenre : '' %><%= searchQuery ? '&q=' + searchQuery : '' %>"
+      class="px-4 py-2 rounded-lg bg-zinc-800 text-zinc-300 text-sm hover:bg-zinc-700 transition">Siguiente →</a>
+    <% } %>
+  </div>
+  <% } %>
+
+  <% } %>
+</main>
+
+<footer class="mt-16 border-t border-zinc-800 py-6 text-center text-xs text-zinc-600">
+  StreamX &copy; <%= new Date().getFullYear() %> — TECNOCOM
+</footer>
+</body>
+</html>

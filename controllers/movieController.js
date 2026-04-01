@@ -1,4 +1,4 @@
-const Movie = require('../models/Movie');
+const Movie  = require('../models/Movie');
 const Series = require('../models/Series');
 const { recordContentView } = require('../services/visitService');
 const cache = require('../utils/cache');
@@ -13,25 +13,47 @@ async function legacyWatchRedirect(req, res) {
 
 async function listMovies(req, res) {
   try {
-    const page    = Math.max(1, parseInt(req.query.page) || 1);
-    const limit   = 20;
-    const skip    = (page - 1) * limit;
-    const genre   = req.query.genre || '';
-    const search  = req.query.q || '';
+    const page   = Math.max(1, parseInt(req.query.page) || 1);
+    const limit  = 24;
+    const skip   = (page - 1) * limit;
+    const genre  = req.query.genre || '';
+    const search = req.query.q || '';
+    const type   = req.query.type || ''; // 'movie' | 'series' | ''
 
-    const cacheKey = `catalog:${page}:${genre}:${search}`;
+    const cacheKey = `catalog:${page}:${genre}:${search}:${type}`;
     const cached = cache.get(cacheKey);
     if (cached) return res.render('index', cached);
 
     const filter = { active: true };
-    if (genre) filter.genres = genre;
-    if (search) filter.$text = { $search: search };
+    if (genre)  filter.genres = genre;
+    if (search) filter.$text  = { $search: search };
+
+    // Hero: el más visto entre movies y series (solo página 1 sin filtros)
+    let heroItem = null;
+    if (page === 1 && !genre && !search) {
+      const [topMovie, topSerie] = await Promise.all([
+        Movie.findOne({ active: true }).sort({ viewCount: -1 }).lean(),
+        Series.findOne({ active: true }).sort({ viewCount: -1 }).lean(),
+      ]);
+      if (topMovie && topSerie) {
+        heroItem = topMovie.viewCount >= topSerie.viewCount
+          ? { ...topMovie, kind: 'movie' }
+          : { ...topSerie, kind: 'series' };
+      } else {
+        heroItem = topMovie ? { ...topMovie, kind: 'movie' }
+                 : topSerie ? { ...topSerie, kind: 'series' }
+                 : null;
+      }
+    }
+
+    const movieFilter  = { ...filter };
+    const seriesFilter = { ...filter };
 
     const [movies, seriesList, totalMovies, totalSeries, allGenres] = await Promise.all([
-      Movie.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
-      Series.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
-      Movie.countDocuments(filter),
-      Series.countDocuments(filter),
+      type === 'series'  ? [] : Movie.find(movieFilter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+      type === 'movie'   ? [] : Series.find(seriesFilter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+      type === 'series'  ? 0  : Movie.countDocuments(movieFilter),
+      type === 'movie'   ? 0  : Series.countDocuments(seriesFilter),
       Movie.distinct('genres'),
     ]);
 
@@ -44,6 +66,7 @@ async function listMovies(req, res) {
     const totalPages = Math.ceil(totalItems / limit);
 
     const payload = {
+      heroItem,
       catalogItems: items,
       movies,
       error: null,
@@ -51,16 +74,16 @@ async function listMovies(req, res) {
       genres: allGenres.filter(Boolean).sort(),
       activeGenre: genre,
       searchQuery: search,
+      activeType: type,
     };
 
-    // Solo cachear si no hay filtros activos
-    if (!genre && !search) cache.set(cacheKey, payload);
+    if (!genre && !search && !type) cache.set(cacheKey, payload);
 
     return res.render('index', payload);
   } catch (e) {
     return res.status(500).render('index', {
-      catalogItems: [], movies: [], error: e.message,
-      pagination: null, genres: [], activeGenre: '', searchQuery: '',
+      heroItem: null, catalogItems: [], movies: [], error: e.message,
+      pagination: null, genres: [], activeGenre: '', searchQuery: '', activeType: '',
     });
   }
 }
@@ -69,13 +92,9 @@ async function showWatchMovie(req, res) {
   try {
     const movie = await Movie.findOne({ _id: req.params.id, active: true }).lean();
     if (!movie) return res.status(404).render('error', { message: 'Película no encontrada', status: 404 });
-
     recordContentView('movie', Movie, req.params.id, req.ip);
-
     return res.render('watch', {
-      query: req.query,
-      content: movie,
-      contentType: 'movie',
+      query: req.query, content: movie, contentType: 'movie',
       dateLabel: movie.releaseDate ? `Estreno: ${movie.releaseDate}` : null,
       badge: 'Película',
     });
@@ -88,13 +107,9 @@ async function showWatchSeries(req, res) {
   try {
     const s = await Series.findOne({ _id: req.params.id, active: true }).lean();
     if (!s) return res.status(404).render('error', { message: 'Serie no encontrada', status: 404 });
-
     recordContentView('series', Series, req.params.id, req.ip);
-
     return res.render('watch', {
-      query: req.query,
-      content: s,
-      contentType: 'series',
+      query: req.query, content: s, contentType: 'series',
       dateLabel: s.firstAirDate ? `Primera emisión: ${s.firstAirDate}` : null,
       badge: 'Serie',
     });

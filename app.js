@@ -80,6 +80,11 @@ app.use((req, res, next) => {
   next();
 });
 
+
+app.use((req, res, next) => {
+    res.locals.req = req;
+    next();
+});
 // ─── Rutas ────────────────────────────────────────────────────────────────────
 app.use('/admin', adminRoutes);
 app.use('/', publicRoutes);

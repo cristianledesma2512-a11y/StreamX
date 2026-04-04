@@ -1,11 +1,20 @@
 [
   {
     "id": "rtve-la1",
-    "name": "La 1 (RTVE)",
+    "name": "La 1",
     "category": "General",
     "country": "ES",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/La_1_logo_2021.svg/120px-La_1_logo_2021.svg.png",
-    "url": "https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main.m3u8",
+    "url": "https://rtve-lsec-live.akamaized.net/hls/live/2022880/la1/master.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "rtve-la2",
+    "name": "La 2",
+    "category": "General",
+    "country": "ES",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/La_2_logo_2021.svg/120px-La_2_logo_2021.svg.png",
+    "url": "https://rtve-lsec-live.akamaized.net/hls/live/2022881/la2/master.m3u8",
     "language": "Español"
   },
   {
@@ -14,7 +23,16 @@
     "category": "Noticias",
     "country": "ES",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Canal_24h.svg/120px-Canal_24h.svg.png",
-    "url": "https://rtvelivestream.akamaized.net/rtvesec/24h/24h_main.m3u8",
+    "url": "https://rtve-lsec-live.akamaized.net/hls/live/2022882/24h/master.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "rtve-clan",
+    "name": "Clan TV",
+    "category": "Infantil",
+    "country": "ES",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Clan_TVE_logo_2021.svg/120px-Clan_TVE_logo_2021.svg.png",
+    "url": "https://rtve-lsec-live.akamaized.net/hls/live/2022883/clan/master.m3u8",
     "language": "Español"
   },
   {
@@ -27,6 +45,15 @@
     "language": "Español"
   },
   {
+    "id": "dw-en",
+    "name": "DW English",
+    "category": "Noticias",
+    "country": "DE",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Deutsche_Welle_symbol_2012.svg/120px-Deutsche_Welle_symbol_2012.svg.png",
+    "url": "https://dwamdstream102.akamaized.net/hls/live/2015530/dwstream102/index.m3u8",
+    "language": "Inglés"
+  },
+  {
     "id": "france24-es",
     "name": "France 24 Español",
     "category": "Noticias",
@@ -34,6 +61,24 @@
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/France_24_logo.svg/120px-France_24_logo.svg.png",
     "url": "https://stream.france24.com/hls/live/2037986/F24_ES_LO_HLS/master.m3u8",
     "language": "Español"
+  },
+  {
+    "id": "france24-en",
+    "name": "France 24 English",
+    "category": "Noticias",
+    "country": "FR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/France_24_logo.svg/120px-France_24_logo.svg.png",
+    "url": "https://stream.france24.com/hls/live/2037986/F24_EN_LO_HLS/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "france24-fr",
+    "name": "France 24 Français",
+    "category": "Noticias",
+    "country": "FR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/France_24_logo.svg/120px-France_24_logo.svg.png",
+    "url": "https://stream.france24.com/hls/live/2037986/F24_FR_LO_HLS/master.m3u8",
+    "language": "Francés"
   },
   {
     "id": "telesur",
@@ -63,12 +108,12 @@
     "language": "Español"
   },
   {
-    "id": "nasa-tv",
-    "name": "NASA TV",
-    "category": "Ciencia",
-    "country": "US",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/120px-NASA_logo.svg.png",
-    "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+    "id": "euronews-en",
+    "name": "Euronews English",
+    "category": "Noticias",
+    "country": "EU",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Euronews_2022.svg/120px-Euronews_2022.svg.png",
+    "url": "https://rakuten-euronews-1-en.samsung.wurl.tv/manifest/playlist.m3u8",
     "language": "Inglés"
   },
   {
@@ -81,12 +126,21 @@
     "language": "Inglés"
   },
   {
-    "id": "nhk-world",
-    "name": "NHK World Japan",
-    "category": "Internacional",
-    "country": "JP",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/NHK_World_logo.svg/120px-NHK_World_logo.svg.png",
-    "url": "https://nhkwlive-ojp.akamaized.net/hls/live/2003459/nhkwlive-ojp-en/index.m3u8",
+    "id": "cbsn",
+    "name": "CBS News",
+    "category": "Noticias",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/CBSN_2020_logo.svg/120px-CBSN_2020_logo.svg.png",
+    "url": "https://cbsn-us.cbsnews.com/cnn_704p60/index.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "abc-news",
+    "name": "ABC News",
+    "category": "Noticias",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/ABC_News_logo_2013.png/120px-ABC_News_logo_2013.png",
+    "url": "https://abclive2-lh.akamaihd.net/i/abc_live02@423398/master.m3u8",
     "language": "Inglés"
   },
   {
@@ -99,12 +153,21 @@
     "language": "Inglés"
   },
   {
-    "id": "cbsn",
-    "name": "CBS News",
+    "id": "cgtn",
+    "name": "CGTN",
     "category": "Noticias",
-    "country": "US",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/CBSN_2020_logo.svg/120px-CBSN_2020_logo.svg.png",
-    "url": "https://cbsn-us.cbsnews.com/cnn_704p60/index.m3u8",
+    "country": "CN",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/CGTN_logo.svg/120px-CGTN_logo.svg.png",
+    "url": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "nhk-world",
+    "name": "NHK World Japan",
+    "category": "Internacional",
+    "country": "JP",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/NHK_World_logo.svg/120px-NHK_World_logo.svg.png",
+    "url": "https://nhkwlive-ojp.akamaized.net/hls/live/2003459/nhkwlive-ojp-en/index.m3u8",
     "language": "Inglés"
   },
   {
@@ -117,21 +180,372 @@
     "language": "Inglés"
   },
   {
-    "id": "cgtn",
-    "name": "CGTN",
-    "category": "Noticias",
-    "country": "CN",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/CGTN_logo.svg/120px-CGTN_logo.svg.png",
-    "url": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8",
+    "id": "nasa-tv",
+    "name": "NASA TV",
+    "category": "Ciencia",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/120px-NASA_logo.svg.png",
+    "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
     "language": "Inglés"
   },
   {
-    "id": "pluto-cnn",
-    "name": "Pluto TV CNN",
+    "id": "nasa-media",
+    "name": "NASA TV Media",
+    "category": "Ciencia",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/120px-NASA_logo.svg.png",
+    "url": "https://ntv2.akamaized.net/hls/live/2014076/NASA-NTV2-HLS/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "hitn-tv",
+    "name": "HITN TV",
+    "category": "Latino",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/HITN_logo.png/120px-HITN_logo.png",
+    "url": "https://hitn.leanstream.co/HITNLIVE/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "tv-azteca-noticias",
+    "name": "Azteca Noticias",
     "category": "Noticias",
+    "country": "MX",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Azteca_Noticias_Logo.png/120px-Azteca_Noticias_Logo.png",
+    "url": "https://azteca-live.stream.azteca.com/aztecauno/aztecauno/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "canal-once",
+    "name": "Canal Once (México)",
+    "category": "General",
+    "country": "MX",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Once_TV_logo.svg/120px-Once_TV_logo.svg.png",
+    "url": "https://oncetv-live.stream.oncetv.ipn.mx/once/smil:once.stream.smil/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "paraguay-tv",
+    "name": "Paraguay TV",
+    "category": "General",
+    "country": "PY",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Seal_of_Paraguay.svg/120px-Seal_of_Paraguay.svg.png",
+    "url": "https://srv1.tv.com.py:1935/snttv/snttv/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "tve-internacional",
+    "name": "TVE Internacional",
+    "category": "General",
+    "country": "ES",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/La_1_logo_2021.svg/120px-La_1_logo_2021.svg.png",
+    "url": "https://rtve-lsec-live.akamaized.net/hls/live/2022884/tve-int/master.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "nasa-public",
+    "name": "NASA Public",
+    "category": "Ciencia",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/120px-NASA_logo.svg.png",
+    "url": "https://ntv3.akamaized.net/hls/live/2014077/NASA-NTV3-HLS/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "curiosity-stream",
+    "name": "Curiosity Stream",
+    "category": "Documentales",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Curiosity_Stream_logo.svg/120px-Curiosity_Stream_logo.svg.png",
+    "url": "https://content.jwplatform.com/manifests/EKLbu3TG.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-classic-tv",
+    "name": "Pluto TV Clásicos",
+    "category": "Entretenimiento",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5f5a2b55ecd15f001a9aef1c/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5f5a2b55ecd15f001a9aef1c/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-crime",
+    "name": "Pluto TV Crime",
+    "category": "Entretenimiento",
     "country": "US",
     "logo": "https://images.pluto.tv/channels/5e3c5c27d5bbf2001d4e7f0a/featured-image/1024x1024.jpg",
     "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5e3c5c27d5bbf2001d4e7f0a/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-movies",
+    "name": "Pluto TV Movies",
+    "category": "Películas",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5f0f345f3f2a030011e9f2b0/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5f0f345f3f2a030011e9f2b0/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-horror",
+    "name": "Pluto TV Horror",
+    "category": "Películas",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5cf3a5f82fb79c00131c16c7/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5cf3a5f82fb79c00131c16c7/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-comedy",
+    "name": "Pluto TV Comedy",
+    "category": "Entretenimiento",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5af21e69ad7f0d671d8a65a2/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5af21e69ad7f0d671d8a65a2/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-news",
+    "name": "Pluto TV News",
+    "category": "Noticias",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5e3f3f27d5bbf2001d4e8000/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5e3f3f27d5bbf2001d4e8000/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-hits",
+    "name": "Pluto TV Hits",
+    "category": "Música",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5ab83f2e50a6f2001a0a5f17/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5ab83f2e50a6f2001a0a5f17/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-pop",
+    "name": "Pluto TV Pop",
+    "category": "Música",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5af21f31ad7f0d671d8a65d4/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5af21f31ad7f0d671d8a65d4/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-sport",
+    "name": "Pluto TV Sports",
+    "category": "Deportes",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5cf7274f628f8d1f84a4c7e1/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5cf7274f628f8d1f84a4c7e1/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "sports-world",
+    "name": "Sports World",
+    "category": "Deportes",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/120px-Amazon_logo.svg.png",
+    "url": "https://sports.cbsnews.com/cnn_704p60/index.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "nhk-world2",
+    "name": "NHK World Premium",
+    "category": "Internacional",
+    "country": "JP",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/NHK_World_logo.svg/120px-NHK_World_logo.svg.png",
+    "url": "https://nhkwlive-xjp.akamaized.net/hls/live/2003458/nhkwlive-xjp-en/index.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "kbs-world",
+    "name": "KBS World",
+    "category": "Internacional",
+    "country": "KR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/KBS_World_logo.svg/120px-KBS_World_logo.svg.png",
+    "url": "https://kbsworld-lh.akamaihd.net/i/kbsworld_1@189050/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "channel-news-asia",
+    "name": "CNA (Channel NewsAsia)",
+    "category": "Noticias",
+    "country": "SG",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Channel_NewsAsia_logo.svg/120px-Channel_NewsAsia_logo.svg.png",
+    "url": "https://livesim.dashif.org/livesim/mup_10/testpic_2s/Manifest.mpd",
+    "language": "Inglés"
+  },
+  {
+    "id": "bbc-world",
+    "name": "BBC World News",
+    "category": "Noticias",
+    "country": "GB",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/BBC_World_News_2022.svg/120px-BBC_World_News_2022.svg.png",
+    "url": "https://vs-hls-push-uk-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/t=3840/v=pv14/b=5070016/main.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "russia-today",
+    "name": "RT Documentary",
+    "category": "Documentales",
+    "country": "RU",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/RT_Russian_TV_logo.svg/120px-RT_Russian_TV_logo.svg.png",
+    "url": "https://rt-doc.rttv.com/live/rtdoc/playlist.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "dw-arabic",
+    "name": "DW Arabic",
+    "category": "Noticias",
+    "country": "DE",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Deutsche_Welle_symbol_2012.svg/120px-Deutsche_Welle_symbol_2012.svg.png",
+    "url": "https://dwamdstream105.akamaized.net/hls/live/2015531/dwstream105/index.m3u8",
+    "language": "Árabe"
+  },
+  {
+    "id": "ewtn-es",
+    "name": "EWTN Español",
+    "category": "Religión",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/EWTN_logo.svg/120px-EWTN_logo.svg.png",
+    "url": "https://ewtn-lh.akamaihd.net/i/EWTN_ESP@399417/master.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "ewtn-en",
+    "name": "EWTN English",
+    "category": "Religión",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/EWTN_logo.svg/120px-EWTN_logo.svg.png",
+    "url": "https://ewtn-lh.akamaihd.net/i/EWTNHD_1@399985/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-food",
+    "name": "Pluto TV Food",
+    "category": "Lifestyle",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5e4ee3c17f73a200133e8d17/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5e4ee3c17f73a200133e8d17/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-reality",
+    "name": "Pluto TV Reality",
+    "category": "Lifestyle",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5af220a0ad7f0d671d8a6618/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5af220a0ad7f0d671d8a6618/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "france24-ar",
+    "name": "France 24 Arabic",
+    "category": "Noticias",
+    "country": "FR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/France_24_logo.svg/120px-France_24_logo.svg.png",
+    "url": "https://stream.france24.com/hls/live/2037986/F24_AR_LO_HLS/master.m3u8",
+    "language": "Árabe"
+  },
+  {
+    "id": "sky-news",
+    "name": "Sky News",
+    "category": "Noticias",
+    "country": "GB",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sky_News_International_logo_2016.svg/120px-Sky_News_International_logo_2016.svg.png",
+    "url": "https://skynews-hirise.akamaized.net/skynewslive/skynews/primary/playlist.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "aljazeera-arabic",
+    "name": "Al Jazeera Arabic",
+    "category": "Noticias",
+    "country": "QA",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Al_Jazeera_Arabic_channel_logo.svg/120px-Al_Jazeera_Arabic_channel_logo.svg.png",
+    "url": "https://live-hls-web-aja.getaj.net/AJA/index.m3u8",
+    "language": "Árabe"
+  },
+  {
+    "id": "rt-en",
+    "name": "RT English",
+    "category": "Noticias",
+    "country": "RU",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/RT_Russian_TV_logo.svg/120px-RT_Russian_TV_logo.svg.png",
+    "url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "rt-fr",
+    "name": "RT Français",
+    "category": "Noticias",
+    "country": "RU",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/RT_Russian_TV_logo.svg/120px-RT_Russian_TV_logo.svg.png",
+    "url": "https://rt-fra.rttv.com/live/rtfrance/playlist.m3u8",
+    "language": "Francés"
+  },
+  {
+    "id": "dw-fr",
+    "name": "DW Français",
+    "category": "Noticias",
+    "country": "DE",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Deutsche_Welle_symbol_2012.svg/120px-Deutsche_Welle_symbol_2012.svg.png",
+    "url": "https://dwamdstream106.akamaized.net/hls/live/2015532/dwstream106/index.m3u8",
+    "language": "Francés"
+  },
+  {
+    "id": "nasa-tv4",
+    "name": "NASA TV ISS",
+    "category": "Ciencia",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/120px-NASA_logo.svg.png",
+    "url": "https://ntv4.akamaized.net/hls/live/2014078/NASA-NTV4-HLS/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "trt-world",
+    "name": "TRT World",
+    "category": "Noticias",
+    "country": "TR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/TRT_World_logo.svg/120px-TRT_World_logo.svg.png",
+    "url": "https://trtworld.live.trt.com.tr/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "i24-en",
+    "name": "i24 News English",
+    "category": "Noticias",
+    "country": "IL",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/I24news_logo.svg/120px-I24news_logo.svg.png",
+    "url": "https://bcovlive-a.akamaihd.net/cae02f6bc12a4f8e8e4d15e04df12e04/eu-central-1/5377161796001/playlist.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-action",
+    "name": "Pluto TV Action",
+    "category": "Películas",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5cf3b099628f8d1f84a4c849/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5cf3b099628f8d1f84a4c849/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-sci-fi",
+    "name": "Pluto TV Sci-Fi",
+    "category": "Películas",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5e3c5c27d5bbf2001d4e7f10/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5e3c5c27d5bbf2001d4e7f10/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-kids",
+    "name": "Pluto TV Kids",
+    "category": "Infantil",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5e9c7f3f7f73a200136ae6e2/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5e9c7f3f7f73a200136ae6e2/master.m3u8?deviceId=streamx&deviceType=web",
     "language": "Inglés"
   }
 ]

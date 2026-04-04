@@ -27,15 +27,17 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc:  ["'self'"],
-      scriptSrc:   ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'cdn.jsdelivr.net'],
+      scriptSrc:   ["'self'", "'unsafe-inline'", "'unsafe-hashes'", 'cdn.tailwindcss.com', 'cdn.jsdelivr.net', '*.jsdelivr.net'],
+      scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc:    ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'fonts.googleapis.com'],
       fontSrc:     ["'self'", 'fonts.gstatic.com'],
-      imgSrc:      ["'self'", 'data:', 'image.tmdb.org', '*.tmdb.org'],
+      imgSrc:      ["'self'", 'data:', 'image.tmdb.org', '*.tmdb.org', '*.wikimedia.org', '*.wikipedia.org', 'upload.wikimedia.org', 'images.pluto.tv', '*'],
       frameSrc:    ["'self'", '*'],
-      connectSrc:  ["'self'"],
+      connectSrc:  ["'self'", '*.jsdelivr.net', 'cdn.jsdelivr.net', '*.akamaized.net', '*.akamaihd.net', '*.cloudfront.net'],
+      mediaSrc:    ["'self'", '*'],
     },
   },
-  hsts: false, // Render maneja HTTPS por su cuenta
+  hsts: false,
 }));
 
 // ─── Performance ──────────────────────────────────────────────────────────────

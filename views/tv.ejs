@@ -62,14 +62,14 @@
   </aside>
 
   <!-- Overlay mobile -->
-  <div id="overlay" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden" onclick="closeSidebar()"></div>
+  <div id="overlay" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden" id="overlay"></div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="flex-1 lg:ml-56 min-w-0 flex flex-col">
 
     <!-- Top bar mobile -->
     <header class="lg:hidden sticky top-0 z-20 bg-zinc-950/90 backdrop-blur border-b border-zinc-800/60 px-4 py-3 flex items-center gap-3">
-      <button onclick="openSidebar()" class="text-zinc-400 hover:text-white transition">
+      <button id="sidebar-btn" class="text-zinc-400 hover:text-white transition">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
       <span class="font-bold text-white text-sm flex items-center gap-2">
@@ -118,7 +118,7 @@
         <div id="player-error" class="hidden absolute inset-0 bg-black/90 flex flex-col items-center justify-center gap-3 text-center px-6">
           <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
           <p class="text-zinc-300 text-sm">Canal no disponible en este momento</p>
-          <button onclick="retryChannel()" class="bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+          <button id="retry-btn" class="bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
             Reintentar
           </button>
         </div>
@@ -138,16 +138,16 @@
       <div class="grid grid-cols-3 gap-2.5 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-7" id="channels-grid">
         <% channels.forEach(function(ch) { %>
         <button type="button"
-          onclick="playChannel('<%= ch.url %>', '<%= ch.name %>', '<%= ch.category %>')"
           data-url="<%= ch.url %>"
           data-name="<%= ch.name %>"
+          data-category="<%= ch.category %>"
           class="channel-card group flex flex-col items-center gap-2 p-3 rounded-xl border border-zinc-800/60 bg-zinc-900/40 hover:border-red-500/50 hover:bg-zinc-800/60 transition-all cursor-pointer text-center">
 
           <!-- Logo -->
           <div class="w-12 h-12 rounded-xl bg-zinc-800 flex items-center justify-center overflow-hidden">
             <img src="<%= ch.logo %>" alt="<%= ch.name %>"
               class="w-full h-full object-contain p-1"
-              onerror="this.style.display='none';this.parentElement.innerHTML='<svg class=\'w-6 h-6 text-zinc-600\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z\'></path></svg>'"
+              class="channel-logo"
               loading="lazy" />
           </div>
 
@@ -181,17 +181,53 @@
 <script>
 var hls = null;
 var currentUrl = null;
+var currentName = null;
+var currentCat = null;
+
+// Eventos en channel cards — sin onclick inline
+document.addEventListener('DOMContentLoaded', function() {
+  // Canal cards
+  document.querySelectorAll('.channel-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var url      = card.dataset.url;
+      var name     = card.dataset.name;
+      var category = card.dataset.category;
+      playChannel(url, name, category);
+    });
+  });
+
+  // Botón retry
+  var retryBtn = document.getElementById('retry-btn');
+  if (retryBtn) retryBtn.addEventListener('click', retryChannel);
+
+  // Logos con error
+  document.querySelectorAll('.channel-logo').forEach(function(img) {
+    img.addEventListener('error', function() {
+      img.style.display = 'none';
+    });
+  });
+
+  // Botón hamburguesa
+  var sidebarBtn = document.getElementById('sidebar-btn');
+  if (sidebarBtn) sidebarBtn.addEventListener('click', openSidebar);
+
+  // Overlay cierra sidebar en mobile
+  var overlay = document.getElementById('overlay');
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+
+  // ESC cierra sidebar
+  
+});
 
 function playChannel(url, name, category) {
-  // Resaltar canal activo
   document.querySelectorAll('.channel-card').forEach(function(c) { c.classList.remove('active'); });
-  var cards = document.querySelectorAll('.channel-card');
-  cards.forEach(function(c) { if (c.dataset.url === url) c.classList.add('active'); });
-
-  // Scroll al player en mobile
+  document.querySelectorAll('.channel-card').forEach(function(c) {
+    if (c.dataset.url === url) c.classList.add('active');
+  });
   document.getElementById('player-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  currentUrl = url;
+  currentUrl  = url;
+  currentName = name;
+  currentCat  = category;
   loadChannel(url, name, category);
 }
 
@@ -250,11 +286,7 @@ function loadChannel(url, name, category) {
 }
 
 function retryChannel() {
-  if (currentUrl) {
-    var name = document.getElementById('channel-name').textContent;
-    var cat  = document.getElementById('channel-cat').textContent;
-    loadChannel(currentUrl, name, cat);
-  }
+  if (currentUrl) loadChannel(currentUrl, currentName || '', currentCat || '');
 }
 
 function openSidebar() {
@@ -269,3 +301,4 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close
 </script>
 </body>
 </html>
+

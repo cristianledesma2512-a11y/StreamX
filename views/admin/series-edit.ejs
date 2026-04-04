@@ -101,7 +101,7 @@
         <!-- TEMPORADAS Y EPISODIOS                                         -->
         <!-- ═══════════════════════════════════════════════════════════════ -->
         <% var seasons = (series.seasons && Array.isArray(series.seasons)) ? series.seasons : []; %>
-        <% var activeSeason = parseInt(typeof query !== 'undefined' && query ? query.season : (req && req.query ? req.query.season : '')) || (seasons.length > 0 ? seasons[0].number : 0); %>
+        <% var activeSeason = parseInt(typeof query !== 'undefined' && query && query.season ? query.season : '') || (seasons.length > 0 ? seasons[0].number : 0); %>
 
         <div class="rounded-xl border border-zinc-800 bg-zinc-900/60">
           <div class="px-5 py-4 border-b border-zinc-800 flex items-center justify-between">

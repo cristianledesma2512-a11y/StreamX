@@ -69,6 +69,26 @@ function multiembedSerieUrl(tmdbId, season, episode) {
   if (!tmdbId) return null;
   return 'https://multiembed.mov/?video_id=' + tmdbId + '&tmdb=1&s=' + season + '&e=' + episode;
 }
+
+// VidSrc.xyz (más contenido latino)
+function vidsrcxyzMovieUrl(tmdbId) {
+  if (!tmdbId) return null;
+  return 'https://vidsrc.xyz/embed/movie?tmdb=' + tmdbId;
+}
+function vidsrcxyzSerieUrl(tmdbId, season, episode) {
+  if (!tmdbId) return null;
+  return 'https://vidsrc.xyz/embed/tv?tmdb=' + tmdbId + '&season=' + season + '&episode=' + episode;
+}
+
+// AutoEmbed (latino)
+function autoembedMovieUrl(tmdbId) {
+  if (!tmdbId) return null;
+  return 'https://autoembed.cc/movie/tmdb/' + tmdbId;
+}
+function autoembedSerieUrl(tmdbId, season, episode) {
+  if (!tmdbId) return null;
+  return 'https://autoembed.cc/tv/tmdb/' + tmdbId + '-' + season + '-' + episode;
+}
 %>
 
 <% if (contentType === 'movie') { %>
@@ -87,6 +107,10 @@ function multiembedSerieUrl(tmdbId, season, episode) {
     if (esUrl) allMovieLinks.push({ serverName: 'Embed.su', url: esUrl, quality: 'HD', isAuto: true, color: 'purple' });
     var meUrl = multiembedMovieUrl(content.tmdbId);
     if (meUrl) allMovieLinks.push({ serverName: 'MultiEmbed', url: meUrl, quality: 'HD', isAuto: true, color: 'orange' });
+    var vsxUrl = vidsrcxyzMovieUrl(content.tmdbId);
+    if (vsxUrl) allMovieLinks.push({ serverName: 'VidSrc.xyz', url: vsxUrl, quality: 'HD', isAuto: true, color: 'latino' });
+    var aeUrl = autoembedMovieUrl(content.tmdbId);
+    if (aeUrl) allMovieLinks.push({ serverName: 'AutoEmbed', url: aeUrl, quality: 'LAT', isAuto: true, color: 'latino' });
     // Links manuales del admin al final
     allMovieLinks = allMovieLinks.concat(movieLinks);
     var firstLink = allMovieLinks.length ? allMovieLinks[0] : null;
@@ -117,11 +141,13 @@ function multiembedSerieUrl(tmdbId, season, episode) {
           var dotColor = link.color === 'emerald' ? 'bg-emerald-400' :
                          link.color === 'blue'    ? 'bg-blue-400' :
                          link.color === 'purple'  ? 'bg-purple-400' :
-                         link.color === 'orange'  ? 'bg-orange-400' : 'bg-zinc-400';
+                         link.color === 'orange'  ? 'bg-orange-400' :
+                         link.color === 'latino'  ? 'bg-yellow-400' : 'bg-zinc-400';
           var activeBorder = link.color === 'emerald' ? 'border-emerald-500 bg-emerald-600/20 text-emerald-200' :
                              link.color === 'blue'    ? 'border-blue-500 bg-blue-600/20 text-blue-200' :
                              link.color === 'purple'  ? 'border-purple-500 bg-purple-600/20 text-purple-200' :
                              link.color === 'orange'  ? 'border-orange-500 bg-orange-600/20 text-orange-200' :
+                             link.color === 'latino'  ? 'border-yellow-500 bg-yellow-600/20 text-yellow-200' :
                              'border-violet-500 bg-violet-600/20 text-violet-200';
         %>
         <button type="button" data-url="<%= link.url %>"
@@ -164,6 +190,10 @@ function multiembedSerieUrl(tmdbId, season, episode) {
       if (esSerieUrl) allEpLinks.push({ serverName: 'Embed.su', url: esSerieUrl, quality: 'HD', isAuto: true, color: 'purple' });
       var meSerieUrl = multiembedSerieUrl(content.tmdbId, currentSeason.number, currentEp.number);
       if (meSerieUrl) allEpLinks.push({ serverName: 'MultiEmbed', url: meSerieUrl, quality: 'HD', isAuto: true, color: 'orange' });
+      var vsxSerieUrl = vidsrcxyzSerieUrl(content.tmdbId, currentSeason.number, currentEp.number);
+      if (vsxSerieUrl) allEpLinks.push({ serverName: 'VidSrc.xyz', url: vsxSerieUrl, quality: 'HD', isAuto: true, color: 'latino' });
+      var aeSerieUrl = autoembedSerieUrl(content.tmdbId, currentSeason.number, currentEp.number);
+      if (aeSerieUrl) allEpLinks.push({ serverName: 'AutoEmbed', url: aeSerieUrl, quality: 'LAT', isAuto: true, color: 'latino' });
     }
     // Links manuales del admin al final
     allEpLinks = allEpLinks.concat(epLinks);

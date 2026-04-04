@@ -3,6 +3,7 @@ const rateLimit = require('express-rate-limit');
 const router = express.Router();
 
 const movieController = require('../controllers/movieController');
+const tvRoutes = require('./tv');
 const { asyncHandler } = require('../middleware');
 
 // Rate limit general para rutas públicas
@@ -23,5 +24,6 @@ router.get('/watch/:id',         asyncHandler(movieController.legacyWatchRedirec
 
 // Healthcheck para monitoreo
 router.get('/health', (req, res) => res.json({ status: 'ok', ts: new Date().toISOString() }));
+router.use('/tv', tvRoutes);
 
 module.exports = router;

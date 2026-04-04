@@ -1,0 +1,137 @@
+[
+  {
+    "id": "rtve-la1",
+    "name": "La 1 (RTVE)",
+    "category": "General",
+    "country": "ES",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/La_1_logo_2021.svg/120px-La_1_logo_2021.svg.png",
+    "url": "https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "rtve-24h",
+    "name": "Canal 24H",
+    "category": "Noticias",
+    "country": "ES",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Canal_24h.svg/120px-Canal_24h.svg.png",
+    "url": "https://rtvelivestream.akamaized.net/rtvesec/24h/24h_main.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "dw-es",
+    "name": "DW Español",
+    "category": "Noticias",
+    "country": "DE",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Deutsche_Welle_symbol_2012.svg/120px-Deutsche_Welle_symbol_2012.svg.png",
+    "url": "https://dwamdstream104.akamaized.net/hls/live/2015529/dwstream104/index.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "france24-es",
+    "name": "France 24 Español",
+    "category": "Noticias",
+    "country": "FR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/France_24_logo.svg/120px-France_24_logo.svg.png",
+    "url": "https://stream.france24.com/hls/live/2037986/F24_ES_LO_HLS/master.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "telesur",
+    "name": "TeleSUR",
+    "category": "Noticias",
+    "country": "VE",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Telesur_2013_logo.png/120px-Telesur_2013_logo.png",
+    "url": "https://livehlsb.telesur.telefonica.net/livehlsb/telesur/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "rt-es",
+    "name": "RT en Español",
+    "category": "Noticias",
+    "country": "RU",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/RT_Russian_TV_logo.svg/120px-RT_Russian_TV_logo.svg.png",
+    "url": "https://rt-esp.rttv.com/live/rtesp/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "euronews-es",
+    "name": "Euronews Español",
+    "category": "Noticias",
+    "country": "EU",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Euronews_2022.svg/120px-Euronews_2022.svg.png",
+    "url": "https://rakuten-euronews-1-es.samsung.wurl.tv/manifest/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "nasa-tv",
+    "name": "NASA TV",
+    "category": "Ciencia",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/120px-NASA_logo.svg.png",
+    "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "al-jazeera",
+    "name": "Al Jazeera English",
+    "category": "Noticias",
+    "country": "QA",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Al_Jazeera_Arabic_channel_logo.svg/120px-Al_Jazeera_Arabic_channel_logo.svg.png",
+    "url": "https://live-hls-web-aje.getaj.net/AJE/index.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "nhk-world",
+    "name": "NHK World Japan",
+    "category": "Internacional",
+    "country": "JP",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/NHK_World_logo.svg/120px-NHK_World_logo.svg.png",
+    "url": "https://nhkwlive-ojp.akamaized.net/hls/live/2003459/nhkwlive-ojp-en/index.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "bloomberg",
+    "name": "Bloomberg TV",
+    "category": "Economía",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bloomberg_logo.svg/120px-Bloomberg_logo.svg.png",
+    "url": "https://bloomenglish.akamaized.net/hls/live/2002011/bloom_english/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "cbsn",
+    "name": "CBS News",
+    "category": "Noticias",
+    "country": "US",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/CBSN_2020_logo.svg/120px-CBSN_2020_logo.svg.png",
+    "url": "https://cbsn-us.cbsnews.com/cnn_704p60/index.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "arirang",
+    "name": "Arirang TV",
+    "category": "Internacional",
+    "country": "KR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Arirang_TV_logo.svg/120px-Arirang_TV_logo.svg.png",
+    "url": "https://amdlive-ch01.akamaized.net/cmaf/live/2003399/ch01/master.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "cgtn",
+    "name": "CGTN",
+    "category": "Noticias",
+    "country": "CN",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/CGTN_logo.svg/120px-CGTN_logo.svg.png",
+    "url": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8",
+    "language": "Inglés"
+  },
+  {
+    "id": "pluto-cnn",
+    "name": "Pluto TV CNN",
+    "category": "Noticias",
+    "country": "US",
+    "logo": "https://images.pluto.tv/channels/5e3c5c27d5bbf2001d4e7f0a/featured-image/1024x1024.jpg",
+    "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/hls/channel/5e3c5c27d5bbf2001d4e7f0a/master.m3u8?deviceId=streamx&deviceType=web",
+    "language": "Inglés"
+  }
+]

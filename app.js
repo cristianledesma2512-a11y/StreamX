@@ -26,24 +26,17 @@ app.set('trust proxy', true);
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
-      defaultSrc:  ["'self'"],
-      scriptSrc:   ["'self'", "'unsafe-inline'", "'unsafe-hashes'", 'cdn.tailwindcss.com', 'cdn.jsdelivr.net', '*.jsdelivr.net'],
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'cdn.jsdelivr.net', '*.jsdelivr.net'],
       scriptSrcAttr: ["'unsafe-inline'"],
-      styleSrc:    ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'fonts.googleapis.com'],
-      fontSrc:     ["'self'", 'fonts.gstatic.com'],
-      imgSrc:      ["'self'", 'data:', 'https:', 'image.tmdb.org', '*.tmdb.org'],
-      frameSrc:    ["'self'", 'https:'],
-      // blob: necesario para HLS.js que genera URLs blob internamente
-      connectSrc:  ["'self'", 'blob:', 'https:', '*.jsdelivr.net', 'cdn.jsdelivr.net',
-                    '*.akamaized.net', '*.akamaihd.net', '*.cloudfront.net',
-                    '*.telesur.telefonica.net', 'stream.france24.com',
-                    '*.rttv.com', '*.pluto.tv', '*.cbsnews.com',
-                    '*.leanstream.co', '*.wurl.tv', '*.samsung.com',
-                    'live-hls-web-aje.getaj.net', 'news.cgtn.com',
-                    '*.nhk.or.jp', '*.kbs.co.kr', '*.ewtn.com',
-                    '*.azteca.com', '*.ipn.mx', '*.tv.com.py'],
-      mediaSrc:    ["'self'", 'blob:', 'https:'],
-      workerSrc:   ["'self'", 'blob:'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'fonts.googleapis.com', 'cdnjs.cloudflare.com'],
+      fontSrc: ["'self'", 'fonts.gstatic.com', 'cdnjs.cloudflare.com'],
+      imgSrc: ["'self'", 'data:', 'https:', '*'], 
+      frameSrc: ["'self'", 'https:'],
+      connectSrc: ["'self'", 'blob:', 'https:', '*'], // PERMITE CARGAR .M3U8
+      mediaSrc: ["'self'", 'blob:', 'https:', 'data:'], // PERMITE REPRODUCIR VIDEO
+      workerSrc: ["'self'", 'blob:'],
+      upgradeInsecureRequests: null,
     },
   },
   hsts: false,

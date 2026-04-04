@@ -1,21 +1,37 @@
 const express = require('express');
-const path    = require('path');
-const fs      = require('fs');
-const router  = express.Router();
+const router = express.Router();
+const Channel = require('../models/Channel'); // Ajusta el nombre de tu modelo si es distinto
 const { asyncHandler } = require('../middleware');
 
-// GET /tv — página principal de TV en vivo
 router.get('/', asyncHandler(async (req, res) => {
-  const channelsPath = path.join(__dirname, '..', 'public', 'channels.json');
-  const channels = JSON.parse(fs.readFileSync(channelsPath, 'utf-8'));
+    const page = parseInt(req.query.page) || 1;
+    const limit = 18;
+    const skip = (page - 1) * limit;
+    
+    const searchQuery = req.query.q || '';
+    const activeType = req.query.type || '';
 
-  const categories = [...new Set(channels.map(c => c.category))].sort();
-  const activeCategory = req.query.cat || '';
-  const filtered = activeCategory
-    ? channels.filter(c => c.category === activeCategory)
-    : channels;
+    // Construcción del filtro
+    const query = {};
+    if (activeType) query.category = activeType;
+    if (searchQuery) {
+        query.name = { $regex: searchQuery, $options: 'i' };
+    }
 
-  return res.render('tv', { channels: filtered, allChannels: channels, categories, activeCategory });
+    const [channels, totalChannels] = await Promise.all([
+        Channel.find(query).sort({ name: 1 }).skip(skip).limit(limit).lean(),
+        Channel.countDocuments(query)
+    ]);
+
+    res.render('tv', {
+        channels,
+        activeType,
+        searchQuery,
+        pagination: {
+            page,
+            totalPages: Math.ceil(totalChannels / limit)
+        }
+    });
 }));
 
 module.exports = router;

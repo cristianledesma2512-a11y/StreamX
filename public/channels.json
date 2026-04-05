@@ -1,4 +1,28 @@
 [
+  {
+    "id": "dw-espanol",
+    "name": "DW Español",
+    "category": "Noticias",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Deutsche_Welle_symbol_2012.svg/120px-Deutsche_Welle_symbol_2012.svg.png",
+    "url": "https://dwamdstream104.akamaized.net/hls/live/2015529/dwstream104/index.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "rt-en-vivo",
+    "name": "RT en Español",
+    "category": "Noticias",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/RT_Russian_TV_logo.svg/120px-RT_Russian_TV_logo.svg.png",
+    "url": "https://rt-esp.rttv.com/live/rtesp/playlist.m3u8",
+    "language": "Español"
+  },
+  {
+    "id": "telefe-test",
+    "name": "Telefe (Alternativo)",
+    "category": "General",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Telefe_logo.svg/200px-Telefe_logo.svg.png",
+    "url": "https://m3u8.pancu.me/latam/ar/telefe.m3u8",
+    "language": "Español"
+  },
 {
   "id": "test-nasa",
   "name": "NASA TV (TEST)",

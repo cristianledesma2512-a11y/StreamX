@@ -1,4 +1,13 @@
 [
+{
+  "id": "test-nasa",
+  "name": "NASA TV (TEST)",
+  "category": "Ciencia",
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/200px-NASA_logo.svg.png",
+  "url": "https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8",
+  "language": "Inglés"
+},
+
   {
     "id": "rtve-la1",
     "name": "La 1",

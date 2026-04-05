@@ -123,51 +123,60 @@
 
   <script>
     let hls = null;
-    const video = document.getElementById('video-player');
-    const loader = document.getElementById('player-loader');
-    const placeholder = document.getElementById('player-placeholder');
+  const video = document.getElementById('video-player');
+  const loader = document.getElementById('player-loader');
+  const placeholder = document.getElementById('player-placeholder');
 
-    function playChannel(url, name) {
-      // 1. Reset e Interfaz
-      if(hls) hls.destroy();
-      placeholder.style.display = 'none';
-      loader.classList.remove('hidden');
-
-      // 2. Logica de Reproduccion
-      if(url.includes('.m3u8')) {
-        if(Hls.isSupported()) {
-          hls = new Hls({ 
-            capLevelToPlayerSize: true,
-            debug: false 
-          });
-          hls.loadSource(url);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            loader.classList.add('hidden');
-            video.play();
-          });
-          hls.on(Hls.Events.ERROR, function (event, data) {
-            if (data.fatal) loader.classList.add('hidden');
-          });
-        } else if(video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = url;
-          video.onloadedmetadata = () => {
-            loader.classList.add('hidden');
-            video.play();
-          };
-        }
-      } else {
-        // Enlaces directos mp4
-        video.src = url;
-        video.onloadeddata = () => {
-          loader.classList.add('hidden');
-          video.play();
-        };
-      }
-      
-      // Scroll suave hacia arriba para ver el video
-      document.getElementById('player-container').scrollIntoView({ behavior: 'smooth' });
+  function playChannel(url, name) {
+    console.log("Intentando reproducir:", name, url);
+    
+    if(hls) {
+      hls.destroy();
     }
+    
+    placeholder.style.display = 'none';
+    loader.classList.remove('hidden');
+    video.classList.add('opacity-0'); // Ocultar video mientras carga
+
+    if (Hls.isSupported() && url.includes('.m3u8')) {
+      hls = new Hls({
+        debug: false,
+        enableWorker: true,
+        lowLatencyMode: true,
+        backBufferLength: 90
+      });
+      
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        loader.classList.add('hidden');
+        video.classList.remove('opacity-0');
+        video.play().catch(e => console.log("Error auto-play:", e));
+      });
+
+      hls.on(Hls.Events.ERROR, function (event, data) {
+        if (data.fatal) {
+          console.error("Error fatal de HLS:", data.type);
+          loader.classList.add('hidden');
+          // Si falla, intentamos carga directa como último recurso
+          video.src = url; 
+        }
+      });
+    } 
+    else {
+      // Para navegadores que soportan HLS nativo (como Safari o móviles)
+      video.src = url;
+      video.onloadedmetadata = () => {
+        loader.classList.add('hidden');
+        video.classList.remove('opacity-0');
+        video.play();
+      };
+    }
+
+    // Scroll al reproductor para que el usuario vea que cargó
+    document.getElementById('player-container').scrollIntoView({ behavior: 'smooth' });
+  }
 
     function openSidebar() {
       document.getElementById('sidebar').classList.remove('-translate-x-full');

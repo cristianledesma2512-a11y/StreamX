@@ -7,12 +7,12 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <style>
 :root{
-  --az:#18181b;--az2:#27272a;--cel:#8b5cf6;--dor:#a78bfa;
+  --az:#09090b;--az2:#18181b;--cel:#8b5cf6;--dor:#a78bfa;
   --roj:#7c3aed;--bg:#09090b;--card:#18181b;--card2:#27272a;
-  --txt:#f4f4f5;--muted:#71717a;--rad:10px;
+  --txt:#f4f4f5;--muted:#71717a;--rad:12px;
   --dep:#10b981;--not:#8b5cf6;--aire:#c084fc;
-  --mus:#f59e0b;--inf:#60a5fa;--int:#ef4444;
-  --borde:rgba(139,92,246,0.3);
+  --mus:#f59e0b;--inf:#60a5fa;--int:#7c3aed;
+  --borde:rgba(139,92,246,0.25);
 }
 
 
@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans
 .logo{font-size:15px;font-weight:700;letter-spacing:.5px;flex:1;}
 .logo span{color:var(--cel);}
 .icon-btn{width:32px;height:32px;border-radius:50%;background:rgba(116,172,223,0.12);border:1px solid rgba(116,172,223,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
-.avatar{width:32px;height:32px;border-radius:50%;background:rgba(197,160,89,0.2);border:1px solid var(--dor);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--dor);cursor:pointer;flex-shrink:0;}
+.avatar{width:32px;height:32px;border-radius:50%;background:rgba(197,160,89,0.2);border:1px solid var(--dor);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--cel);cursor:pointer;flex-shrink:0;}
 
 /* ── SEARCH ── */
 #srch-bar{background:var(--az);padding:8px 14px;border-bottom:1px solid rgba(116,172,223,0.1);flex-shrink:0;}
@@ -168,7 +168,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans
 .skel{background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--rad);}
 @keyframes shimmer{to{background-position:-200% 0;}}
 
-/* Mundial / CONMEBOL sections */
+/* Secciones de contenido */
 .msec-wrap{padding:0 0 80px;}
 .sub-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:12px 14px 8px;}
 .sub-tabs::-webkit-scrollbar{display:none;}
@@ -256,7 +256,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
   <div style="flex:1;height:1px;background:rgba(139,92,246,0.15);"></div>
   <a href="/?type=movie" style="color:#71717a;font-size:10px;text-decoration:none;">Películas</a>
   <a href="/?type=series" style="color:#71717a;font-size:10px;text-decoration:none;margin:0 8px;">Series</a>
-  <span style="color:#8b5cf6;font-size:10px;font-weight:700;">● TV en Vivo</span>
+  <span style="color:#8b5cf6;font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block;animation:pulse 1.5s infinite;"></span>TV en Vivo</span>
 </div>
 
 <div style="padding-top:36px;height:100vh;display:flex;flex-direction:column;overflow:hidden;">
@@ -264,17 +264,17 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 
 <!-- Modal apodo -->
 <div id="modal-nick">
-  <h1>🏆 MundialEnVivo AR</h1>
-  <p style="color:rgba(255,255,255,.5);font-size:13px;">Ingresá tu apodo para la tribuna</p>
+  <h1>🏆 TV en Vivo</h1>
+  <p style="color:rgba(255,255,255,.5);font-size:13px;">Ingresá tu apodo para el chat</p>
   <input type="text" id="nick-in" placeholder="Ej: ElDiez_94" maxlength="20" autocomplete="off">
   <button id="nick-btn">⚽ ENTRAR</button>
   <button onclick="saltearModal()" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;text-decoration:underline;">Entrar sin apodo</button>
-  <p style="font-size:11px;color:rgba(255,255,255,.2);margin-top:4px;">Mundial 2026 · Libertadores · Sudamericana</p>
+  <p style="font-size:11px;color:rgba(255,255,255,.2);margin-top:4px;">StreamX — TECNOCOM</p>
 </div>
 
 <!-- Header -->
 <div id="hdr">
-  <div class="logo">MUNDIAL<span>ENVIVO</span> AR</div>
+  <div class="logo" style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;">S</div><span style="color:#a78bfa;">STREAM</span><span>X TV</span></div>
   <div class="icon-btn" id="btn-srch-toggle">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#74ACDF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
   </div>
@@ -285,16 +285,16 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 <div id="srch-bar" style="display:none;">
   <div class="srch-wrap">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b7fa0" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="srch-input" placeholder="Buscar canales, países...">
+    <input type="text" id="srch-input" placeholder="Buscar canales...">
   </div>
 </div>
 
 <!-- Nav tabs -->
 <div id="nav-tabs">
   <div class="ntab a" onclick="cambiarTab('tv',this)">📺 TV EN VIVO</div>
-  <div class="ntab" onclick="cambiarTab('mundial',this)">🌍 MUNDIAL</div>
-  <div class="ntab" onclick="cambiarTab('conmebol',this)">🏆 CONMEBOL</div>
-  <div class="ntab" onclick="cambiarTab('chat',this)">💬 TRIBUNA</div>
+  <div class="ntab" onclick="cambiarTab('mundial',this)">📡 SEÑALES</div>
+  <div class="ntab" onclick="cambiarTab('conmebol',this)">🎬 CONTENIDO</div>
+  <div class="ntab" onclick="cambiarTab('chat',this)">💬 CHAT</div>
 </div>
 
 <!-- Main scrollable area -->
@@ -1122,7 +1122,7 @@ function registrarPresencia(nick) {
         <div style="position:fixed;inset:0;background:#0a1628;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#e8edf5;">
           <div style="font-size:60px;">🚫</div>
           <h1 style="color:#e74c3c;font-size:24px;">Acceso bloqueado</h1>
-          <p style="color:#6b7fa0;font-size:14px;">Tu usuario ha sido baneado de MundialEnVivo AR.</p>
+          <p style="color:#6b7fa0;font-size:14px;">Tu usuario ha sido baneado de TV en Vivo.</p>
           <p style="color:#6b7fa0;font-size:12px;">Si creés que es un error, contactá al administrador.</p>
         </div>`;
       return;
@@ -1144,7 +1144,7 @@ if (miNick) {
         <div style="position:fixed;inset:0;background:#0a1628;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#e8edf5;">
           <div style="font-size:60px;">🚫</div>
           <h1 style="color:#e74c3c;font-size:24px;">Acceso bloqueado</h1>
-          <p style="color:#6b7fa0;font-size:14px;">Tu usuario ha sido baneado de MundialEnVivo AR.</p>
+          <p style="color:#6b7fa0;font-size:14px;">Tu usuario ha sido baneado de TV en Vivo.</p>
         </div>`;
       return;
     }

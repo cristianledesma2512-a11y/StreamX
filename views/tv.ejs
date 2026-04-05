@@ -122,28 +122,33 @@
   </div>
 
   <script>
-    let hls = null;
+  let hls = null;
   const video = document.getElementById('video-player');
   const loader = document.getElementById('player-loader');
   const placeholder = document.getElementById('player-placeholder');
 
   function playChannel(url, name) {
-    console.log("Intentando reproducir:", name, url);
+    console.log("Reproduciendo:", name);
     
+    // 1. Limpiar reproductor anterior
     if(hls) {
       hls.destroy();
     }
     
+    // 2. Interfaz
     placeholder.style.display = 'none';
     loader.classList.remove('hidden');
-    video.classList.add('opacity-0'); // Ocultar video mientras carga
+    video.classList.add('opacity-0');
 
+    // 3. Configuración de HLS (Optimizado para streaming en vivo)
     if (Hls.isSupported() && url.includes('.m3u8')) {
       hls = new Hls({
         debug: false,
         enableWorker: true,
-        lowLatencyMode: true,
-        backBufferLength: 90
+        // Esto ayuda a saltar bloqueos de seguridad de algunos servidores
+        xhrSetup: function(xhr, url) {
+          xhr.withCredentials = false; 
+        }
       });
       
       hls.loadSource(url);
@@ -152,20 +157,25 @@
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         loader.classList.add('hidden');
         video.classList.remove('opacity-0');
-        video.play().catch(e => console.log("Error auto-play:", e));
+        video.play().catch(e => {
+            console.log("Auto-play bloqueado, requiere clic del usuario");
+            loader.classList.add('hidden');
+            video.classList.remove('opacity-0');
+        });
       });
 
       hls.on(Hls.Events.ERROR, function (event, data) {
         if (data.fatal) {
-          console.error("Error fatal de HLS:", data.type);
+          console.error("Error cargando canal:", name);
+          // Si falla HLS, intentamos carga directa (útil en móviles)
+          video.src = url;
           loader.classList.add('hidden');
-          // Si falla, intentamos carga directa como último recurso
-          video.src = url; 
+          video.classList.remove('opacity-0');
         }
       });
     } 
     else {
-      // Para navegadores que soportan HLS nativo (como Safari o móviles)
+      // Soporte nativo (Safari, iPhone, Android Chrome)
       video.src = url;
       video.onloadedmetadata = () => {
         loader.classList.add('hidden');
@@ -174,18 +184,19 @@
       };
     }
 
-    // Scroll al reproductor para que el usuario vea que cargó
+    // Scroll suave al video
     document.getElementById('player-container').scrollIntoView({ behavior: 'smooth' });
   }
 
-    function openSidebar() {
-      document.getElementById('sidebar').classList.remove('-translate-x-full');
-      document.getElementById('overlay').classList.remove('hidden');
-    }
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.add('-translate-x-full');
-      document.getElementById('overlay').classList.add('hidden');
-    }
-  </script>
+  // Funciones para el menú móvil
+  function openSidebar() {
+    document.getElementById('sidebar').classList.remove('-translate-x-full');
+    document.getElementById('overlay').classList.remove('hidden');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.add('-translate-x-full');
+    document.getElementById('overlay').classList.add('hidden');
+  }
+</script>
 </body>
 </html>

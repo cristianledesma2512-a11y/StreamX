@@ -4,21 +4,29 @@ const fs      = require('fs');
 const router  = express.Router();
 const { asyncHandler } = require('../middleware');
 
+// GET /tv — página principal de TV en vivo
 router.get('/', asyncHandler(async (req, res) => {
-    // Ruta al JSON de canales
+    // 1. Ruta al archivo JSON
     const channelsPath = path.join(__dirname, '..', 'public', 'channels.json');
     let channels = [];
     
+    // 2. Leer el JSON de forma segura
     if (fs.existsSync(channelsPath)) {
-        channels = JSON.parse(fs.readFileSync(channelsPath, 'utf-8'));
+        try {
+            const data = fs.readFileSync(channelsPath, 'utf-8');
+            channels = JSON.parse(data);
+        } catch (err) {
+            console.error("Error al leer channels.json:", err);
+        }
     }
 
-    // Filtros y Búsqueda
+    // 3. Obtener filtros de la URL (busqueda y categoría)
+    const activeType = req.query.type || ''; 
     const searchQuery = (req.query.q || '').toLowerCase();
-    const activeType = req.query.type || ''; // Usamos 'type' para categorías
     
     let filtered = channels;
 
+    // 4. Aplicar filtros si existen
     if (activeType) {
         filtered = filtered.filter(c => c.category === activeType);
     }
@@ -26,12 +34,13 @@ router.get('/', asyncHandler(async (req, res) => {
         filtered = filtered.filter(c => c.name.toLowerCase().includes(searchQuery));
     }
 
-    // Paginación simple (opcional, aquí enviamos todo para no complicar)
-    res.render('tv', { 
+    // 5. Renderizar la vista 'tv' con los datos exactos que necesita
+    return res.render('tv', { 
         channels: filtered, 
         activeType, 
         searchQuery,
-        pagination: { page: 1, totalPages: 1 } // Estructura para que no de error el EJS
+        // Mandamos esto para que el diseño no se rompa si espera paginación
+        pagination: { page: 1, totalPages: 1 } 
     });
 }));
 

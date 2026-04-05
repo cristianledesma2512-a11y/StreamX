@@ -3,100 +3,179 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>StreamX - TV en Vivo</title>
+  <title>TV en Vivo — StreamX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
   <style>
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: #09090b; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
-    body { background-color: #09090b; color: #f4f4f5; }
+    body { background-color: #09090b; }
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 10px; }
+    .glass { background: rgba(18, 18, 21, 0.8); backdrop-filter: blur(16px); }
+    .neon-border { border: 1px solid rgba(139, 92, 246, 0.1); transition: all 0.3s ease; }
+    .neon-border:hover { border-color: #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); transform: translateY(-3px); }
+    .active-category { background: linear-gradient(to right, #6d28d9, #4c1d95); box-shadow: 0 4px 15px rgba(76, 29, 149, 0.4); }
+    #video-player { background: #000; width: 100%; height: 100%; object-fit: contain; }
   </style>
 </head>
-<body class="h-screen overflow-hidden flex flex-col">
+<body class="text-zinc-100 overflow-hidden h-screen flex">
 
-  <header class="h-16 border-b border-zinc-800 flex items-center justify-between px-6 bg-zinc-950/50 backdrop-blur-md z-50">
-    <div class="flex items-center gap-4">
-      <a href="/" class="text-blue-500 hover:text-blue-400 transition"><i class="fas fa-arrow-left"></i></a>
-      <h1 class="font-bold tracking-tighter text-xl">STREAM<span class="text-blue-600">X</span></h1>
-    </div>
-    <form action="/tv" method="GET" class="flex-1 max-w-md mx-6">
-      <div class="relative">
-        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 text-xs"></i>
-        <input type="text" name="q" value="<%= searchQuery %>" placeholder="Buscar canal..." 
-               class="w-full bg-zinc-900/50 border border-zinc-800 rounded-full py-1.5 pl-9 pr-4 text-sm focus:outline-none focus:border-blue-500 transition">
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 glass border-r border-zinc-800/50 transition-transform lg:translate-x-0 -translate-x-full lg:static">
+    <div class="flex flex-col h-full p-6">
+      <div class="flex items-center gap-3 mb-10">
+        <div class="w-10 h-10 bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg shadow-violet-900/40">
+          <i class="fas fa-play text-white text-xs"></i>
+        </div>
+        <div>
+          <span class="text-xl font-black tracking-tighter uppercase block leading-none">Stream<span class="text-violet-500">X</span></span>
+          <span class="text-[9px] font-bold text-zinc-600 tracking-[0.3em] uppercase">Tecnocom</span>
+        </div>
       </div>
-    </form>
-    <div class="hidden md:block text-[10px] font-black text-zinc-700 tracking-[0.3em]">TECNOCON</div>
-  </header>
+      
+      <nav class="flex-1 space-y-1">
+        <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] mb-4 pl-4">Menu Principal</p>
+        <a href="/" class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-400 hover:text-white hover:bg-white/5 transition-all group">
+          <i class="fas fa-home group-hover:text-violet-500 transition-colors"></i> Inicio
+        </a>
+        <a href="/tv" class="flex items-center gap-4 px-4 py-3 rounded-2xl bg-violet-600/10 text-violet-400 border border-violet-500/20">
+          <i class="fas fa-tv"></i> TV en Vivo
+        </a>
 
-  <div class="flex-1 flex overflow-hidden">
+        <div class="pt-8 mb-4 pl-4">
+          <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em]">Categorias</p>
+        </div>
+        <a href="/tv" class="flex items-center gap-3 px-4 py-2 text-sm <%= !activeType ? 'text-white font-bold' : 'text-zinc-500 hover:text-zinc-300' %>">
+          <span class="w-1.5 h-1.5 rounded-full <%= !activeType ? 'bg-violet-500' : 'bg-zinc-800' %>"></span> Todos
+        </a>
+        <% ['General', 'Noticias', 'Deportes', 'Infantil', 'Cine'].forEach(c => { %>
+          <a href="/tv?type=<%= c %>" class="flex items-center gap-3 px-4 py-2 text-sm <%= activeType === c ? 'text-white font-bold' : 'text-zinc-500 hover:text-zinc-300' %> transition-all">
+            <span class="w-1.5 h-1.5 rounded-full <%= activeType === c ? 'bg-violet-500' : 'bg-zinc-800' %>"></span> <%= c %>
+          </a>
+        <% }) %>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-w-0 relative">
+    
+    <header class="h-20 flex items-center justify-between px-8 z-10">
+      <button onclick="openSidebar()" class="lg:hidden text-zinc-400 p-2"><i class="fas fa-bars"></i></button>
+      
+      <form action="/tv" method="GET" class="flex-1 max-w-xl mx-6 relative group">
+        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-violet-500 transition-colors"></i>
+        <input type="text" name="q" value="<%= searchQuery %>" placeholder="Busca tu canal favorito..." 
+               class="w-full bg-zinc-900/40 border border-zinc-800 rounded-2xl py-2.5 pl-12 pr-4 text-sm focus:outline-none focus:border-violet-500/50 focus:bg-zinc-900/80 transition-all">
+      </form>
+
+      <div class="flex items-center gap-4">
+        <div class="text-right hidden sm:block">
+            <p class="text-[10px] font-black text-violet-500 leading-none">LIVE</p>
+            <p class="text-[9px] text-zinc-600 tracking-tighter">HD STREAMING</p>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-600">
+            <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+    </header>
+
     <main class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
       
-      <div id="player-container" class="relative aspect-video max-w-5xl mx-auto bg-black rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl mb-10 group">
-        <video id="video-player" class="w-full h-full" controls playsinline></video>
-        <div id="player-loader" class="absolute inset-0 flex items-center justify-center bg-zinc-950 hidden">
-          <div class="w-12 h-12 border-4 border-zinc-800 border-t-blue-600 rounded-full animate-spin"></div>
-        </div>
-        <div id="player-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900">
-          <div class="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center mb-4">
-            <i class="fas fa-play text-blue-600 text-2xl ml-1"></i>
+      <div id="player-container" class="relative aspect-video max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden border border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black mb-12">
+        <video id="video-player" controls playsinline></video>
+        
+        <div id="player-loader" class="absolute inset-0 flex items-center justify-center bg-zinc-950 hidden z-20">
+          <div class="flex flex-col items-center gap-4">
+            <div class="w-14 h-14 border-4 border-zinc-900 border-t-violet-600 rounded-full animate-spin"></div>
+            <p class="text-zinc-500 text-xs font-bold tracking-widest uppercase">Sintonizando...</p>
           </div>
-          <p class="text-zinc-500 font-medium text-sm">Selecciona una señal para comenzar</p>
+        </div>
+
+        <div id="player-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-950 z-10">
+          <div class="w-24 h-24 bg-violet-600/10 rounded-full flex items-center justify-center mb-6 border border-violet-500/20 animate-pulse">
+            <i class="fas fa-play text-violet-500 text-4xl ml-1"></i>
+          </div>
+          <h3 class="text-white font-black text-xl tracking-tighter">MUNDIAL EN VIVO</h3>
+          <p class="text-zinc-500 text-sm mt-1">Selecciona una señal para comenzar la transmisión</p>
         </div>
       </div>
 
-      <div class="flex gap-2 mb-8 overflow-x-auto pb-2 no-scrollbar">
-        <a href="/tv" class="px-4 py-1.5 rounded-full text-xs font-bold transition <%= !activeType ? 'bg-blue-600 text-white' : 'bg-zinc-900 text-zinc-500 hover:bg-zinc-800' %>">TODOS</a>
-        <% const cats = ['General', 'Noticias', 'Deportes', 'Infantil', 'Cine']; %>
-        <% cats.forEach(c => { %>
-          <a href="/tv?type=<%= c %>" class="px-4 py-1.5 rounded-full text-xs font-bold transition <%= activeType === c ? 'bg-blue-600 text-white' : 'bg-zinc-900 text-zinc-500 hover:bg-zinc-800' %>"><%= c.toUpperCase() %></a>
-        <% }) %>
+      <div class="max-w-6xl mx-auto mb-8 flex items-center justify-between">
+        <h2 class="text-2xl font-black tracking-tighter italic text-zinc-100 uppercase">Señales <span class="text-violet-600">Disponibles</span></h2>
+        <div class="h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent ml-6"></div>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 max-w-6xl mx-auto pb-20">
         <% channels.forEach(channel => { %>
           <button onclick="playChannel('<%= channel.url %>', '<%= channel.name %>')" 
-                  class="group flex flex-col items-center p-5 bg-zinc-900/30 border border-zinc-800/50 rounded-3xl hover:border-blue-600/50 hover:bg-zinc-900 transition-all">
-            <div class="w-full aspect-square bg-white/5 rounded-2xl p-4 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-              <img src="<%= channel.logo %>" alt="<%= channel.name %>" class="max-w-full max-h-full object-contain filter drop-shadow-2xl">
+                  class="group flex flex-col bg-zinc-900/20 rounded-[2rem] p-4 neon-border">
+            <div class="aspect-square rounded-3xl bg-zinc-900 flex items-center justify-center p-5 mb-4 group-hover:bg-zinc-800 transition-colors shadow-inner">
+              <img src="<%= channel.logo %>" alt="<%= channel.name %>" class="max-w-full max-h-full object-contain filter drop-shadow-2xl group-hover:scale-110 transition-transform duration-500">
             </div>
-            <span class="text-[11px] font-black uppercase tracking-wider text-zinc-500 group-hover:text-white truncate w-full"><%= channel.name %></span>
+            <span class="text-[10px] font-black text-zinc-500 group-hover:text-violet-400 uppercase tracking-widest truncate w-full"><%= channel.name %></span>
           </button>
         <% }) %>
       </div>
-
     </main>
+
+    <div id="overlay" onclick="closeSidebar()" class="fixed inset-0 bg-black/80 z-40 hidden lg:hidden backdrop-blur-sm"></div>
   </div>
 
   <script>
     let hls = null;
+    const video = document.getElementById('video-player');
+    const loader = document.getElementById('player-loader');
+    const placeholder = document.getElementById('player-placeholder');
+
     function playChannel(url, name) {
-      const v = document.getElementById('video-player');
-      const l = document.getElementById('player-loader');
-      const p = document.getElementById('player-placeholder');
-
+      // 1. Reset e Interfaz
       if(hls) hls.destroy();
-      p.style.display = 'none';
-      l.classList.remove('hidden');
+      placeholder.style.display = 'none';
+      loader.classList.remove('hidden');
 
+      // 2. Logica de Reproduccion
       if(url.includes('.m3u8')) {
         if(Hls.isSupported()) {
-          hls = new Hls({ capLevelToPlayerSize: true });
+          hls = new Hls({ 
+            capLevelToPlayerSize: true,
+            debug: false 
+          });
           hls.loadSource(url);
-          hls.attachMedia(v);
-          hls.on(Hls.Events.MANIFEST_PARSED, () => { l.classList.add('hidden'); v.play(); });
-        } else if(v.canPlayType('application/vnd.apple.mpegurl')) {
-          v.src = url;
-          v.onloadedmetadata = () => { l.classList.add('hidden'); v.play(); };
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            loader.classList.add('hidden');
+            video.play();
+          });
+          hls.on(Hls.Events.ERROR, function (event, data) {
+            if (data.fatal) loader.classList.add('hidden');
+          });
+        } else if(video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = url;
+          video.onloadedmetadata = () => {
+            loader.classList.add('hidden');
+            video.play();
+          };
         }
       } else {
-        v.src = url;
-        v.onloadeddata = () => { l.classList.add('hidden'); v.play(); };
+        // Enlaces directos mp4
+        video.src = url;
+        video.onloadeddata = () => {
+          loader.classList.add('hidden');
+          video.play();
+        };
       }
       
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll suave hacia arriba para ver el video
+      document.getElementById('player-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openSidebar() {
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+      document.getElementById('overlay').classList.remove('hidden');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      document.getElementById('overlay').classList.add('hidden');
     }
   </script>
 </body>

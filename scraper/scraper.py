@@ -1198,10 +1198,8 @@ def actualizar_mundial(ref):
 # ══════════════════════════════════════════════════════════════════════════
 #  LIBERTADORES 2026
 # ══════════════════════════════════════════════════════════════════════════
-LIBERTADORES_GRUPOS = {
-    
-}
-
+LIBERTADORES_GRUPOS = {}
+SUDAMERICANA_GRUPOS = {}
 def actualizar_conmebol(ref):
     print("\n🏆 Actualizando CONMEBOL...")
     ahora = datetime.utcnow().isoformat()

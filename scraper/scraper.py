@@ -1122,7 +1122,7 @@ def actualizar_canales(ref):
         }
 
      # 3. Canales extra de fuentes M3U
-    extra = buscar_canales_m3u(max_por_fuente=150, max_total=800)
+    extra = buscar_canales_m3u(max_por_fuente=1000, max_total=2800)
     for i, c in enumerate(extra):
         data[f"ext{i+1:04d}"] = {
             "nombre":    c["nombre"],

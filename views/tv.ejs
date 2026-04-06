@@ -248,15 +248,16 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 <body>
 
 <!-- Barra StreamX -->
-<div style="position:fixed;top:0;left:0;right:0;height:36px;background:#18181b;border-bottom:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;padding:0 14px;gap:10px;z-index:99999;">
-  <a href="/" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
+<div style="position:fixed;top:0;left:0;right:0;height:36px;background:#18181b;border-bottom:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;padding:0 14px;gap:12px;z-index:99999;">
+  <a href="/" style="display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0;">
     <div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:11px;">S</div>
-    <span style="color:#a78bfa;font-size:11px;font-weight:700;letter-spacing:.5px;">STREAMX</span>
   </a>
-  <div style="flex:1;height:1px;background:rgba(139,92,246,0.15);"></div>
-  <a href="/?type=movie" style="color:#71717a;font-size:10px;text-decoration:none;">Películas</a>
-  <a href="/?type=series" style="color:#71717a;font-size:10px;text-decoration:none;margin:0 8px;">Series</a>
-  <span style="color:#8b5cf6;font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block;animation:pulse 1.5s infinite;"></span>TV en Vivo</span>
+  <a href="/" style="color:#71717a;font-size:10px;text-decoration:none;flex-shrink:0;">Inicio</a>
+  <a href="/?type=movie" style="color:#71717a;font-size:10px;text-decoration:none;flex-shrink:0;">Películas</a>
+  <a href="/?type=series" style="color:#71717a;font-size:10px;text-decoration:none;flex-shrink:0;">Series</a>
+  <span style="color:#8b5cf6;font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px;flex-shrink:0;">
+    <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block;animation:pulse 1.5s infinite;"></span>TV en Vivo
+  </span>
 </div>
 
 <div style="padding-top:36px;height:100vh;display:flex;flex-direction:column;overflow:hidden;">

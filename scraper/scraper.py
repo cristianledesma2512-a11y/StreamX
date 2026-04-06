@@ -1159,7 +1159,7 @@ def actualizar_canales(ref):
 #  MUNDIAL FIFA 2026 — FIXTURE OFICIAL
 # ══════════════════════════════════════════════════════════════════════════
 MUNDIAL_PARTIDOS = [
-  # GRUPO A
+    # GRUPO A
     {"id":"ga01","grupo":"A","local":"México","visitante":"Sudáfrica","bandera_local":"🇲🇽","bandera_visitante":"🇿🇦","fecha":"2026-06-11","hora":"16:00","sede":"Estadio Ciudad de México"},
     {"id":"ga02","grupo":"A","local":"Corea del Sur","visitante":"Por definir","bandera_local":"🇰🇷","bandera_visitante":"🏳️","fecha":"2026-06-11","hora":"23:00","sede":"Estadio Guadalajara"},
     {"id":"ga03","grupo":"A","local":"Sudáfrica","visitante":"Por definir","bandera_local":"🇿🇦","bandera_visitante":"🏳️","fecha":"2026-06-18","hora":"13:00","sede":"Atlanta Stadium"},
@@ -1281,7 +1281,7 @@ def actualizar_mundial(ref):
 # ══════════════════════════════════════════════════════════════════════════
 #  LIBERTADORES 2026
 # ══════════════════════════════════════════════════════════════════════════
-LIBERTADORES_GRUPOS = { 
+LIBERTADORES_GRUPOS = {
     "A": [
         {"nombre":"Flamengo",              "pais":"Brasil",   "bandera":"🇧🇷"},
         {"nombre":"Estudiantes LP",        "pais":"Argentina","bandera":"🇦🇷"},
@@ -1382,6 +1382,7 @@ SUDAMERICANA_GRUPOS = {
         {"nombre":"Carabobo",              "pais":"Venezuela","bandera":"🇻🇪"},
     ],
 }
+
 def actualizar_conmebol(ref):
     print("\n🏆 Actualizando CONMEBOL...")
     ahora = datetime.utcnow().isoformat()
@@ -1450,7 +1451,7 @@ def actualizar_conmebol(ref):
 # ══════════════════════════════════════════════════════════════════════════
 def main():
     print("=" * 55)
-    print("  🏆 stremax tv — Scraper Automático Completo")
+    print("  🏆 MundialEnVivo AR — Scraper Automático Completo")
     print(f"  🕐 {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
     print("=" * 55)
 

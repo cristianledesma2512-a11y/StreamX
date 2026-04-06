@@ -877,8 +877,8 @@ TDT_CANALES = [
         "url":"https://www.youtube-nocookie.com/embed/live_stream?channel=UC6NVDkuzY2exMOVFw4i9oHw&autoplay=1",
         "logo":"https://graph.facebook.com/AmericaTV/picture?width=200&height=200",
         "fallbacks":[]},
-    {"id":"tdt404
-        ","nombre":"C5N Argentina",
+    {"id":"tdt404",
+        "nombre":"C5N Argentina",
         "categoria":"NOTICIAS",
         "url":"https://www.youtube.com/watch?v=SF06Qy1Ct6Y",
         "logo":"https://graph.facebook.com/C5N.Noticias/picture?width=200&height=200",

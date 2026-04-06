@@ -1420,22 +1420,7 @@ def actualizar_conmebol(ref):
     except Exception:
         existing_sud = {}
 
-    sud_data = {
-        "grupos": {g: {"equipos": eqs} for g, eqs in SUDAMERICANA_GRUPOS.items()},
-        "partidos": existing_sud.get("partidos", {}),
-        "bracket":  existing_sud.get("bracket", {}),
-        "calendario": {
-            "fecha1_inicio": "2026-04-07",
-            "fecha6_fin":    "2026-05-28",
-            "octavos_ida":   "2026-08-11",
-            "final":         "2026-11-21",
-            "sede_final":    "Por confirmar",
-        },
-        "actualizado": ahora,
-    }
-    ref.child("sudamericana").set(sud_data)
-    print("  💾 Sudamericana guardada (8 grupos)")
-
+    
     # Recopa
     ref.child("recopa").set({
         "descripcion": "Se disputará entre el campeón de Libertadores 2026 y el campeón de Sudamericana 2026",

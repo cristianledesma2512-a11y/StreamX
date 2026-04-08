@@ -247,23 +247,88 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 </head>
 <body>
 
+<div class="flex min-h-screen" style="background:#09090b;">
 
+  <!-- ═══ NAV LATERAL STREAMX ═══ -->
+  <aside id="sx-sidebar"
+    style="position:fixed;top:0;left:0;z-index:40;height:100%;width:224px;
+           background:rgba(24,24,27,0.97);border-right:1px solid rgba(63,63,70,0.6);
+           backdrop-filter:blur(12px);display:flex;flex-direction:column;
+           transform:translateX(-100%);transition:transform .3s;"
+    class="lg-show">
 
+    <!-- Logo -->
+    <div style="padding:24px 20px;border-bottom:1px solid rgba(63,63,70,0.6);">
+      <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <div style="width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:15px;box-shadow:0 4px 12px rgba(124,58,237,0.4);">S</div>
+        <div>
+          <p style="font-weight:700;color:#fff;font-size:15px;line-height:1;margin:0;">StreamX</p>
+          <p style="font-size:10px;color:#71717a;margin:2px 0 0;">TECNOCOM</p>
+        </div>
+      </a>
+    </div>
 
-<!-- Barra StreamX -->
-<div style="position:fixed;top:0;left:0;right:0;height:36px;background:#18181b;border-bottom:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;padding:0 14px;gap:12px;z-index:99999;">
-  <a href="/" style="display:flex;align-items:center;gap:7px;text-decoration:none;flex-shrink:0;">
-    <div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:11px;">S</div>
-  </a>
-  <a href="/" style="color:#71717a;font-size:10px;text-decoration:none;flex-shrink:0;">Inicio</a>
-  <a href="/?type=movie" style="color:#71717a;font-size:10px;text-decoration:none;flex-shrink:0;">Películas</a>
-  <a href="/?type=series" style="color:#71717a;font-size:10px;text-decoration:none;flex-shrink:0;">Series</a>
-  <span style="color:#8b5cf6;font-size:10px;font-weight:700;display:flex;align-items:center;gap:4px;flex-shrink:0;">
-    <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block;animation:pulse 1.5s infinite;"></span>TV en Vivo
-  </span>
-</div>
+    <!-- Links -->
+    <nav style="flex:1;padding:16px 12px;overflow-y:auto;">
+      <a href="/" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:#a1a1aa;font-size:14px;font-weight:500;transition:all .2s;margin-bottom:2px;"
+        onmouseover="this.style.background='rgba(63,63,70,0.6)';this.style.color='#fff'"
+        onmouseout="this.style.background='';this.style.color='#a1a1aa'">
+        <svg style="width:18px;height:18px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Inicio
+      </a>
+      <a href="/?type=movie" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:#a1a1aa;font-size:14px;font-weight:500;transition:all .2s;margin-bottom:2px;"
+        onmouseover="this.style.background='rgba(63,63,70,0.6)';this.style.color='#fff'"
+        onmouseout="this.style.background='';this.style.color='#a1a1aa'">
+        <svg style="width:18px;height:18px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+        Películas
+      </a>
+      <a href="/?type=series" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:#a1a1aa;font-size:14px;font-weight:500;transition:all .2s;margin-bottom:2px;"
+        onmouseover="this.style.background='rgba(63,63,70,0.6)';this.style.color='#fff'"
+        onmouseout="this.style.background='';this.style.color='#a1a1aa'">
+        <svg style="width:18px;height:18px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        Series
+      </a>
+      <a href="/tv" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;background:rgba(124,58,237,0.15);color:#c4b5fd;border:1px solid rgba(124,58,237,0.2);font-size:14px;font-weight:600;margin-bottom:2px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;flex-shrink:0;animation:pulse 1.5s infinite;display:inline-block;"></span>
+        TV en Vivo
+      </a>
+    </nav>
 
-<div style="padding-top:36px;height:100vh;display:flex;flex-direction:column;overflow:hidden;">
+    <!-- Admin -->
+    <div style="padding:12px;border-top:1px solid rgba(63,63,70,0.6);">
+      <a href="/admin/login" style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:#71717a;font-size:12px;transition:all .2s;"
+        onmouseover="this.style.background='rgba(63,63,70,0.6)';this.style.color='#fff'"
+        onmouseout="this.style.background='';this.style.color='#71717a'">
+        <svg style="width:16px;height:16px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Admin
+      </a>
+    </div>
+  </aside>
+
+  <!-- Overlay mobile -->
+  <div id="sx-overlay" onclick="closeSXSidebar()"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:30;"></div>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <div style="flex:1;margin-left:0;min-width:0;display:flex;flex-direction:column;height:100vh;overflow:hidden;" id="sx-main">
+
+    <!-- Top bar mobile -->
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(9,9,11,0.9);border-bottom:1px solid rgba(63,63,70,0.6);backdrop-filter:blur(8px);flex-shrink:0;" id="sx-topbar">
+      <button onclick="openSXSidebar()" style="background:none;border:none;color:#a1a1aa;cursor:pointer;padding:4px;">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:11px;">S</div>
+        <span style="font-weight:700;color:#fff;font-size:14px;">StreamX</span>
+      </div>
+      <span style="display:flex;align-items:center;gap:6px;color:#8b5cf6;font-size:11px;font-weight:700;margin-left:auto;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block;animation:pulse 1.5s infinite;"></span>
+        TV en Vivo
+      </span>
+    </div>
+
+    <!-- Contenido MundialEnVivo -->
+    <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
 
 
 <!-- Modal apodo -->
@@ -278,7 +343,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 
 <!-- Header -->
 <div id="hdr">
-  <div class="logo" style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;"></div><span style="color:#a78bfa;"></span><span></span></div>
+  <div class="logo" style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;">S</div><span style="color:#a78bfa;">STREAM</span><span>X TV</span></div>
   <div class="icon-btn" id="btn-srch-toggle">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
   </div>
@@ -295,10 +360,10 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 
 <!-- Nav tabs -->
 <div id="nav-tabs">
-
-  <div class="ntab a" onclick="cambiarTab('tv',this)">📺 TV EN VIVO</div>  
+  <div class="ntab a" onclick="cambiarTab('tv',this)">📺 TV EN VIVO</div>
+  <div class="ntab" onclick="cambiarTab('categorias',this)">📂 CATEGORÍAS</div>
   <div class="ntab" onclick="cambiarTab('guia',this)">📅 GUÍA</div>
- 
+  <div class="ntab" onclick="cambiarTab('chat',this)">💬 CHAT</div>
 </div>
 
 <!-- Main scrollable area -->
@@ -410,7 +475,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 <script>
 
 // ── Firebase ──────────────────────────────────────────────────────────────
-firebase.initializeApp({ databaseURL: "https://streamx-53ace-default-rtdb.firebaseio.com/" });
+firebase.initializeApp({ databaseURL: "https://mundialenvivo-ar-default-rtdb.firebaseio.com/" });
 const db = firebase.database();
 
 // ── Estado ────────────────────────────────────────────────────────────────
@@ -1192,5 +1257,37 @@ function saltearModal() {
 }
 
 </script>
+
+<style>
+/* Desktop: mostrar sidebar y ajustar margen */
+@media (min-width: 1024px) {
+  .lg-show { transform: translateX(0) !important; }
+  #sx-main { margin-left: 224px !important; }
+  #sx-topbar { display: none !important; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+}
+</style>
+
+<script>
+function openSXSidebar() {
+  document.getElementById('sx-sidebar').style.transform = 'translateX(0)';
+  document.getElementById('sx-overlay').style.display = 'block';
+}
+function closeSXSidebar() {
+  document.getElementById('sx-sidebar').style.transform = 'translateX(-100%)';
+  document.getElementById('sx-overlay').style.display = 'none';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeSXSidebar();
+});
+</script>
+
+    </div><!-- fin contenido MundialEnVivo -->
+  </div><!-- fin sx-main -->
+</div><!-- fin flex min-h-screen -->
+
 </body>
 </html>

@@ -333,17 +333,33 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 
 <!-- Modal apodo -->
 <div id="modal-nick">
-  <h1>🏆 TV en Vivo</h1>
+  <h1>StreamX</h1>
   <p style="color:rgba(255,255,255,.5);font-size:13px;">Ingresá tu nombre para el chat</p>
   <input type="text" id="nick-in" placeholder="Ej: ElDiez_94" maxlength="20" autocomplete="off">
-  <button id="nick-btn">⚽ ENTRAR</button>
-  <button onclick="saltearModal()" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;text-decoration:underline;">Entrar como invitado</button>
+  <button id="nick-btn">ENTRAR</button>
+  <button onclick="saltearModal()" 
+      style="background:none;
+      border:none;
+      color:rgba(255,255,255,.3);
+      font-size:12px;
+      cursor:pointer;
+      text-decoration:underline;">Entrar como invitado</button>
   <p style="font-size:11px;color:rgba(255,255,255,.2);margin-top:4px;">StreamX — TECNOCOM</p>
 </div>
 
 <!-- Header -->
 <div id="hdr">
-  <div class="logo" style="display:flex;align-items:center;gap:8px;"><div style="width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:inline-flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:12px;">S</div><span style="color:#a78bfa;">STREAM</span><span>X TV</span></div>
+ <!-- <div class="logo" 
+  style="display:flex;align-items:center;gap:8px;">
+          <div style="width:24px;height:24px;border-radius:7px;
+                background:linear-gradient(135deg,#7c3aed,#6d28d9);
+                display:inline-flex;align-items:center;
+                justify-content:center;font-weight:900;color:#fff;font-size:12px;">
+                S
+          </div>
+        <span style="color:#a78bfa;">STREAM</span>
+        <span>X TV</span>
+  </div>-->
   <div class="icon-btn" id="btn-srch-toggle">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
   </div>
@@ -451,10 +467,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
     <svg viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" id="bnav-icon-2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     <div class="bl" id="bnav-lbl-2">Favoritos</div>
   </div>
-  <div class="bi" onclick="abrirFiltrosPais()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" id="bnav-icon-3"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    <div class="bl" id="bnav-lbl-3">Guía</div>
-  </div>
+  
   <div class="bi" onclick="cambiarTab('chat',null);setNavActive(4)">
     <svg viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" id="bnav-icon-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     <div class="bl" id="bnav-lbl-4">Chat</div>

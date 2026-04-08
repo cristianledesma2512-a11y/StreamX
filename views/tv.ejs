@@ -333,11 +333,18 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 
 <!-- Modal apodo -->
 <div id="modal-nick">
-  <h1>🏆 TV en Vivo</h1>
-  <p style="color:rgba(255,255,255,.5);font-size:13px;">Ingresá tu nombre para el chat</p>
+  <h1>StreamX</h1>
+  <p style="color:rgba(255,255,255,.5);font-size:13px;">Ingresá tu nombre</p>
   <input type="text" id="nick-in" placeholder="Ej: ElDiez_94" maxlength="20" autocomplete="off">
-  <button id="nick-btn">⚽ ENTRAR</button>
-  <button onclick="saltearModal()" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;text-decoration:underline;">Entrar como invitado</button>
+  <button id="nick-btn">ENTRAR</button>
+  <button 
+    onclick="saltearModal()" 
+    style="background:none;
+      border:none;
+      color:rgba(255,255,255,.3);
+      font-size:12px;cursor:pointer;
+      text-decoration:underline;
+      ">Entrar como invitado</button>
   <p style="font-size:11px;color:rgba(255,255,255,.2);margin-top:4px;">StreamX — TECNOCOM</p>
 </div>
 
@@ -359,10 +366,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 
 <!-- Nav tabs -->
 <div id="nav-tabs">
-  <div class="ntab a" onclick="cambiarTab('tv',this)">📺 TV EN VIVO</div>
-  <div class="ntab" onclick="cambiarTab('categorias',this)">📂 CATEGORÍAS</div>
+  <div class="ntab a" onclick="cambiarTab('tv',this)">📺 TV EN VIVO</div>  
   <div class="ntab" onclick="cambiarTab('guia',this)">📅 GUÍA</div>
-  <div class="ntab" onclick="cambiarTab('chat',this)">💬 CHAT</div>
+  
 </div>
 
 <!-- Main scrollable area -->
@@ -425,16 +431,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
   <div id="guia-body" style="padding:12px;"></div>
 </div>
 
-<!-- ══ CHAT ══ -->
-  <div id="sec-chat" class="section" style="display:flex;flex-direction:column;height:calc(50vh -195px);">
-    <div id="chat-msgs"></div>
-    <div id="chat-form">
-      <input type="text" id="chat-in" placeholder="Escribí tu mensaje..." maxlength="200" autocomplete="off">
-      <button id="chat-btn">ENVIAR</button>
-    </div>
-  </div>
 
-</div><!-- /main -->
 
 <!-- Bottom nav -->
 <div id="bnav">
@@ -454,10 +451,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
     <svg viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" id="bnav-icon-3"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
     <div class="bl" id="bnav-lbl-3">Guía</div>
   </div>
-  <div class="bi" onclick="cambiarTab('chat',null);setNavActive(4)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#71717a" stroke-width="2" id="bnav-icon-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <div class="bl" id="bnav-lbl-4">Chat</div>
-  </div>
+  
 </div>
 
 <div id="toast"></div>

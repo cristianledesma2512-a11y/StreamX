@@ -24,7 +24,7 @@ const vimeus  = require('../services/vimeusService');
 const { fetchMovieByTmdbId, fetchSeriesByTmdbId } = require('../services/tmdbService');
 
 const TMDB_IMAGE = 'https://image.tmdb.org/t/p/original';
-const DELAY_MS   = 300; // pausa entre requests TMDB para no exceder rate limit
+const DELAY_MS   = 1000; // pausa entre requests TMDB para no exceder rate limit
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

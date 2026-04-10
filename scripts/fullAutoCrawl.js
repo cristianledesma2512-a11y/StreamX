@@ -73,7 +73,7 @@ async function run() {
         await mongoose.connect(process.env.MONGODB_URI);
 
         // Definimos los tipos a buscar en la API de Vimeus
-        const tipos = ['movies', 'series', 'anime'];
+        const tipos = ['series', 'anime','movies'];
         
         for (const tipo of tipos) {
             let page = 1;

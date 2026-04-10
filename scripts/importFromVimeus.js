@@ -1,174 +1,74 @@
-#!/usr/bin/env node
-/**
- * scripts/importFromVimeus.js
- * ─────────────────────────────────────────────────────────────────────────────
- * Import masivo desde la API de Vimeus hacia MongoDB.
- * Modificado por Gemini para TECNOCOM: Ahora fuerza la actualización de datos
- * incluso si el registro ya existe (evita duplicados por tmdbId).
- */
 require('dotenv').config();
+const mongoose = require('mongoose');
+const vimeus = require('../services/vimeusService');
+const Movie = require('../models/Movie'); 
 
-const { connectDB } = require('../config/db');
-const Movie   = require('../models/Movie');
-const Series  = require('../models/Series');
-const logger  = require('../utils/logger');
-const vimeus  = require('../services/vimeusService');
-const { fetchMovieByTmdbId, fetchSeriesByTmdbId } = require('../services/tmdbService');
+const type = process.argv[2] || 'movies';
+const targetPage = parseInt(process.argv[3]) || 1;
 
-const TMDB_IMAGE = 'https://image.tmdb.org/t/p/original';
-const DELAY_MS   = 1000; // Pausa necesaria para no ser bloqueado por TMDB
+async function run() {
+    console.log(`🚀 [TECNOCOM] INICIANDO IMPORTACIÓN DE ${type.toUpperCase()}...`);
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    try {
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log("info: MongoDB conectado correctamente.");
 
-// ─── Importar películas ───────────────────────────────────────────────────────
-async function importMovies(startPage = 1) {
-  logger.info('=== 🎬 INICIANDO IMPORTACIÓN DE PELÍCULAS ===');
-  let page = startPage;
-  let totalPages = 1;
-  let imported = 0, updated = 0, skipped = 0, errors = 0;
+        const data = (type === 'series') 
+            ? await vimeus.listSeries(targetPage) 
+            : await vimeus.listMovies(targetPage);
 
-  do {
-    const result = await vimeus.listMovies(page);
-    const movies = result.movies || [];
-    totalPages   = result.pagination?.total_pages || 1;
+        const items = data.result || [];
+        const totalPages = data.pages || 1;
 
-    logger.info(`Página ${page}/${totalPages} - Procesando ${movies.length} items...`);
+        console.log(`info: Página ${targetPage}/${totalPages} - Encontrados ${items.length} items.`);
 
-    for (const item of movies) {
-      if (!item.tmdb_id) { 
-        skipped++; 
-        continue; 
-      }
-      
-      try {
-        // TECNOCOM: Eliminamos el 'continue' para permitir que los datos se actualicen.
-        // Se busca por tmdbId y se pisa con la info nueva.
+        let nuevos = 0;
+        let actualizados = 0;
+
+        for (const item of items) {
+            // Adaptamos los datos de Vimeus a TU esquema (movieSchema)
+            const movieData = {
+                tmdbId: item.tmdb_id, // Mapeamos de tmdb_id (API) a tmdbId (Tu Schema)
+                title: item.title,
+                // Creamos el objeto de link según tu linkSchema
+                $addToSet: { 
+                    links: {
+                        serverName: 'Vimeus',
+                        url: item.embed_url,
+                        quality: item.quality.includes('4K') ? '4K' : (item.quality.includes('HD') ? 'FHD' : 'SD'),
+                        language: 'Latino'
+                    }
+                },
+                active: true,
+                vimeusEnabled: true
+            };
+
+            const res = await Movie.updateOne(
+                { tmdbId: item.tmdb_id }, // Buscamos por tu campo tmdbId
+                { 
+                    $set: { 
+                        title: movieData.title,
+                        active: movieData.active,
+                        vimeusEnabled: movieData.vimeusEnabled
+                    },
+                    $addToSet: movieData.$addToSet // Esto evita duplicar el link si ya existe
+                },
+                { upsert: true }
+            );
+
+            if (res.upsertedCount > 0) nuevos++;
+            else actualizados++;
+        }
+
+        console.log(`\n✅ [TECNOCOM] Resumen: ${nuevos} nuevos, ${actualizados} actualizados.`);
         
-        await sleep(DELAY_MS);
-        const tmdbData = await fetchMovieByTmdbId(item.tmdb_id);
-
-        const res = await Movie.findOneAndUpdate(
-          { tmdbId: tmdbData.tmdbId },
-          { $set: {
-            title:        tmdbData.title,
-            overview:     tmdbData.overview,
-            posterPath:   tmdbData.posterPath,
-            backdropPath: tmdbData.backdropPath,
-            releaseDate:  tmdbData.releaseDate,
-            genres:       tmdbData.genres,
-            vimeusEnabled: true,
-            active:       true,
-          }},
-          { upsert: true, runValidators: true, rawResult: true }
-        );
-
-        if (res.lastErrorObject.updatedExisting) {
-            logger.info(`  🔄 Actualizada: ${tmdbData.title}`);
-            updated++;
-        } else {
-            logger.info(`  ✅ Nueva: ${tmdbData.title}`);
-            imported++;
-        }
-
-      } catch (e) {
-        logger.warn(`  ❌ Error en tmdb ${item.tmdb_id}: ${e.message}`);
-        errors++;
-      }
+    } catch (error) {
+        console.error(`\n❌ [TECNOCOM ERROR]: ${error.message}`);
+    } finally {
+        await mongoose.disconnect();
+        console.log("info: Conexión cerrada.");
+        process.exit(0);
     }
-    page++;
-  } while (page <= totalPages);
-
-  logger.info(`Resumen Películas: ${imported} nuevas, ${updated} actualizadas, ${errors} errores`);
 }
 
-// ─── Importar series ──────────────────────────────────────────────────────────
-async function importSeries(startPage = 1) {
-  logger.info('=== 📺 INICIANDO IMPORTACIÓN DE SERIES ===');
-  let page = startPage;
-  let totalPages = 1;
-  let imported = 0, updated = 0, skipped = 0, errors = 0;
-
-  do {
-    const result = await vimeus.listSeries(page);
-    const series = result.series || [];
-    totalPages   = result.pagination?.total_pages || 1;
-
-    logger.info(`Página ${page}/${totalPages} - Procesando ${series.length} items...`);
-
-    for (const item of series) {
-      if (!item.tmdb_id) { 
-        skipped++; 
-        continue; 
-      }
-
-      try {
-        await sleep(DELAY_MS);
-        const tmdbData = await fetchSeriesByTmdbId(item.tmdb_id);
-
-        const res = await Series.findOneAndUpdate(
-          { tmdbId: tmdbData.tmdbId },
-          { $set: {
-            title:        tmdbData.title,
-            overview:     tmdbData.overview,
-            posterPath:   tmdbData.posterPath,
-            backdropPath: tmdbData.backdropPath,
-            firstAirDate: tmdbData.firstAirDate,
-            genres:       tmdbData.genres,
-            totalSeasons: tmdbData.totalSeasons,
-            seasons:      tmdbData.seasons,
-            vimeusEnabled: true,
-            active:       true,
-          }},
-          { upsert: true, runValidators: true, rawResult: true }
-        );
-
-        if (res.lastErrorObject.updatedExisting) {
-            logger.info(`  🔄 Actualizada: ${tmdbData.title}`);
-            updated++;
-        } else {
-            logger.info(`  ✅ Nueva: ${tmdbData.title}`);
-            imported++;
-        }
-      } catch (e) {
-        logger.warn(`  ❌ Error en tmdb ${item.tmdb_id}: ${e.message}`);
-        errors++;
-      }
-    }
-    page++;
-  } while (page <= totalPages);
-
-  logger.info(`Resumen Series: ${imported} nuevas, ${updated} actualizadas, ${errors} errores`);
-}
-
-// ─── Main Execution ───────────────────────────────────────────────────────────
-(async () => {
-  console.log("🚀 [TECNOCOM] INICIANDO SCRIPT DE IMPORTACIÓN...");
-  
-  const mode = process.argv[2] || 'all'; 
-  const startPage = parseInt(process.argv[3]) || 1;
-
-  if (!process.env.VIMEUS_API_KEY) {
-    console.error('❌ ERROR: Falta VIMEUS_API_KEY en las variables de entorno');
-    process.exit(1);
-  }
-  
-  if (!process.env.TMDB_API_KEY) {
-    console.error('❌ ERROR: Falta TMDB_API_KEY en las variables de entorno');
-    process.exit(1);
-  }
-
-  try {
-    await connectDB();
-    const startTime = Date.now();
-
-    if (mode === 'movies' || mode === 'all') await importMovies(startPage);
-    if (mode === 'series' || mode === 'all') await importSeries(startPage);
-
-    const totalSecs = ((Date.now() - startTime) / 1000).toFixed(1);
-    logger.info(`\n🚀 [TECNOCOM] Importación completada con éxito en ${totalSecs}s`);
-    process.exit(0);
-  } catch (err) {
-    logger.error('💥 ERROR FATAL en el proceso de importación:', err.message);
-    process.exit(1);
-  }
-})();
+run();

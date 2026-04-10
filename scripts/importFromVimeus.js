@@ -2,17 +2,9 @@
 /**
  * scripts/importFromVimeus.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Import masivo desde la API de Vimeus hacia MongoDB local.
- * Usa upsert por tmdbId — no duplica, actualiza si ya existe.
- *
- * Uso:
- *   node scripts/importFromVimeus.js            → importa movies + series
- *   node scripts/importFromVimeus.js movies      → solo películas
- *   node scripts/importFromVimeus.js series      → solo series
- *   node scripts/importFromVimeus.js movies 2    → películas desde página 2
- *
- * Variables necesarias en .env:
- *   VIMEUS_API_KEY, VIMEUS_VIEW_KEY, MONGODB_URI, TMDB_API_KEY
+ * Import masivo desde la API de Vimeus hacia MongoDB.
+ * Modificado por Gemini para TECNOCOM: Ahora fuerza la actualización de datos
+ * incluso si el registro ya existe (evita duplicados por tmdbId).
  */
 require('dotenv').config();
 
@@ -24,40 +16,38 @@ const vimeus  = require('../services/vimeusService');
 const { fetchMovieByTmdbId, fetchSeriesByTmdbId } = require('../services/tmdbService');
 
 const TMDB_IMAGE = 'https://image.tmdb.org/t/p/original';
-const DELAY_MS   = 1000; // pausa entre requests TMDB para no exceder rate limit
+const DELAY_MS   = 1000; // Pausa necesaria para no ser bloqueado por TMDB
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ─── Importar películas ───────────────────────────────────────────────────────
 async function importMovies(startPage = 1) {
-  logger.info('=== Importando PELÍCULAS desde Vimeus ===');
+  logger.info('=== 🎬 INICIANDO IMPORTACIÓN DE PELÍCULAS ===');
   let page = startPage;
   let totalPages = 1;
-  let imported = 0, skipped = 0, errors = 0;
+  let imported = 0, updated = 0, skipped = 0, errors = 0;
 
   do {
     const result = await vimeus.listMovies(page);
     const movies = result.movies || [];
     totalPages   = result.pagination?.total_pages || 1;
 
-    logger.info(`Películas — página ${page}/${totalPages} (${movies.length} items)`);
+    logger.info(`Página ${page}/${totalPages} - Procesando ${movies.length} items...`);
 
     for (const item of movies) {
-      if (!item.tmdb_id) { skipped++; continue; }
+      if (!item.tmdb_id) { 
+        skipped++; 
+        continue; 
+      }
+      
       try {
-        // Verificar si ya existe en nuestra BD
-        const exists = await Movie.findOne({ tmdbId: item.tmdb_id }).select('_id title').lean();
-        if (exists) {
-          logger.debug(`  Ya existe: ${exists.title} (tmdb ${item.tmdb_id})`);
-          skipped++;
-          continue;
-        }
-
-        // Obtener metadatos completos desde TMDB
+        // TECNOCOM: Eliminamos el 'continue' para permitir que los datos se actualicen.
+        // Se busca por tmdbId y se pisa con la info nueva.
+        
         await sleep(DELAY_MS);
         const tmdbData = await fetchMovieByTmdbId(item.tmdb_id);
 
-        await Movie.findOneAndUpdate(
+        const res = await Movie.findOneAndUpdate(
           { tmdbId: tmdbData.tmdbId },
           { $set: {
             title:        tmdbData.title,
@@ -69,52 +59,53 @@ async function importMovies(startPage = 1) {
             vimeusEnabled: true,
             active:       true,
           }},
-          { upsert: true, runValidators: true }
+          { upsert: true, runValidators: true, rawResult: true }
         );
 
-        logger.info(`  ✅ ${tmdbData.title} (tmdb ${tmdbData.tmdbId})`);
-        imported++;
+        if (res.lastErrorObject.updatedExisting) {
+            logger.info(`  🔄 Actualizada: ${tmdbData.title}`);
+            updated++;
+        } else {
+            logger.info(`  ✅ Nueva: ${tmdbData.title}`);
+            imported++;
+        }
+
       } catch (e) {
-        logger.warn(`  ❌ tmdb ${item.tmdb_id}: ${e.message}`);
+        logger.warn(`  ❌ Error en tmdb ${item.tmdb_id}: ${e.message}`);
         errors++;
       }
     }
-
     page++;
   } while (page <= totalPages);
 
-  logger.info(`Películas: ${imported} importadas, ${skipped} ya existían, ${errors} errores`);
-  return { imported, skipped, errors };
+  logger.info(`Resumen Películas: ${imported} nuevas, ${updated} actualizadas, ${errors} errores`);
 }
 
 // ─── Importar series ──────────────────────────────────────────────────────────
 async function importSeries(startPage = 1) {
-  logger.info('=== Importando SERIES desde Vimeus ===');
+  logger.info('=== 📺 INICIANDO IMPORTACIÓN DE SERIES ===');
   let page = startPage;
   let totalPages = 1;
-  let imported = 0, skipped = 0, errors = 0;
+  let imported = 0, updated = 0, skipped = 0, errors = 0;
 
   do {
     const result = await vimeus.listSeries(page);
     const series = result.series || [];
     totalPages   = result.pagination?.total_pages || 1;
 
-    logger.info(`Series — página ${page}/${totalPages} (${series.length} items)`);
+    logger.info(`Página ${page}/${totalPages} - Procesando ${series.length} items...`);
 
     for (const item of series) {
-      if (!item.tmdb_id) { skipped++; continue; }
-      try {
-        const exists = await Series.findOne({ tmdbId: item.tmdb_id }).select('_id title').lean();
-        if (exists) {
-          logger.debug(`  Ya existe: ${exists.title} (tmdb ${item.tmdb_id})`);
-          skipped++;
-          continue;
-        }
+      if (!item.tmdb_id) { 
+        skipped++; 
+        continue; 
+      }
 
+      try {
         await sleep(DELAY_MS);
         const tmdbData = await fetchSeriesByTmdbId(item.tmdb_id);
 
-        await Series.findOneAndUpdate(
+        const res = await Series.findOneAndUpdate(
           { tmdbId: tmdbData.tmdbId },
           { $set: {
             title:        tmdbData.title,
@@ -128,50 +119,56 @@ async function importSeries(startPage = 1) {
             vimeusEnabled: true,
             active:       true,
           }},
-          { upsert: true, runValidators: true }
+          { upsert: true, runValidators: true, rawResult: true }
         );
 
-        logger.info(`  ✅ ${tmdbData.title} (${tmdbData.totalSeasons} temp., tmdb ${tmdbData.tmdbId})`);
-        imported++;
+        if (res.lastErrorObject.updatedExisting) {
+            logger.info(`  🔄 Actualizada: ${tmdbData.title}`);
+            updated++;
+        } else {
+            logger.info(`  ✅ Nueva: ${tmdbData.title}`);
+            imported++;
+        }
       } catch (e) {
-        logger.warn(`  ❌ tmdb ${item.tmdb_id}: ${e.message}`);
+        logger.warn(`  ❌ Error en tmdb ${item.tmdb_id}: ${e.message}`);
         errors++;
       }
     }
-
     page++;
   } while (page <= totalPages);
 
-  logger.info(`Series: ${imported} importadas, ${skipped} ya existían, ${errors} errores`);
-  return { imported, skipped, errors };
+  logger.info(`Resumen Series: ${imported} nuevas, ${updated} actualizadas, ${errors} errores`);
 }
 
-// ─── Main ─────────────────────────────────────────────────────────────────────
+// ─── Main Execution ───────────────────────────────────────────────────────────
 (async () => {
-  const mode      = process.argv[2] || 'all';   // movies | series | all
+  console.log("🚀 [TECNOCOM] INICIANDO SCRIPT DE IMPORTACIÓN...");
+  
+  const mode = process.argv[2] || 'all'; 
   const startPage = parseInt(process.argv[3]) || 1;
 
   if (!process.env.VIMEUS_API_KEY) {
-    console.error('❌ Falta VIMEUS_API_KEY en .env');
+    console.error('❌ ERROR: Falta VIMEUS_API_KEY en las variables de entorno');
     process.exit(1);
   }
+  
   if (!process.env.TMDB_API_KEY) {
-    console.error('❌ Falta TMDB_API_KEY en .env');
+    console.error('❌ ERROR: Falta TMDB_API_KEY en las variables de entorno');
     process.exit(1);
   }
 
   try {
     await connectDB();
-    const start = Date.now();
+    const startTime = Date.now();
 
     if (mode === 'movies' || mode === 'all') await importMovies(startPage);
     if (mode === 'series' || mode === 'all') await importSeries(startPage);
 
-    const secs = ((Date.now() - start) / 1000).toFixed(1);
-    logger.info(`\n✅ Import completado en ${secs}s`);
+    const totalSecs = ((Date.now() - startTime) / 1000).toFixed(1);
+    logger.info(`\n🚀 [TECNOCOM] Importación completada con éxito en ${totalSecs}s`);
     process.exit(0);
   } catch (err) {
-    logger.error('Error fatal en import:', err.message);
+    logger.error('💥 ERROR FATAL en el proceso de importación:', err.message);
     process.exit(1);
   }
 })();

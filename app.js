@@ -20,7 +20,7 @@ const PORT   = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
 // ─── Trust proxy (Render/Railway usan reverse proxy) ──────────────────────────
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 // ─── Seguridad ────────────────────────────────────────────────────────────────
 app.use(helmet({

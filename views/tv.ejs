@@ -391,7 +391,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
     <!-- Player hero -->
     <div id="player-hero">
       <video id="video-el" controls autoplay playsinline></video>
-      <iframe id="iframe-el" allowfullscreen allow="autoplay;encrypted-media"></iframe>
+      <iframe id="iframe-el" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>
       <div id="hero-overlay">
         <div id="hero-badge" style="display:none;">EN VIVO</div>
         <div id="hero-info" style="display:none;">
@@ -638,75 +638,137 @@ function renderSearchResults(lista) {
 }
 
 // ── Player ────────────────────────────────────────────────────────────────
-const videoEl   = document.getElementById("video-el");
-const iframeEl  = document.getElementById("iframe-el");
-const spinner   = document.getElementById("hero-spinner");
-const playerErr = document.getElementById("hero-err");
+const videoEl     = document.getElementById("video-el");
+const iframeEl    = document.getElementById("iframe-el");
+const spinner     = document.getElementById("hero-spinner");
+const playerErr   = document.getElementById("hero-err");
 const placeholder = document.getElementById("hero-placeholder");
-const heroBadge = document.getElementById("hero-badge");
-const heroInfo  = document.getElementById("hero-info");
-const heroCanal = document.getElementById("hero-canal");
-const heroSub   = document.getElementById("hero-sub");
-const qualityEl = document.getElementById("hero-quality");
+const heroBadge   = document.getElementById("hero-badge");
+const heroInfo    = document.getElementById("hero-info");
+const heroCanal   = document.getElementById("hero-canal");
+const heroSub     = document.getElementById("hero-sub");
+const qualityEl   = document.getElementById("hero-quality");
 
 function mostrarSpinner(v) { spinner.style.display = v ? "flex" : "none"; }
 function mostrarError(v)   { playerErr.style.display = v ? "flex" : "none"; }
 
+// ── Helpers YouTube ───────────────────────────────────────────────────────
+function esUrlYoutube(url) {
+  return url && (
+    url.includes("youtube.com") ||
+    url.includes("youtu.be")    ||
+    url.includes("youtube-nocookie.com")
+  );
+}
+
+/**
+ * Convierte CUALQUIER URL de YouTube a la URL del proxy interno.
+ * El proxy (/api/ytproxy) sirve el iframe desde el servidor de Render,
+ * así YouTube ve como origen a streamx.com.ar → sin Error 153, sin bloqueos por ISP.
+ *
+ * Soporta:
+ *   - youtube.com/watch?v=ID
+ *   - youtube.com/embed/ID
+ *   - youtube-nocookie.com/embed/live_stream?channel=UCxxx
+ *   - youtu.be/ID
+ */
+function youtubeAProxy(url) {
+  if (!url) return url;
+
+  // live_stream por channel ID (el más común en tu scraper)
+  let m = url.match(/live_stream\?.*channel=([^&\s]+)/);
+  if (m) return `/api/ytproxy?channel=${m[1]}`;
+
+  // embed/VIDEO_ID
+  m = url.match(/embed\/([a-zA-Z0-9_-]{11})/);
+  if (m) return `/api/ytproxy?v=${m[1]}`;
+
+  // watch?v=VIDEO_ID
+  m = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if (m) return `/api/ytproxy?v=${m[1]}`;
+
+  // youtu.be/VIDEO_ID
+  m = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if (m) return `/api/ytproxy?v=${m[1]}`;
+
+  // Canal por URL: /channel/UCxxx
+  m = url.match(/youtube\.com\/channel\/([^/?&\s]+)/);
+  if (m) return `/api/ytproxy?channel=${m[1]}`;
+
+  // No se pudo parsear → pasar URL completa al proxy para que la maneje él
+  return `/api/ytproxy?url=${encodeURIComponent(url)}`;
+}
+
+// ── Reproducir ────────────────────────────────────────────────────────────
 function reproducir(url, nombre, fallbacks=[]) {
   if (!url) { toast("⚠️ Sin señal disponible"); return; }
   canalActivo = nombre; urlActual = url; fbActual = fallbacks;
   placeholder.style.display = "none";
-  heroBadge.style.display = "block";
-  heroInfo.style.display = "block";
-  heroCanal.textContent = nombre;
-  heroSub.textContent = "Cargando...";
+  heroBadge.style.display   = "block";
+  heroInfo.style.display    = "block";
+  heroCanal.textContent     = nombre;
+  heroSub.textContent       = "Cargando...";
   agregarHistorial(nombre, url, fallbacks);
   document.getElementById("player-hero").scrollIntoView({ behavior: "smooth", block: "start" });
   intentarPlay([url, ...fallbacks.filter(u => u !== url)], 0, nombre);
 }
 
+// ── intentarPlay — motor principal ────────────────────────────────────────
 function intentarPlay(urls, idx, nombre) {
-  if (idx >= urls.length) { mostrarSpinner(false); mostrarError(true); toast("❌ Sin señal para " + nombre); return; }
+  if (idx >= urls.length) {
+    mostrarSpinner(false); mostrarError(true);
+    toast("❌ Sin señal para " + nombre);
+    return;
+  }
+
   const url = urls[idx];
   mostrarError(false); mostrarSpinner(true);
   qualityEl.innerHTML = ""; qualityEl.style.display = "none";
-  heroSub.textContent = idx > 0 ? "Probando fuente " + (idx+1) + "..." : "En vivo";
+  heroSub.textContent = idx > 0 ? "Probando fuente " + (idx+1) + "..." : "Cargando...";
   if (idx > 0) toast("🔄 Probando fuente " + (idx+1) + "...");
 
-          // --- NUEVA LÓGICA PARA YOUTUBE Y OTROS ---
-  var videoId = null;
-  var ytMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  if (ytMatch && ytMatch[1]) { videoId = ytMatch[1]; }
-
-  // 2. Decidir qué reproductor usar
-  if (videoId) {
-    // Si es YouTube, REESCRIBIMOS la URL al formato embed sí o sí
-    videoEl.style.display = "none"; 
-    iframeEl.style.display = "block"; 
-    iframeEl.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&showinfo=0&modestbranding=1";
-    mostrarSpinner(false); 
-    heroSub.textContent = "En vivo (YouTube)"; 
-    return;
-  } 
-  
-  if (url.includes("nocookie") || url.includes("embed") || url.includes(".php") || url.includes("bolaloca")) {
-    // Si ya es un embed o una señal externa .php
-    videoEl.style.display = "none"; 
-    iframeEl.style.display = "block"; 
-    iframeEl.src = url;
-    mostrarSpinner(false); 
-    heroSub.textContent = "En vivo (Externo)"; 
+  // ── Caso YouTube → siempre via proxy ─────────────────────────────────────
+  // El proxy sirve el iframe DESDE Render, YouTube no ve el ISP del usuario
+  if (esUrlYoutube(url)) {
+    const proxyUrl = youtubeAProxy(url);
+    cargarIframe(proxyUrl, "En vivo (YouTube)");
     return;
   }
-  // --- FIN DEL CAMBIO ---
-              
 
-  videoEl.style.display = "block"; iframeEl.style.display = "none"; iframeEl.src = "";
+  // ── Caso iframe genérico: .php, bolaloca, embed, nocookie directo ─────────
+  if (url.includes(".php") || url.includes("bolaloca") ||
+      url.includes("/embed") || url.includes("nocookie")) {
+    cargarIframe(url, "En vivo");
+    return;
+  }
+
+  // ── Caso HLS / stream directo ─────────────────────────────────────────────
+  cargarHLS(url, urls, idx, nombre);
+}
+
+// ── Cargar iframe (YouTube proxy, .php, bolaloca, etc.) ───────────────────
+function cargarIframe(src, subtitulo) {
+  if (iframeEl._ytCleanup) { iframeEl._ytCleanup(); iframeEl._ytCleanup = null; }
+  videoEl.style.display  = "none";
+  iframeEl.style.display = "block";
+  iframeEl.src           = src;
+  mostrarSpinner(false);
+  heroSub.textContent    = subtitulo || "En vivo";
+}
+
+// ── Cargar HLS nativo ─────────────────────────────────────────────────────
+function cargarHLS(url, urls, idx, nombre) {
+  if (iframeEl._ytCleanup) { iframeEl._ytCleanup(); iframeEl._ytCleanup = null; }
+  videoEl.style.display  = "block";
+  iframeEl.style.display = "none";
+  iframeEl.src           = "";
   if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
 
   if (Hls.isSupported()) {
     const hls = new Hls({ enableWorker: true, lowLatencyMode: true, maxBufferLength: 20 });
-    hlsInstance = hls; hls.loadSource(url); hls.attachMedia(videoEl);
+    hlsInstance = hls;
+    hls.loadSource(url);
+    hls.attachMedia(videoEl);
     hls.on(Hls.Events.MANIFEST_PARSED, (e, data) => {
       mostrarSpinner(false); heroSub.textContent = "En vivo"; videoEl.play().catch(()=>{});
       if (data.levels && data.levels.length > 1) {
@@ -722,13 +784,15 @@ function intentarPlay(urls, idx, nombre) {
         });
       }
     });
-    hls.on(Hls.Events.ERROR, (e, data) => { if(data.fatal) { hls.destroy(); hlsInstance = null; setTimeout(()=>intentarPlay(urls,idx+1,nombre),800); } });
-    videoEl.addEventListener("waiting", () => mostrarSpinner(true), { once: false });
+    hls.on(Hls.Events.ERROR, (e, data) => {
+      if (data.fatal) { hls.destroy(); hlsInstance = null; setTimeout(()=>intentarPlay(urls, idx+1, nombre), 800); }
+    });
+    videoEl.addEventListener("waiting", () => mostrarSpinner(true),  { once: false });
     videoEl.addEventListener("playing", () => mostrarSpinner(false), { once: false });
   } else if (videoEl.canPlayType("application/vnd.apple.mpegurl")) {
     videoEl.src = url;
     videoEl.addEventListener("loadedmetadata", () => { mostrarSpinner(false); videoEl.play().catch(()=>{}); }, { once: true });
-    videoEl.addEventListener("error", () => { setTimeout(()=>intentarPlay(urls,idx+1,nombre),800); }, { once: true });
+    videoEl.addEventListener("error", () => { setTimeout(()=>intentarPlay(urls, idx+1, nombre), 800); }, { once: true });
   } else { mostrarSpinner(false); mostrarError(true); }
 }
 

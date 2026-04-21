@@ -19,6 +19,8 @@ const app    = express();
 const PORT   = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
+const ytproxy = require('./routes/ytproxy');
+app.use('/api', ytproxy);
 // ─── Trust proxy (Render/Railway usan reverse proxy) ──────────────────────────
 app.set('trust proxy', 1);
 

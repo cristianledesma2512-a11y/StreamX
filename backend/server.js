@@ -15,7 +15,8 @@ const sportsRouter   = require('./routes/sports');
 
 const app  = express();
 const PORT = process.env.PORT || 3001;
-
+const ytproxy = require('./routes/ytproxy');
+app.use('/api', ytproxy);
 app.use(helmet());
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000', credentials: true }));
 app.use('/api/', rateLimit({ windowMs: 15 * 60 * 1000, max: 200, message: { error: 'Demasiadas peticiones.' } }));

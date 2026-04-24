@@ -1146,12 +1146,18 @@ def buscar_canales_m3u(max_por_fuente=1000, max_total=2000):
                 n = nombre.upper()
                 if any(x in grp+n for x in ["SPORT","DEPORT","FUTBOL","FOOTBALL","LIGA","COPA","MOTORS"]):
                     cat = "DEPORTES"
+                elif any(x in grp_n for x in ["MOVIE", "CINE", "PELICULA", "HBO", "STAR", "CINEMAX"]):
+                    cat = "CINE"
                 elif any(x in grp+n for x in ["NEWS","NOTICIAS","INFO","24H"]):
                     cat = "NOTICIAS"
                 elif any(x in grp+n for x in ["MUSIC","MUSICA","HITS"]):
                     cat = "MUSICA"
+                elif any(x in grp_n for x in ["DOCU", "WILD", "HISTORY", "NAT GEO", "DISCOVERY", "ANIMAL"]):
+                    cat = "DOCUMENTALES"
                 elif any(x in grp+n for x in ["KIDS","INFANTIL","CHILDREN","CARTOON","DISNEY","NICK"]):
                     cat = "INFANTIL"
+                elif any(x in grp_n for x in ["XXX", "ADULT", "PLAYBOY", "PENTHOUSE", "VENUS"]):
+                    cat = "ADULTOS"
                 else:
                     cat = "INTERNACIONAL"
                 ids_vistos.add(key)

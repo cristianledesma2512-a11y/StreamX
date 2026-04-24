@@ -1144,15 +1144,7 @@ def buscar_canales_m3u(max_por_fuente=1000, max_total=2000):
                     i += 2
                     continue
                 n = nombre.upper()
-                if any(x in grp+n for x in ["SPORT","DEPORT","FUTBOL","FOOTBALL","LIGA","COPA","MOTORS"]):
-                    cat = "DEPORTES"
-                elif any(x in grp+n for x in ["NEWS","NOTICIAS","INFO","24H"]):
-                    cat = "NOTICIAS"
-                elif any(x in grp+n for x in ["MUSIC","MUSICA","HITS"]):
-                    cat = "MUSICA"
-                elif any(x in grp+n for x in ["KIDS","INFANTIL","CHILDREN","CARTOON","DISNEY","NICK"]):
-                    cat = "INFANTIL"
-                  if any(x in grp_n for x in ["SPORT", "DEPORT", "FUTBOL", "FOOTBALL", "LIGA", "COPA", "MOTORS", "ESPN", "FOX S"]):
+                if any(x in grp_n for x in ["SPORT", "DEPORT", "FUTBOL", "FOOTBALL", "LIGA", "COPA", "MOTORS", "ESPN", "FOX S"]):
                     cat = "DEPORTES"
                 elif any(x in grp_n for x in ["NEWS", "NOTICIAS", "INFO", "24H", "CNN", "BBC"]):
                     cat = "NOTICIAS"
@@ -1166,6 +1158,8 @@ def buscar_canales_m3u(max_por_fuente=1000, max_total=2000):
                     cat = "DOCUMENTALES"
                 elif any(x in grp_n for x in ["XXX", "ADULT", "PLAYBOY", "PENTHOUSE", "VENUS"]):
                     cat = "ADULTOS"
+                else:
+                    cat = "VARIEDADES"
                 else:
                     cat = "INTERNACIONAL"
                 ids_vistos.add(key)

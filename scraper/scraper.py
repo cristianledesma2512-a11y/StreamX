@@ -1046,6 +1046,40 @@ TDT_CANALES = [
 
 
 FUENTES_M3U = [
+    "https://iptv-org.github.io/iptv/categories/animation.m3u",
+"https://iptv-org.github.io/iptv/categories/auto.m3u",
+"https://iptv-org.github.io/iptv/categories/business.m3u",
+"https://iptv-org.github.io/iptv/categories/classic.m3u",
+"https://iptv-org.github.io/iptv/categories/comedy.m3u",
+"https://iptv-org.github.io/iptv/categories/cooking.m3u",
+"https://iptv-org.github.io/iptv/categories/culture.m3u",
+"https://iptv-org.github.io/iptv/categories/documentary.m3u",
+"https://iptv-org.github.io/iptv/categories/education.m3u",
+"https://iptv-org.github.io/iptv/categories/entertainment.m3u",
+"https://iptv-org.github.io/iptv/categories/family.m3u",
+"https://iptv-org.github.io/iptv/categories/general.m3u",
+"https://iptv-org.github.io/iptv/categories/interactive.m3u",
+"https://iptv-org.github.io/iptv/categories/kids.m3u",
+"https://iptv-org.github.io/iptv/categories/legislative.m3u",
+"https://iptv-org.github.io/iptv/categories/lifestyle.m3u",
+"https://iptv-org.github.io/iptv/categories/movies.m3u",
+"https://iptv-org.github.io/iptv/categories/music.m3u",
+"https://iptv-org.github.io/iptv/categories/news.m3u",
+"https://iptv-org.github.io/iptv/categories/outdoor.m3u",
+"https://iptv-org.github.io/iptv/categories/public.m3u",
+"https://iptv-org.github.io/iptv/categories/relax.m3u",
+"https://iptv-org.github.io/iptv/categories/religious.m3u",
+"https://iptv-org.github.io/iptv/categories/science.m3u",
+"https://iptv-org.github.io/iptv/categories/series.m3u",
+"https://iptv-org.github.io/iptv/categories/shop.m3u",
+"https://iptv-org.github.io/iptv/categories/sports.m3u",
+"https://iptv-org.github.io/iptv/categories/travel.m3u",
+"https://iptv-org.github.io/iptv/categories/weather.m3u",
+"https://iptv-org.github.io/iptv/categories/xxx.m3u",
+"https://iptv-org.github.io/iptv/categories/undefined.m3u",
+    
+
+  
    "https://iptv-org.github.io/iptv/countries/ar.m3u",
     "https://iptv-org.github.io/iptv/countries/mx.m3u",
     "https://iptv-org.github.io/iptv/countries/co.m3u",
@@ -1118,6 +1152,20 @@ def buscar_canales_m3u(max_por_fuente=1000, max_total=2000):
                     cat = "MUSICA"
                 elif any(x in grp+n for x in ["KIDS","INFANTIL","CHILDREN","CARTOON","DISNEY","NICK"]):
                     cat = "INFANTIL"
+                  if any(x in grp_n for x in ["SPORT", "DEPORT", "FUTBOL", "FOOTBALL", "LIGA", "COPA", "MOTORS", "ESPN", "FOX S"]):
+                    cat = "DEPORTES"
+                elif any(x in grp_n for x in ["NEWS", "NOTICIAS", "INFO", "24H", "CNN", "BBC"]):
+                    cat = "NOTICIAS"
+                elif any(x in grp_n for x in ["MOVIE", "CINE", "PELICULA", "HBO", "STAR", "CINEMAX"]):
+                    cat = "CINE"
+                elif any(x in grp_n for x in ["KIDS", "INFANTIL", "CHILDREN", "CARTOON", "DISNEY", "NICK", "DISCOVERY KIDS"]):
+                    cat = "INFANTIL"
+                elif any(x in grp_n for x in ["MUSIC", "MUSICA", "HITS", "MTV", "VH1"]):
+                    cat = "MUSICA"
+                elif any(x in grp_n for x in ["DOCU", "WILD", "HISTORY", "NAT GEO", "DISCOVERY", "ANIMAL"]):
+                    cat = "DOCUMENTALES"
+                elif any(x in grp_n for x in ["XXX", "ADULT", "PLAYBOY", "PENTHOUSE", "VENUS"]):
+                    cat = "ADULTOS"
                 else:
                     cat = "INTERNACIONAL"
                 ids_vistos.add(key)
@@ -1167,7 +1215,7 @@ def actualizar_canales(ref):
         }
 
      # 3. Canales extra de fuentes M3U
-    extra = buscar_canales_m3u(max_por_fuente=1000, max_total=2800)
+    extra = buscar_canales_m3u(max_por_fuente=5000, max_total=10800)
     for i, c in enumerate(extra):
         data[f"ext{i+1:04d}"] = {
             "nombre":    c["nombre"],

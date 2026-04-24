@@ -862,7 +862,7 @@ TDT_CANALES = [
     {"id":"tdt401",
         "nombre":"Telefé Noticias Argentina",
         "categoria":"NOTICIAS",
-        "url":"https://www.youtube.com/watch?v=XhAYcYpPzTc",
+        "url":"http://201.217.246.42:44310/Live/3fcb6e26785fd8d415571b26dc3cf5d3/telefe.playlist.m3u8",
         "logo":"https://graph.facebook.com/telefe/picture?width=200&height=200",
         "fallbacks":[]},
     {"id":"tdt402",

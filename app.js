@@ -1,150 +1,108 @@
-require('dotenv').config();
-const express     = require('express');
-const path        = require('path');
-const session     = require('express-session');
-const MongoStore  = require('connect-mongo');
-const bcrypt      = require('bcryptjs');
-const helmet      = require('helmet');
-const compression = require('compression');
-const morgan      = require('morgan');
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const router = express.Router();
 
-const { connectDB }  = require('./config/db');
-const logger         = require('./utils/logger');
-const adminRoutes    = require('./routes/admin');
-const publicRoutes   = require('./routes/public');
-const { errorHandler, notFoundHandler } = require('./middleware');
-const AdminUser = require('./models/AdminUser');
+const movieController = require('../controllers/movieController');
+const tvRoutes = require('./tv');
+const { asyncHandler } = require('../middleware');
 
-const app    = express();
-const PORT   = process.env.PORT || 3000;
-const isProd = process.env.NODE_ENV === 'production';
+const Movie = require('../models/Movie');
+const Series = require('../models/Series');
 
-const ytproxy = require('./routes/ytproxy');
-app.use('/api', ytproxy);
-// ─── Trust proxy (Render/Railway usan reverse proxy) ──────────────────────────
-app.set('trust proxy', 1);
-
-// ─── Seguridad ────────────────────────────────────────────────────────────────
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc:  ["'self'"],
-      scriptSrc:   ["'self'", "'unsafe-inline'", "'unsafe-hashes'",
-                    'cdn.tailwindcss.com', 'cdn.jsdelivr.net', '*.jsdelivr.net',
-                    'www.gstatic.com', '*.googleapis.com', '*.firebaseio.com'],
-      scriptSrcAttr: ["'unsafe-inline'"],
-      styleSrc:    ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'fonts.googleapis.com'],
-      fontSrc:     ["'self'", 'fonts.gstatic.com'],
-      imgSrc:      ["'self'", 'data:', 'https:', 'blob:'],
-      frameSrc:    ["'self'", 'https:'],
-      connectSrc:  ["'self'", 'blob:', 'https:', 'wss:', 'ws:',
-                    '*.jsdelivr.net', '*.akamaized.net', '*.akamaihd.net',
-                    '*.cloudfront.net', '*.firebaseio.com', '*.googleapis.com',
-                    '*.telesur.telefonica.net', 'stream.france24.com',
-                    '*.rttv.com', '*.pluto.tv', '*.cbsnews.com',
-                    '*.leanstream.co', '*.wurl.tv', '*.streamtp10.com',
-                    '*.streamtpnew.com', 'live-hls-web-aje.getaj.net',
-                    '*.nhk.or.jp', '*.trt.com.tr', '*.rtve.es'],
-      mediaSrc:    ["'self'", 'blob:', 'https:'],
-      workerSrc:   ["'self'", 'blob:'],
-    },
-  },
-  hsts: false,
-}));
-
-// ─── Performance ──────────────────────────────────────────────────────────────
-app.use(compression());
-
-// ─── Logging HTTP ─────────────────────────────────────────────────────────────
-app.use(morgan(isProd ? 'combined' : 'dev', {
-  stream: { write: (msg) => logger.http(msg.trim()) },
-}));
-
-// ─── Template engine ──────────────────────────────────────────────────────────
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// ─── Body parsing ─────────────────────────────────────────────────────────────
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(express.json({ limit: '10kb' }));
-
-// ─── Static ───────────────────────────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: isProd ? '7d' : 0,
-  etag: true,
-}));
-
-// ─── Sesiones ─────────────────────────────────────────────────────────────────
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'streamx-dev-secret-cambiar',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI,
-    ttl: 7 * 24 * 60 * 60,
-    touchAfter: 24 * 3600,
-  }),
-  cookie: {
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: false, // Render maneja HTTPS antes de llegar al app
-  },
-  name: 'sx.sid',
-}));
-
-// ─── Locals globales ──────────────────────────────────────────────────────────
-app.use((req, res, next) => {
-  res.locals.adminUser = req.session?.adminId
-    ? { id: req.session.adminId, username: req.session.username, role: req.session.role }
-    : null;
-  res.locals.sessionAdminId = req.session?.adminId || null;
-  res.locals.appName = 'StreamX';
-  next();
+const publicLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: Number(process.env.RATE_LIMIT_MAX) || 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => req.path === '/health',
 });
 
-// ─── Rutas ────────────────────────────────────────────────────────────────────
-// ─── Rutas ────────────────────────────────────────────────────────────────────
-app.use('/admin', adminRoutes);
-app.use('/api', publicRoutes); // <--- CAMBIA EL '/' POR '/api'
-app.use('/', publicRoutes);    // <--- MANTÉN ESTA PARA LA WEB (EJS)
-// ─── 404 y Error handler ──────────────────────────────────────────────────────
-app.use(notFoundHandler);
-app.use(errorHandler);
+router.use(publicLimiter);
 
-// ─── Seed admin inicial ───────────────────────────────────────────────────────
-async function ensureSeedAdmin() {
-  const u = process.env.ADMIN_SEED_USERNAME;
-  const p = process.env.ADMIN_SEED_PASSWORD;
-  if (!u || !p) return;
-  const count = await AdminUser.countDocuments();
-  if (count > 0) return;
-  const hash = await bcrypt.hash(String(p), 12);
-  await AdminUser.create({ username: String(u).trim().toLowerCase(), passwordHash: hash, role: 'super' });
-  logger.info(`Admin inicial creado: ${u}`);
+// ─── RUTAS PARA LA WEB (Renderizan EJS) ────────────────────────────────────────
+// Estas rutas funcionan cuando entras a streamx.com.ar/
+router.get('/', asyncHandler(movieController.listMovies));
+router.get('/watch/movie/:id', asyncHandler(movieController.showWatchMovie));
+router.get('/watch/series/:id', asyncHandler(movieController.showWatchSeries));
+router.get('/health', (req, res) => res.json({ status: 'ok', ts: new Date().toISOString() }));
+
+router.use('/tv', tvRoutes);
+
+// ─── ENDPOINTS PARA LA APP (Devuelven JSON) ────────────────────────────────────
+// Estas rutas funcionan cuando la App pide streamx.com.ar/api/...
+
+router.get('/movies', async (req, res) => {
+  try {
+    const items = await Movie.find({ active: true }).sort({ createdAt: -1 }).limit(30).lean();
+    res.json(mapToAndroid(items, 'movie'));
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/series', async (req, res) => {
+  try {
+    const items = await Series.find({ active: true }).sort({ createdAt: -1 }).limit(30).lean();
+    res.json(mapToAndroid(items, 'series'));
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/series/:id/details', async (req, res) => {
+  try {
+    const serie = await Series.findById(req.params.id).lean();
+    if (!serie) return res.status(404).json({ error: "Serie no encontrada" });
+    res.json(serie);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+router.get('/search', async (req, res) => {
+  const q = req.query.q || "";
+  try {
+    const movies = await Movie.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(10).lean();
+    const series = await Series.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(10).lean();
+    res.json([...mapToAndroid(movies, 'movie'), ...mapToAndroid(series, 'series')]);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ─── FUNCIÓN DE MAPEO (Metadatos para Android) ─────────────────────────────────
+function mapToAndroid(items, type) {
+  return items.map(item => {
+    let streamingUrl = "";
+    let quality = "HD";
+    let language = "Latino";
+    let releaseYear = "";
+
+    const rawDate = item.releaseDate || item.firstAirDate || "";
+    releaseYear = rawDate ? new Date(rawDate).getFullYear().toString() : "";
+
+    if (type === 'series') {
+      const firstLink = item.seasons?.[0]?.episodes?.[0]?.links?.[0];
+      streamingUrl = firstLink?.url || "";
+      quality = firstLink?.quality || "HD";
+      language = firstLink?.language || "Latino";
+    } else {
+      const movieLink = item.links?.[0];
+      streamingUrl = movieLink?.url || "";
+      quality = movieLink?.quality || "HD";
+      language = movieLink?.language || "Latino";
+    }
+
+    return {
+      _id: item._id,
+      tmdbId: item.tmdbId,
+      title: item.title,
+      overview: item.overview,
+      year: releaseYear,
+      genres: item.genres || [],
+      posterPath: item.posterPath,
+      backdropPath: item.backdropPath,
+      kind: type,
+      quality: quality,
+      language: language,
+      viewCount: item.viewCount || 0,
+      totalSeasons: item.totalSeasons || item.seasons?.length || 0,
+      totalEpisodes: item.seasons?.reduce((acc, s) => acc + (s.episodes?.length || 0), 0) || 0,
+      streamingUrl: streamingUrl
+    };
+  });
 }
 
-// ─── Arranque ─────────────────────────────────────────────────────────────────
-connectDB()
-  .then(() => ensureSeedAdmin())
-  .then(() => {
-    app.listen(PORT, '0.0.0.0', () => {
-      logger.info(`StreamX corriendo en puerto ${PORT} [${isProd ? 'PRODUCCIÓN' : 'desarrollo'}]`);
-      logger.info(`Healthcheck: /health`);
-    });
-  })
-  .catch((err) => {
-    logger.error('No se pudo arrancar:', err.message);
-    process.exit(1);
-  });
-
-// ─── Graceful shutdown ────────────────────────────────────────────────────────
-process.on('SIGTERM', () => {
-  logger.info('SIGTERM — cerrando servidor...');
-  process.exit(0);
-});
-process.on('unhandledRejection', (reason) => logger.error('unhandledRejection:', reason));
-process.on('uncaughtException', (err) => {
-  logger.error('uncaughtException:', err);
-  process.exit(1);
-});
+module.exports = router;

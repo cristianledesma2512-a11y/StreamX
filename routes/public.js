@@ -8,7 +8,9 @@ const { asyncHandler } = require('../middleware');
 
 const Movie = require('../models/Movie');
 const Series = require('../models/Series');
-
+router.get('/debug', (req, res) => {
+  res.json({ mensaje: "El router public.js está cargado correctamente" });
+});
 // Rate limit general para rutas públicas
 const publicLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

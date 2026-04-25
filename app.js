@@ -104,9 +104,10 @@ app.use((req, res, next) => {
 });
 
 // ─── Rutas ────────────────────────────────────────────────────────────────────
+// ─── Rutas ────────────────────────────────────────────────────────────────────
 app.use('/admin', adminRoutes);
-app.use('/', publicRoutes);
-
+app.use('/api', publicRoutes); // <--- CAMBIA EL '/' POR '/api'
+app.use('/', publicRoutes);    // <--- MANTÉN ESTA PARA LA WEB (EJS)
 // ─── 404 y Error handler ──────────────────────────────────────────────────────
 app.use(notFoundHandler);
 app.use(errorHandler);

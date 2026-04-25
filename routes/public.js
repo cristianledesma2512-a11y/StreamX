@@ -38,11 +38,39 @@ router.get('/api/movies', async (req, res) => {
 });
 
 // 2. Obtener Series
+// --- ENDPOINT PARA LA APP ANDROID TV (StreamX) ---
+
 router.get('/api/series', async (req, res) => {
   try {
-    const items = await Series.find({ kind: 'series', active: true }).sort({ createdAt: -1 }).limit(30);
-    res.json(mapToAndroid(items, 'series'));
-  } catch (err) { res.status(500).json({ error: err.message }); }
+    // 1. Quitamos 'kind' porque no existe en tu JSON de Mongo
+    const items = await Series.find({ active: true })
+      .sort({ createdAt: -1 })
+      .limit(30)
+      .lean();
+
+    // 2. Mapeamos los datos para que Android no reciba un streamingUrl vacío
+    const mappedItems = items.map(item => {
+      // Buscamos el link del Episodio 1 de la Temporada 1
+      const firstSeason = item.seasons?.find(s => s.number === 1) || item.seasons?.[0];
+      const firstEpisode = firstSeason?.episodes?.find(e => e.number === 1) || firstSeason?.episodes?.[0];
+      const streamingUrl = firstEpisode?.links?.[0]?.url || "";
+
+      return {
+        _id: item._id,
+        tmdbId: item.tmdbId || "",
+        title: item.title,
+        overview: item.overview || "",
+        posterPath: item.posterPath || "",
+        backdropPath: item.backdropPath || "",
+        kind: "series", // Se lo asignamos aquí manualmente para la App
+        streamingUrl: streamingUrl
+      };
+    });
+
+    res.json(mappedItems);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // 3. Obtener Animes

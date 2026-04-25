@@ -4,7 +4,7 @@ const router = express.Router();
 // Importamos el controlador para la WEB
 const movieController = require('../controllers/movieController');
 const { asyncHandler } = require('../middleware');
-
+const tvRoutes = require('./tv');
 // Importamos los modelos para la APP
 const Movie = require('../models/Movie');
 const Series = require('../models/Series');
@@ -19,7 +19,8 @@ router.get('/', asyncHandler(movieController.listMovies));
 router.get('/watch/movie/:id', asyncHandler(movieController.showWatchMovie));
 router.get('/watch/series/:id', asyncHandler(movieController.showWatchSeries));
 
-
+// ESTA ES LA LÍNEA QUE FALTA PARA QUE LA WEB DE TV FUNCIONE:
+router.use('/tv', tvRoutes);
 // =============================================================================
 // ─── ENDPOINTS PARA LA APP ANDROID (Devuelven JSON) ─────────────────────────
 // =============================================================================

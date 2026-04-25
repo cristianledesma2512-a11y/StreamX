@@ -103,19 +103,19 @@ app.use((req, res, next) => {
 
 // ─── Definición de Rutas ──────────────────────────────────────────────────────
 
-// 1. Proxy de YouTube
-app.use('/api/yt', ytproxy);
+// ─── Rutas (NUEVO ORDEN PRIORITARIO) ──────────────────────────────────────────
 
-// 2. Rutas del Panel de Administración
-app.use('/admin', adminRoutes);
+// 1. LA WEB PRIMERO (Para que streamx.com.ar/ no falle)
+app.use('/', publicRoutes); 
 
-// 3. Rutas de la API (Para la App Android)
+// 2. LA API SEGUNDO
 app.use('/api', publicRoutes);
 
-// 4. Rutas de la WEB (Página Principal y Reproductor)
-app.use('/', publicRoutes);
+// 3. EL RESTO
+app.use('/api/yt', ytproxy);
+app.use('/admin', adminRoutes);
 
-// ─── Manejo de Errores (404 debe ir al final de las rutas) ───────────────────
+// ─── 404 y Error handler (ASEGÚRATE QUE ESTÉN AL FINAL) ──────────────────────
 app.use(notFoundHandler);
 app.use(errorHandler);
 

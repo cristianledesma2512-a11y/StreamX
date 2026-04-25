@@ -94,9 +94,11 @@ FUENTES_M3U = [
     {"nombre": "IPTV Uruguay", "url": "https://iptv-org.github.io/iptv/countries/uy.m3u"},
     {"nombre": "IPTV España", "url": "https://iptv-org.github.io/iptv/countries/es.m3u"},
     {"nombre": "IPTV Spanish Language", "url": "https://iptv-org.github.io/iptv/languages/spa.m3u"},
+    {"nombre": "TDTChannels TV (España/Global)", "url": "https://www.tdtchannels.com/lists/tv.m3u8"},
+    {"nombre": "TDTChannels Radio", "url": "https://www.tdtchannels.com/lists/radio.m3u8"},
 ]
 
-FUENTES_SIN_FILTRO = ["tdtchannels.com"]
+FUENTES_SIN_FILTRO = []
 
 
 def buscar_canales_m3u(max_por_fuente=5000, max_total=10800):

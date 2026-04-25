@@ -2,12 +2,12 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const router = express.Router();
 
-const movieController = require('../controllers/movieController'); // Solo un punto
+const movieController = require('./controllers/movieController'); // Solo un punto
 const tvRoutes = require('./tv');
-const { asyncHandler } = require('../middleware');
+const { asyncHandler } = require('./middleware');
 
-const Movie = require('../models/Movie');
-const Series = require('../models/Series');
+const Movie = require('./models/Movie');
+const Series = require('./models/Series');
 
 // Rate limit para evitar abusos
 const publicLimiter = rateLimit({

@@ -63,18 +63,36 @@ router.get('/search', async (req, res) => {
 });
 
 // FUNCIÓN DE MAPEO (Calcula temporadas y capítulos)
+// --- FUNCIÓN DE MAPEO EXTENDIDA ---
 function mapToAndroid(items, type) {
   return items.map(item => {
     let streamingUrl = "";
+    let quality = "";
+    let language = "";
+    let releaseYear = "";
     let sCount = 0;
     let eCount = 0;
 
+    // Extraer Año de estreno
+    const dateStr = item.releaseDate || item.firstAirDate || "";
+    releaseYear = dateStr ? dateStr.split('-')[0] : "";
+
     if (type === 'series' || type === 'anime') {
-      sCount = item.seasons?.length || 0;
+      sCount = item.totalSeasons || item.seasons?.length || 0;
       eCount = item.seasons?.reduce((acc, s) => acc + (s.episodes?.length || 0), 0) || 0;
-      streamingUrl = item.seasons?.[0]?.episodes?.[0]?.links?.[0]?.url || "";
+      
+      // Datos del primer episodio
+      const firstEp = item.seasons?.[0]?.episodes?.[0];
+      const firstLink = firstEp?.links?.[0];
+      streamingUrl = firstLink?.url || "";
+      quality = firstLink?.quality || "";
+      language = firstLink?.language || "";
     } else {
-      streamingUrl = item.links?.[0]?.url || "";
+      // Datos de película
+      const mainLink = item.links?.[0];
+      streamingUrl = mainLink?.url || "";
+      quality = mainLink?.quality || "";
+      language = mainLink?.language || "";
     }
 
     return {
@@ -85,9 +103,14 @@ function mapToAndroid(items, type) {
       posterPath: item.posterPath || "",
       backdropPath: item.backdropPath || "",
       kind: type,
+      year: releaseYear,
+      genres: item.genres || [], // Array de géneros ["Acción", "Drama"]
+      quality: quality,          // "FHD", "4K"
+      language: language,        // "Latino", "Sub"
       streamingUrl: streamingUrl,
       totalSeasons: sCount,
-      totalEpisodes: eCount
+      totalEpisodes: eCount,
+      viewCount: item.viewCount || 0
     };
   });
 }

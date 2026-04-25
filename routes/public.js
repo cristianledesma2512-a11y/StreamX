@@ -40,6 +40,7 @@ router.get('/api/movies', async (req, res) => {
 // 2. Obtener Series
 // --- ENDPOINT PARA LA APP ANDROID TV (StreamX) ---
 
+// Nuevo endpoint para ver temporadas y capítulos de una serie específica
 router.get('/api/series/:id/details', async (req, res) => {
   try {
     const serie = await Series.findById(req.params.id).lean();

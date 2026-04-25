@@ -1,126 +1,161 @@
-const express = require('express');
-const rateLimit = require('express-rate-limit');
-const router = express.Router();
+require('dotenv').config();
+const express     = require('express');
+const path        = require('path');
+const session     = require('express-session');
+const MongoStore  = require('connect-mongo');
+const bcrypt      = require('bcryptjs');
+const helmet      = require('helmet');
+const compression = require('compression');
+const morgan      = require('morgan');
 
-const movieController = require('./controllers/movieController'); // Solo un punto
-const tvRoutes = require('./tv');
-const { asyncHandler } = require('./middleware');
+// --- Importaciones de Configuración y Rutas ---
+const { connectDB }  = require('./config/db');
+const logger         = require('./utils/logger');
+const adminRoutes    = require('./routes/admin');
+const publicRoutes   = require('./routes/public'); // Este maneja la API y la Web
+const ytproxy        = require('./routes/ytproxy');
+const { errorHandler, notFoundHandler } = require('./middleware');
+const AdminUser = require('./models/AdminUser');
 
-const Movie = require('./models/Movie');
-const Series = require('./models/Series');
+const app    = express();
+const PORT   = process.env.PORT || 3000;
+const isProd = process.env.NODE_ENV === 'production';
 
-// Rate limit para evitar abusos
-const publicLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 200,
-  standardHeaders: true,
-  legacyHeaders: false,
-  skip: (req) => req.path === '/health',
+// ─── Trust proxy (Necesario para Render/Railway) ─────────────────────────────
+app.set('trust proxy', 1);
+
+// ─── Seguridad (Helmet) ───────────────────────────────────────────────────────
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc:  ["'self'"],
+      scriptSrc:   ["'self'", "'unsafe-inline'", "'unsafe-hashes'",
+                    'cdn.tailwindcss.com', 'cdn.jsdelivr.net', '*.jsdelivr.net',
+                    'www.gstatic.com', '*.googleapis.com', '*.firebaseio.com'],
+      scriptSrcAttr: ["'unsafe-inline'"],
+      styleSrc:    ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'fonts.googleapis.com'],
+      fontSrc:     ["'self'", 'fonts.gstatic.com'],
+      imgSrc:      ["'self'", 'data:', 'https:', 'blob:'],
+      frameSrc:    ["'self'", 'https:'],
+      connectSrc:  ["'self'", 'blob:', 'https:', 'wss:', 'ws:',
+                    '*.jsdelivr.net', '*.akamaized.net', '*.akamaihd.net',
+                    '*.cloudfront.net', '*.firebaseio.com', '*.googleapis.com',
+                    '*.telesur.telefonica.net', 'stream.france24.com',
+                    '*.rttv.com', '*.pluto.tv', '*.cbsnews.com',
+                    '*.leanstream.co', '*.wurl.tv', '*.streamtp10.com',
+                    '*.streamtpnew.com', 'live-hls-web-aje.getaj.net',
+                    '*.nhk.or.jp', '*.trt.com.tr', '*.rtve.es'],
+      mediaSrc:    ["'self'", 'blob:', 'https:'],
+      workerSrc:   ["'self'", 'blob:'],
+    },
+  },
+  hsts: false,
+}));
+
+// ─── Middlewares de Optimización ─────────────────────────────────────────────
+app.use(compression());
+app.use(morgan(isProd ? 'combined' : 'dev', {
+  stream: { write: (msg) => logger.http(msg.trim()) },
+}));
+
+// ─── Motor de Plantillas ─────────────────────────────────────────────────────
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// ─── Body Parsing ────────────────────────────────────────────────────────────
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '10kb' }));
+
+// ─── Archivos Estáticos ──────────────────────────────────────────────────────
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: isProd ? '7d' : 0,
+  etag: true,
+}));
+
+// ─── Manejo de Sesiones ──────────────────────────────────────────────────────
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'streamx-dev-secret-cambiar',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    ttl: 7 * 24 * 60 * 60,
+    touchAfter: 24 * 3600,
+  }),
+  cookie: {
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: isProd, 
+  },
+  name: 'sx.sid',
+}));
+
+// ─── Variables Globales para las Vistas (Locals) ─────────────────────────────
+app.use((req, res, next) => {
+  res.locals.adminUser = req.session?.adminId
+    ? { id: req.session.adminId, username: req.session.username, role: req.session.role }
+    : null;
+  res.locals.sessionAdminId = req.session?.adminId || null;
+  res.locals.appName = 'StreamX';
+  next();
 });
 
-router.use(publicLimiter);
+// ─── Definición de Rutas ──────────────────────────────────────────────────────
 
-// =============================================================================
-// ─── SECCIÓN 1: RUTAS PARA LA WEB (Vistas EJS) ───────────────────────────────
-// =============================================================================
+// 1. Proxy de YouTube
+app.use('/api/yt', ytproxy);
 
-router.get('/', asyncHandler(movieController.listMovies));
+// 2. Rutas del Panel de Administración
+app.use('/admin', adminRoutes);
 
-router.get('/watch/movie/:id', asyncHandler(movieController.showWatchMovie));
+// 3. Rutas de la API (Para la App Android)
+app.use('/api', publicRoutes);
 
-router.get('/watch/series/:id', asyncHandler(movieController.showWatchSeries));
+// 4. Rutas de la WEB (Página Principal y Reproductor)
+app.use('/', publicRoutes);
 
-router.get('/health', (req, res) => res.json({ status: 'ok', ts: new Date().toISOString() }));
+// ─── Manejo de Errores (404 debe ir al final de las rutas) ───────────────────
+app.use(notFoundHandler);
+app.use(errorHandler);
 
-router.use('/tv', tvRoutes);
-
-
-// =============================================================================
-// ─── SECCIÓN 2: ENDPOINTS PARA ANDROID (JSON) ───────────────────────────────
-// =============================================================================
-
-// 1. Listado de Películas
-router.get('/movies', async (req, res) => {
-  try {
-    const items = await Movie.find({ active: true }).sort({ createdAt: -1 }).limit(40).lean();
-    res.json(mapToAndroid(items, 'movie'));
-  } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-// 2. Listado de Series
-router.get('/series', async (req, res) => {
-  try {
-    const items = await Series.find({ active: true }).sort({ createdAt: -1 }).limit(40).lean();
-    res.json(mapToAndroid(items, 'series'));
-  } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-// 3. Detalle Completo de Serie (Temporadas/Capítulos)
-router.get('/series/:id/details', async (req, res) => {
-  try {
-    const serie = await Series.findById(req.params.id).lean();
-    if (!serie) return res.status(404).json({ error: "Serie no encontrada" });
-    res.json(serie);
-  } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-// 4. Buscador Inteligente
-router.get('/search', async (req, res) => {
-  const q = req.query.q || "";
-  try {
-    const movies = await Movie.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(15).lean();
-    const series = await Series.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(15).lean();
-    res.json([...mapToAndroid(movies, 'movie'), ...mapToAndroid(series, 'series')]);
-  } catch (err) { res.status(500).json({ error: err.message }); }
-});
-
-
-// =============================================================================
-// ─── SECCIÓN 3: UTILIDADES ──────────────────────────────────────────────────
-// =============================================================================
-
-function mapToAndroid(items, type) {
-  return items.map(item => {
-    let streamingUrl = "";
-    let quality = "HD";
-    let language = "Latino";
-    let releaseYear = "";
-
-    // Extraer año de la fecha
-    const rawDate = item.releaseDate || item.firstAirDate || "";
-    releaseYear = rawDate ? new Date(rawDate).getFullYear().toString() : "2026";
-
-    if (type === 'series') {
-      const firstEp = item.seasons?.[0]?.episodes?.[0];
-      const firstLink = firstEp?.links?.[0];
-      streamingUrl = firstLink?.url || "";
-      quality = firstLink?.quality || "FHD";
-      language = firstLink?.language || "Latino";
-    } else {
-      const movieLink = item.links?.[0];
-      streamingUrl = movieLink?.url || "";
-      quality = movieLink?.quality || "FHD";
-      language = movieLink?.language || "Latino";
-    }
-
-    return {
-      _id: item._id,
-      tmdbId: item.tmdbId,
-      title: item.title,
-      overview: item.overview || "",
-      year: releaseYear,
-      genres: item.genres || [],
-      posterPath: item.posterPath,
-      backdropPath: item.backdropPath,
-      kind: type,
-      quality: quality,
-      language: language,
-      viewCount: item.viewCount || 0,
-      totalSeasons: item.totalSeasons || item.seasons?.length || 0,
-      totalEpisodes: item.seasons?.reduce((acc, s) => acc + (s.episodes?.length || 0), 0) || 0,
-      streamingUrl: streamingUrl
-    };
+// ─── Función para crear Admin Inicial (Seed) ──────────────────────────────────
+async function ensureSeedAdmin() {
+  const u = process.env.ADMIN_SEED_USERNAME;
+  const p = process.env.ADMIN_SEED_PASSWORD;
+  if (!u || !p) return;
+  const count = await AdminUser.countDocuments();
+  if (count > 0) return;
+  const hash = await bcrypt.hash(String(p), 12);
+  await AdminUser.create({ 
+    username: String(u).trim().toLowerCase(), 
+    passwordHash: hash, 
+    role: 'super' 
   });
+  logger.info(`Admin inicial creado: ${u}`);
 }
 
-module.exports = router;
+// ─── Arranque del Servidor ────────────────────────────────────────────────────
+connectDB()
+  .then(() => ensureSeedAdmin())
+  .then(() => {
+    app.listen(PORT, '0.0.0.0', () => {
+      logger.info(`StreamX corriendo en puerto ${PORT} [${isProd ? 'PRODUCCIÓN' : 'desarrollo'}]`);
+      logger.info(`API Series disponible en: /api/series`);
+    });
+  })
+  .catch((err) => {
+    logger.error('No se pudo arrancar el servidor:', err.message);
+    process.exit(1);
+  });
+
+// ─── Apagado Correcto (Graceful Shutdown) ─────────────────────────────────────
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM recibido: cerrando servidor...');
+  process.exit(0);
+});
+process.on('unhandledRejection', (reason) => logger.error('Unhandled Rejection:', reason));
+process.on('uncaughtException', (err) => {
+  logger.error('Uncaught Exception:', err);
+  process.exit(1);
+});

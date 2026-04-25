@@ -2,7 +2,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const router = express.Router();
 
-const movieController = require('../controllers/movieController');
+const movieController = require('./controllers/movieController'); // Solo un punto
 const tvRoutes = require('./tv');
 const { asyncHandler } = require('../middleware');
 

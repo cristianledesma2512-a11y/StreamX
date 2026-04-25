@@ -9,9 +9,10 @@ const { asyncHandler } = require('../middleware');
 const Movie = require('../models/Movie');
 const Series = require('../models/Series');
 
+// Rate limit para evitar abusos
 const publicLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: Number(process.env.RATE_LIMIT_MAX) || 200,
+  max: 200,
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => req.path === '/health',
@@ -19,32 +20,42 @@ const publicLimiter = rateLimit({
 
 router.use(publicLimiter);
 
-// ─── RUTAS PARA LA WEB (Renderizan EJS) ────────────────────────────────────────
-// Estas rutas funcionan cuando entras a streamx.com.ar/
+// =============================================================================
+// ─── SECCIÓN 1: RUTAS PARA LA WEB (Vistas EJS) ───────────────────────────────
+// =============================================================================
+
 router.get('/', asyncHandler(movieController.listMovies));
+
 router.get('/watch/movie/:id', asyncHandler(movieController.showWatchMovie));
+
 router.get('/watch/series/:id', asyncHandler(movieController.showWatchSeries));
+
 router.get('/health', (req, res) => res.json({ status: 'ok', ts: new Date().toISOString() }));
 
 router.use('/tv', tvRoutes);
 
-// ─── ENDPOINTS PARA LA APP (Devuelven JSON) ────────────────────────────────────
-// Estas rutas funcionan cuando la App pide streamx.com.ar/api/...
 
+// =============================================================================
+// ─── SECCIÓN 2: ENDPOINTS PARA ANDROID (JSON) ───────────────────────────────
+// =============================================================================
+
+// 1. Listado de Películas
 router.get('/movies', async (req, res) => {
   try {
-    const items = await Movie.find({ active: true }).sort({ createdAt: -1 }).limit(30).lean();
+    const items = await Movie.find({ active: true }).sort({ createdAt: -1 }).limit(40).lean();
     res.json(mapToAndroid(items, 'movie'));
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// 2. Listado de Series
 router.get('/series', async (req, res) => {
   try {
-    const items = await Series.find({ active: true }).sort({ createdAt: -1 }).limit(30).lean();
+    const items = await Series.find({ active: true }).sort({ createdAt: -1 }).limit(40).lean();
     res.json(mapToAndroid(items, 'series'));
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// 3. Detalle Completo de Serie (Temporadas/Capítulos)
 router.get('/series/:id/details', async (req, res) => {
   try {
     const serie = await Series.findById(req.params.id).lean();
@@ -53,16 +64,21 @@ router.get('/series/:id/details', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// 4. Buscador Inteligente
 router.get('/search', async (req, res) => {
   const q = req.query.q || "";
   try {
-    const movies = await Movie.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(10).lean();
-    const series = await Series.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(10).lean();
+    const movies = await Movie.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(15).lean();
+    const series = await Series.find({ title: { $regex: q, $options: 'i' }, active: true }).limit(15).lean();
     res.json([...mapToAndroid(movies, 'movie'), ...mapToAndroid(series, 'series')]);
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ─── FUNCIÓN DE MAPEO (Metadatos para Android) ─────────────────────────────────
+
+// =============================================================================
+// ─── SECCIÓN 3: UTILIDADES ──────────────────────────────────────────────────
+// =============================================================================
+
 function mapToAndroid(items, type) {
   return items.map(item => {
     let streamingUrl = "";
@@ -70,18 +86,20 @@ function mapToAndroid(items, type) {
     let language = "Latino";
     let releaseYear = "";
 
+    // Extraer año de la fecha
     const rawDate = item.releaseDate || item.firstAirDate || "";
-    releaseYear = rawDate ? new Date(rawDate).getFullYear().toString() : "";
+    releaseYear = rawDate ? new Date(rawDate).getFullYear().toString() : "2026";
 
     if (type === 'series') {
-      const firstLink = item.seasons?.[0]?.episodes?.[0]?.links?.[0];
+      const firstEp = item.seasons?.[0]?.episodes?.[0];
+      const firstLink = firstEp?.links?.[0];
       streamingUrl = firstLink?.url || "";
-      quality = firstLink?.quality || "HD";
+      quality = firstLink?.quality || "FHD";
       language = firstLink?.language || "Latino";
     } else {
       const movieLink = item.links?.[0];
       streamingUrl = movieLink?.url || "";
-      quality = movieLink?.quality || "HD";
+      quality = movieLink?.quality || "FHD";
       language = movieLink?.language || "Latino";
     }
 
@@ -89,7 +107,7 @@ function mapToAndroid(items, type) {
       _id: item._id,
       tmdbId: item.tmdbId,
       title: item.title,
-      overview: item.overview,
+      overview: item.overview || "",
       year: releaseYear,
       genres: item.genres || [],
       posterPath: item.posterPath,

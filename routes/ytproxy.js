@@ -30,22 +30,19 @@ router.get('/', (req, res) => {
     const { channel, v, url } = req.query;
     let parsed = null;
 
-    if (channel) { parsed = { tipo: 'channel', id: channel }; } 
-    else if (v) { parsed = { tipo: 'video', id: v }; } 
-    else if (url) { parsed = parsearYoutubeUrl(decodeURIComponent(url)); }
+    if (channel) parsed = { tipo: 'channel', id: channel };
+    else if (v) parsed = { tipo: 'video', id: v };
+    else if (url) parsed = parsearYoutubeUrl(decodeURIComponent(url));
 
-    if (!parsed) return res.status(400).send('Parámetro inválido.');
+    if (!parsed) return res.status(400).send('Parámetro faltante.');
 
     const embedUrl = construirEmbedUrl(parsed);
-    if (!embedUrl) return res.status(400).send('No se pudo construir URL.');
-
     const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
     <style>*{margin:0;padding:0}html,body,iframe{width:100%;height:100%;background:#000;border:none;overflow:hidden}</style>
     </head><body><iframe src="${embedUrl}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></body></html>`;
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('X-Frame-Options', 'ALLOWALL');
-    res.setHeader('Content-Security-Policy', "frame-ancestors *");
     res.send(html);
 });
 

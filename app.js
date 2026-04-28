@@ -103,19 +103,30 @@ app.use((req, res, next) => {
 
 // ─── Definición de Rutas ──────────────────────────────────────────────────────
 
-// ─── Rutas (NUEVO ORDEN PRIORITARIO) ──────────────────────────────────────────
+// ... (Tus importaciones y middlewares de Helmet, Session, etc.)
 
-// 1. EL PROXY (Ruta única y específica)
-// Al usar '/api/ytproxy', Express solo entrará aquí si la URL es exacta.
+// ─── DEFINICIÓN DE RUTAS (ORDEN DE PRIORIDAD) ────────────────────────────────
+
+// 1. EL PROXY DE YOUTUBE (Específico para la Web)
+// Al ponerlo aquí, capturamos /api/ytproxy antes que cualquier otra ruta de /api
 app.use('/api/ytproxy', ytproxy); 
 
-// 2. LAS RUTAS DE LA APP Y WEB
-// Esto manejará /api/movies, /api/series, etc.
+// 2. LA API PARA ANDROID (General)
+// Como la App busca /api/movies o /api/series, pasará de largo la ruta de arriba
+// y entrará aquí correctamente.
 app.use('/api', publicRoutes); 
 
-// 3. LA WEB PRINCIPAL
+// 3. LA WEB PRINCIPAL (Frontend)
 app.use('/', publicRoutes);
+
+// 4. PANEL DE ADMINISTRACIÓN
 app.use('/admin', adminRoutes);
+
+// ─── MANEJO DE ERRORES (Siempre al final) ────────────────────────────────────
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+// ... (Arranque del servidor)
 
 // ─── 404 y Error handler (ASEGÚRATE QUE ESTÉN AL FINAL) ──────────────────────
 app.use(notFoundHandler);

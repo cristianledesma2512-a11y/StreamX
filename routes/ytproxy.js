@@ -26,16 +26,30 @@ function construirEmbedUrl(parsed) {
 }
 
 // Cambiamos '/ytproxy' por '/' para que sea la ruta base del middleware
-router.get('/', (req, res) => { // <-- Cambiado de '/ytproxy' a '/'
-    const { v, url } = req.query;
+router.get('/', (req, res) => {
+    // Capturamos los parámetros de la URL
+    const channelId = req.query.channel; // Cambié 'channel' por 'channelId' para evitar conflictos
+    const videoId = req.query.v;
+    const directUrl = req.query.url;
 
-    if (channel) parsed = { tipo: 'channel', id: channel };
-    else if (v) parsed = { tipo: 'video', id: v };
-    else if (url) parsed = parsearYoutubeUrl(decodeURIComponent(url));
+    let parsed = null;
 
-    if (!parsed) return res.status(400).send('Parámetro faltante.');
+    if (channelId) {
+        parsed = { tipo: 'channel', id: channelId };
+    } else if (videoId) {
+        parsed = { tipo: 'video', id: videoId };
+    } else if (directUrl) {
+        parsed = parsearYoutubeUrl(decodeURIComponent(directUrl));
+    }
+
+    // Si nada de lo anterior existe, devolvemos error 400 (Bad Request) en vez de 500
+    if (!parsed) {
+        return res.status(400).send('Error: No se proporcionó un ID de video o canal válido.');
+    }
 
     const embedUrl = construirEmbedUrl(parsed);
+    
+    // Generamos el HTML (El resto del código sigue igual)
     const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
     <style>*{margin:0;padding:0}html,body,iframe{width:100%;height:100%;background:#000;border:none;overflow:hidden}</style>
     </head><body><iframe src="${embedUrl}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe></body></html>`;

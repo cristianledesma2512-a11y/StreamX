@@ -105,14 +105,16 @@ app.use((req, res, next) => {
 
 // ─── Rutas (NUEVO ORDEN PRIORITARIO) ──────────────────────────────────────────
 
-// 1. LA WEB PRIMERO (Para que streamx.com.ar/ no falle)
-app.use('/', publicRoutes); 
+// 1. EL PROXY (Ruta única y específica)
+// Al usar '/api/ytproxy', Express solo entrará aquí si la URL es exacta.
+app.use('/api/ytproxy', ytproxy); 
 
-// 2. LA API SEGUNDO
-app.use('/api', publicRoutes);
+// 2. LAS RUTAS DE LA APP Y WEB
+// Esto manejará /api/movies, /api/series, etc.
+app.use('/api', publicRoutes); 
 
-// 3. EL RESTO
-app.use('/api/yt', ytproxy);
+// 3. LA WEB PRINCIPAL
+app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
 // ─── 404 y Error handler (ASEGÚRATE QUE ESTÉN AL FINAL) ──────────────────────

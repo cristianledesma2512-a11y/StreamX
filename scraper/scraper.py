@@ -1137,7 +1137,7 @@ TDT_CANALES = [
     {"id":"tdt400",
     "nombre":"Todo Noticias Argentina",
         "categoria":"NOTICIAS",
-        "url":"https://www.youtube.com/watch?v=cb12KmMMDJA",
+        "url":"https://www.youtube.com/embed/cb12KmMMDJA",
         "logo":"https://graph.facebook.com/todonoticias/picture?width=200&height=200",
         "fallbacks":[]},
     {"id":"tdt401",

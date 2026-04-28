@@ -26,9 +26,8 @@ function construirEmbedUrl(parsed) {
 }
 
 // Cambiamos '/ytproxy' por '/' para que sea la ruta base del middleware
-router.get('/', (req, res) => {
-    const { channel, v, url } = req.query;
-    let parsed = null;
+router.get('/', (req, res) => { // <-- Cambiado de '/ytproxy' a '/'
+    const { v, url } = req.query;
 
     if (channel) parsed = { tipo: 'channel', id: channel };
     else if (v) parsed = { tipo: 'video', id: v };

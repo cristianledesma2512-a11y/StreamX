@@ -111,13 +111,10 @@ app.use((req, res, next) => {
 // Al ponerlo aquí, capturamos /api/ytproxy antes que cualquier otra ruta de /api
 app.use('/api/ytproxy', ytproxy); 
 
-// 2. LA API PARA ANDROID (General)
-// Como la App busca /api/movies o /api/series, pasará de largo la ruta de arriba
-// y entrará aquí correctamente.
-app.use('/api', publicRoutes); 
 
 // 3. LA WEB PRINCIPAL (Frontend)
 app.use('/', publicRoutes);
+app.use('/api', publicRoutes); 
 
 // 4. PANEL DE ADMINISTRACIÓN
 app.use('/admin', adminRoutes);

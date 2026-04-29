@@ -388,10 +388,10 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
   <!-- ══ TV EN VIVO ══ -->
   <div id="sec-tv" class="section a">
 
-     <!-- Player hero -->
+    <!-- Player hero -->
     <div id="player-hero">
       <video id="video-el" controls autoplay playsinline></video>
-      <iframe id="iframe-el" allowfullscreen allow="autoplay;encrypted-media"></iframe>
+      <iframe id="iframe-el" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>
       <div id="hero-overlay">
         <div id="hero-badge" style="display:none;">EN VIVO</div>
         <div id="hero-info" style="display:none;">
@@ -399,8 +399,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
           <div id="hero-sub">Seleccioná un canal</div>
         </div>
         <div id="hero-btns">
-          <div class="hero-btn" id="btn-fs"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#74ACDF" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div>
-          <div class="hero-btn" id="btn-rep-c"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#74ACDF" stroke-width="2"><path d="m10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>
+          <div class="hero-btn" id="btn-fs"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div>
+          <div class="hero-btn" id="btn-rep-c"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="m10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>
         </div>
         <div id="hero-quality"></div>
         <div id="hero-spinner"><div class="spin"></div></div>
@@ -409,29 +409,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
           <p>No se pudo cargar la señal.</p>
           <button id="btn-retry">🔄 Reintentar</button>
         </div>
-<!-- inicio Capa publicidad -->
-      <div id="capa-pub">
-        <h5>📺 Cargando transmisión...</h5>
-        <p>Apoyá el proyecto mirando el anuncio</p>
-        <div id="ad-box-300">
-<!-- inicio SCRIPT -->
-          
-
-
-<!-- fin SCRIPT -->
-
-        </div>
-        <span id="contador-ad">Esperá <span id="seg-ad">5</span>s...</span>
-        <button id="btn-continuar" onclick="cerrarPublicidad()">Continuar al video ✕</button>
-      </div>
-<!-- fin Capa publicidad -->
         <div id="hero-placeholder">
           <span style="font-size:40px;">📺</span>
           <p>Seleccioná un canal para comenzar</p>
         </div>
       </div>
     </div>
-
 
     <!-- Category strip -->
     <div id="cat-strip">
@@ -724,34 +707,71 @@ function reproducir(url, nombre, fallbacks=[]) {
   if (!url) { toast("⚠️ Sin señal disponible"); return; }
   canalActivo = nombre; urlActual = url; fbActual = fallbacks;
   placeholder.style.display = "none";
-  heroBadge.style.display = "block";
-  heroInfo.style.display = "block";
-  heroCanal.textContent = nombre;
-  heroSub.textContent = "Cargando...";
+  heroBadge.style.display   = "block";
+  heroInfo.style.display    = "block";
+  heroCanal.textContent     = nombre;
+  heroSub.textContent       = "Cargando...";
   agregarHistorial(nombre, url, fallbacks);
   document.getElementById("player-hero").scrollIntoView({ behavior: "smooth", block: "start" });
   intentarPlay([url, ...fallbacks.filter(u => u !== url)], 0, nombre);
 }
 
+// ── intentarPlay — motor principal ────────────────────────────────────────
 function intentarPlay(urls, idx, nombre) {
-  if (idx >= urls.length) { mostrarSpinner(false); mostrarError(true); toast("❌ Sin señal para " + nombre); return; }
+  if (idx >= urls.length) {
+    mostrarSpinner(false); mostrarError(true);
+    toast("❌ Sin señal para " + nombre);
+    return;
+  }
+
   const url = urls[idx];
   mostrarError(false); mostrarSpinner(true);
   qualityEl.innerHTML = ""; qualityEl.style.display = "none";
-  heroSub.textContent = idx > 0 ? "Probando fuente " + (idx+1) + "..." : "En vivo";
+  heroSub.textContent = idx > 0 ? "Probando fuente " + (idx+1) + "..." : "Cargando...";
   if (idx > 0) toast("🔄 Probando fuente " + (idx+1) + "...");
 
-  if (url.includes("youtube") || url.includes("nocookie") || url.includes("embed") || url.includes(".php") || url.includes("bolaloca")) {
-    videoEl.style.display = "none"; iframeEl.style.display = "block"; iframeEl.src = url;
-    mostrarSpinner(false); heroSub.textContent = "En vivo"; return;
+  // ── Caso YouTube → siempre via proxy ─────────────────────────────────────
+  // El proxy sirve el iframe DESDE Render, YouTube no ve el ISP del usuario
+  if (esUrlYoutube(url)) {
+    const proxyUrl = youtubeAProxy(url);
+    cargarIframe(proxyUrl, "En vivo (YouTube)");
+    return;
   }
 
-  videoEl.style.display = "block"; iframeEl.style.display = "none"; iframeEl.src = "";
+  // ── Caso iframe genérico: .php, bolaloca, embed, nocookie directo ─────────
+  if (url.includes(".php") || url.includes("bolaloca") ||
+      url.includes("/embed") || url.includes("nocookie")) {
+    cargarIframe(url, "En vivo");
+    return;
+  }
+
+  // ── Caso HLS / stream directo ─────────────────────────────────────────────
+  cargarHLS(url, urls, idx, nombre);
+}
+
+// ── Cargar iframe (YouTube proxy, .php, bolaloca, etc.) ───────────────────
+function cargarIframe(src, subtitulo) {
+  if (iframeEl._ytCleanup) { iframeEl._ytCleanup(); iframeEl._ytCleanup = null; }
+  videoEl.style.display  = "none";
+  iframeEl.style.display = "block";
+  iframeEl.src           = src;
+  mostrarSpinner(false);
+  heroSub.textContent    = subtitulo || "En vivo";
+}
+
+// ── Cargar HLS nativo ─────────────────────────────────────────────────────
+function cargarHLS(url, urls, idx, nombre) {
+  if (iframeEl._ytCleanup) { iframeEl._ytCleanup(); iframeEl._ytCleanup = null; }
+  videoEl.style.display  = "block";
+  iframeEl.style.display = "none";
+  iframeEl.src           = "";
   if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
 
   if (Hls.isSupported()) {
     const hls = new Hls({ enableWorker: true, lowLatencyMode: true, maxBufferLength: 20 });
-    hlsInstance = hls; hls.loadSource(url); hls.attachMedia(videoEl);
+    hlsInstance = hls;
+    hls.loadSource(url);
+    hls.attachMedia(videoEl);
     hls.on(Hls.Events.MANIFEST_PARSED, (e, data) => {
       mostrarSpinner(false); heroSub.textContent = "En vivo"; videoEl.play().catch(()=>{});
       if (data.levels && data.levels.length > 1) {
@@ -767,13 +787,15 @@ function intentarPlay(urls, idx, nombre) {
         });
       }
     });
-    hls.on(Hls.Events.ERROR, (e, data) => { if(data.fatal) { hls.destroy(); hlsInstance = null; setTimeout(()=>intentarPlay(urls,idx+1,nombre),800); } });
-    videoEl.addEventListener("waiting", () => mostrarSpinner(true), { once: false });
+    hls.on(Hls.Events.ERROR, (e, data) => {
+      if (data.fatal) { hls.destroy(); hlsInstance = null; setTimeout(()=>intentarPlay(urls, idx+1, nombre), 800); }
+    });
+    videoEl.addEventListener("waiting", () => mostrarSpinner(true),  { once: false });
     videoEl.addEventListener("playing", () => mostrarSpinner(false), { once: false });
   } else if (videoEl.canPlayType("application/vnd.apple.mpegurl")) {
     videoEl.src = url;
     videoEl.addEventListener("loadedmetadata", () => { mostrarSpinner(false); videoEl.play().catch(()=>{}); }, { once: true });
-    videoEl.addEventListener("error", () => { setTimeout(()=>intentarPlay(urls,idx+1,nombre),800); }, { once: true });
+    videoEl.addEventListener("error", () => { setTimeout(()=>intentarPlay(urls, idx+1, nombre), 800); }, { once: true });
   } else { mostrarSpinner(false); mostrarError(true); }
 }
 
@@ -788,8 +810,6 @@ document.getElementById("btn-rep-c").onclick = () => {
   db.ref("reportes").push({ canal: canalActivo, usuario: miNick || "anónimo", fecha: firebase.database.ServerValue.TIMESTAMP });
   toast("✅ Reporte enviado");
 };
-
-
 
 // ── Favoritos ────────────────────────────────────────────────────────────
 function esFavorito(nombre) { return favoritos.includes(nombre); }

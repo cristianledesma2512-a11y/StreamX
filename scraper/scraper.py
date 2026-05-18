@@ -27,7 +27,7 @@ def conectar_firebase():
             raise Exception("No se encontró FIREBASE_SERVICE_ACCOUNT")
         cred = credentials.Certificate(json.loads(sa))
         firebase_admin.initialize_app(cred, {
-            "databaseURL": "https://streamx-53ace-default-rtdb.firebaseio.com/"
+            "databaseURL": "https://streamx-31fda-default-rtdb.firebaseio.com/"
         })
         return rtdb.reference("/")
     except Exception as e:

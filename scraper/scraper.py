@@ -199,7 +199,7 @@ CANALES_FIJOS = [
     #   Aire
     {"id":"stp118","nombre":"Telefe F","categoria":"DEPORTES","url":"https://streamtp-x-y-z.ws/global2.php?stream=telefe","logo":"https://images.seeklogo.com/logo-png/45/1/telefe-tv-logo-png_seeklogo-451860.png","fallbacks":[]},
 
-    {"id":"stp119","nombre":"Telefe EN VIVO","categoria":"DEPORTES","url":"http://201.217.246.42:44310/Live/3fcb6e26785fd8d415571b26dc3cf5d3/telefe.playlist.m3u8","logo":"https://images.seeklogo.com/logo-png/45/1/telefe-tv-logo-png_seeklogo-451860.png","fallbacks":[]},
+    {"id":"stp119","nombre":"Telefe EN VIVO","categoria":"DEPORTES","url":"http://181.13.252.102:8000/play/a06c/index.m3u8","logo":"https://images.seeklogo.com/logo-png/45/1/telefe-tv-logo-png_seeklogo-451860.png","fallbacks":[]},
 
     
     {"id":"stp120","nombre":"TN DEPORTES","categoria":"DEPORTES","url":"https://www.youtube.com/watch?v=cb12KmMMDJA","logo":"https://images.seeklogo.com/logo-png/46/1/todo-noticias-logo-png_seeklogo-462511.png","fallbacks":[]},
@@ -221,572 +221,1617 @@ CANALES_FIJOS = [
   
     # ── Bolaloca via proxy Railway ────────────────────────────────────
 
-    {"id":"bol01",
-        "nombre":"TYC SPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/77",
-        "logo":"https://images.seeklogo.com/logo-png/34/1/tyc-sports-logo-png_seeklogo-340604.png",
-        "fallbacks":[]},
-    {"id":"bol02",
-        "nombre":"ESPN PREMIUM",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/76",
-        "logo":"https://images.seeklogo.com/logo-png/4/1/espn-logo-png_seeklogo-49194.png",
-        "fallbacks":[]},
-    {"id":"bol03",
-        "nombre":"TNT SPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/75",
-        "logo":"https://images.seeklogo.com/logo-png/51/1/tnt-sports-logo-png_seeklogo-519540.png",
-        "fallbacks":[]},
-    {"id":"bol04",
-        "nombre":"DSPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/94",
-        "logo":"https://images.seeklogo.com/logo-png/62/1/dsports-logo-png_seeklogo-626310.png",
-        "fallbacks":[]},
-    {"id":"bol05",
-        "nombre":"DSPORT2",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/95",
-        "logo":"https://images.seeklogo.com/logo-png/62/1/dsports-logo-png_seeklogo-626310.png",
-        "fallbacks":[]},
-    {"id":"bol06",
-        "nombre":"DSPORT+",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/96",
-        "logo":"https://images.seeklogo.com/logo-png/62/1/dsports-logo-png_seeklogo-626310.png",
-        "fallbacks":[]},
-    {"id":"bol07",
-        "nombre":"+FOOT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/12",
-        "logo":"https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks":[]},
-    {"id":"bol08",
-        "nombre":"+SPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/13",
-        "logo":"https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks":[]},
-    {"id":"bol09",
-        "nombre":"+SPORT360",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/14",
-        "logo":"https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks":[]},
-    {"id":"bol10",
-        "nombre":"EUROSPORT1",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/15",
-        "logo":"https://images.seeklogo.com/logo-png/27/1/eurosport-logo-png_seeklogo-270286.png",
-        "fallbacks":[]},
-    {"id":"bol11",
-        "nombre":"EUROSPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/16",
-        "logo":"https://images.seeklogo.com/logo-png/27/1/eurosport-logo-png_seeklogo-270286.png",
-        "fallbacks":[]},
-    {"id":"bol12",
-        "nombre":"RMC SPORT1",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/17",
-        "logo":"https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks":[]},
-    {"id":"bol13",
-        "nombre":"ligue 1+",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/18",
-        "logo":"https://logos-world.net/wp-content/uploads/2024/06/Ligue-1-Logo-New.png",
-        "fallbacks":[]},
-    {"id":"bol14",
-        "nombre":"TUDN",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/68",
-        "logo":"https://tvlatina.tv/tvhispana/wp-content/uploads/sites/12/2015/11/TUDN_logo.jpg",
-        "fallbacks":[]},
-    {"id":"bol15",
-        "nombre":"FOX DEPORTES",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/70",
-        "logo":"https://images.seeklogo.com/logo-png/31/1/fox-sports-logo-png_seeklogo-315883.png",
-        "fallbacks":[]},
-    {"id":"bol16",
-        "nombre":"LAS",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/74",
-        "logo":"https://i0.wp.com/laligatoronto.ca/wp-content/uploads/2022/11/Logo_La-Liga-Sports-Complex_verde.png",
-        "fallbacks":[]},
-    {"id":"bol17",
-        "nombre":"FOXSPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/78",
-        "logo":"https://images.seeklogo.com/logo-png/31/1/fox-sports-logo-png_seeklogo-315883.png",
-        "fallbacks":[]},
-    {"id":"bol18",
-        "nombre":"FOXSPORT2",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/79",
-        "logo":"https://images.seeklogo.com/logo-png/31/1/fox-sports-logo-png_seeklogo-315883.png",
-        "fallbacks":[]},
-    {"id":"bol19",
-        "nombre":"FOXSPORT3",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/80",
-        "logo":"https://images.seeklogo.com/logo-png/31/1/fox-sports-logo-png_seeklogo-315883.png",
-        "fallbacks":[]},
-    {"id":"bol20",
-        "nombre":"WINSPORT",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/81",
-        "logo":"https://images.seeklogo.com/logo-png/64/1/win-sports-logo-png_seeklogo-644046.png",
-        "fallbacks":[]},
-    {"id":"bol21",
-        "nombre":"TNTSPORT PREMIUM",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/83",
-        "logo":"https://images.seeklogo.com/logo-png/37/1/tnt-sports-logo-png_seeklogo-373020.png",
-        "fallbacks":[]},
-    {"id":"bol22",
-        "nombre":"ESPN",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/87",
-        "logo":"https://images.seeklogo.com/logo-png/28/1/espn-logo-png_seeklogo-283139.png",
-        "fallbacks":[]},
-    {"id":"bol23",
-        "nombre":"ESPN2",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/88",
-        "logo":"https://images.seeklogo.com/logo-png/28/1/espn-logo-png_seeklogo-283139.png",
-        "fallbacks":[]},
-    {"id":"bol24",
-        "nombre":"ESPN3",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/89",
-        "logo":"https://images.seeklogo.com/logo-png/28/1/espn-logo-png_seeklogo-283139.png",
-        "fallbacks":[]},
-    {"id":"bol25",
-        "nombre":"ESPN4",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/90",
-        "logo":"https://images.seeklogo.com/logo-png/28/1/espn-logo-png_seeklogo-283139.png",
-        "fallbacks":[]},
-    {"id":"bol26",
-        "nombre":"ESPN5",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/91",
-        "logo":"https://images.seeklogo.com/logo-png/28/1/espn-logo-png_seeklogo-283139.png",
-        "fallbacks":[]},
-    {"id":"bol27",
-        "nombre":"ESPN6",
-        "categoria":"DEPORTES",
-        "url":"https://bolaloca.my/player/2/92",
-        "logo":"https://images.seeklogo.com/logo-png/28/1/espn-logo-png_seeklogo-283139.png",
-        "fallbacks":[]},
-
+    {
+    "id": "bol01",
+    "nombre": "canal 1",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/01",
+    "logo": "https://images.seeklogo.com/logo-png/48/1/bein-sports-1-logo-png_seeklogo-481583.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol02",
+    "nombre": "canal 2",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/02",
+    "logo": "https://images.seeklogo.com/logo-png/48/1/bein-sports-2-logo-png_seeklogo-481584.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol03",
+    "nombre": "canal 3",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/03",
+    "logo": "https://images.seeklogo.com/logo-png/48/1/bein-sports-3-logo-png_seeklogo-481585.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol04",
+    "nombre": "canal 4",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/04",
+    "logo": "https://images.seeklogo.com/logo-png/36/1/bein-sports-logo-png_seeklogo-367812.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol05",
+    "nombre": "canal 5",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/05",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol06",
+    "nombre": "canal 6",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/06",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol07",
+    "nombre": "canal 7",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/07",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol08",
+    "nombre": "canal 8",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/08",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol09",
+    "nombre": "canal 9",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/09",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol10",
+    "nombre": "canal 10",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/10",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol11",
+    "nombre": "canal 11",
+    "categoria": "CINE",
+    "url": "https://bolaloca.my/player/2/11",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol12",
+    "nombre": "canal 12",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/12",
+    "logo": "https://thumb.canalplus.pro/bran/unsafe/%7BresolutionXY%7D/image/630c886aa7ce0/uploads/media/LOGO-CANAL-FOOT-TALL.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol13",
+    "nombre": "canal 13",
+    "categoria": "CINE",
+    "url": "https://bolaloca.my/player/2/13",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol14",
+    "nombre": "canal 14",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/14",
+    "logo": "https://thumb.canalplus.pro/bran/unsafe/%7BresolutionXY%7D/image/630c886aa7ce0/uploads/media/LOGO-CANAL-FOOT-TALL.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol15",
+    "nombre": "canal 15",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/15",
+    "logo": "https://images.seeklogo.com/logo-png/40/1/eurosport-logo-png_seeklogo-407861.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol16",
+    "nombre": "canal 16",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/16",
+    "logo": "https://images.seeklogo.com/logo-png/27/1/eurosport-2-logo-png_seeklogo-270285.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol17",
+    "nombre": "canal 17",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/17",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol18",
+    "nombre": "canal 18",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/18",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol19",
+    "nombre": "canal 19",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/19",
+    "logo": "https://images.seeklogo.com/logo-png/24/1/lequipe-logo-png_seeklogo-245702.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol20",
+    "nombre": "canal 20",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/20",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol21",
+    "nombre": "canal 21",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/21",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol22",
+    "nombre": "canal 22",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/22",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol23",
+    "nombre": "canal 23",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/23",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol24",
+    "nombre": "canal 24",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/24",
+    "logo": "https://images.seeklogo.com/logo-png/16/1/tf1-logo-png_seeklogo-169793.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol25",
+    "nombre": "canal 25",
+    "categoria": "CINE",
+    "url": "https://bolaloca.my/player/2/25",
+    "logo": "https://images.seeklogo.com/logo-png/13/1/tcm-logo-png_seeklogo-136143.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol26",
+    "nombre": "canal 26",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/26",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol27",
+    "nombre": "canal 27",
+    "categoria": "CINE",
+    "url": "https://bolaloca.my/player/2/27",
+    "logo": "https://images.seeklogo.com/logo-png/25/1/w9-logo-png_seeklogo-252476.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol28",
+    "nombre": "canal 28",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/28",
+    "logo": "https://images.seeklogo.com/logo-png/52/1/france-tv-2022-logo-png_seeklogo-521449.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol29",
+    "nombre": "canal 29",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/29",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol30",
+    "nombre": "canal 30",
+    "categoria": "INFANTIL",
+    "url": "https://bolaloca.my/player/2/30",
+    "logo": "https://images.seeklogo.com/logo-png/39/1/okoo-logo-png_seeklogo-399478.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol31",
+    "nombre": "canal 31",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/31",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol32",
+    "nombre": "canal 32",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/32",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol33",
+    "nombre": "canal 33",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/33",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol34",
+    "nombre": "canal 34",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/34",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol35",
+    "nombre": "canal 35",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/35",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol36",
+    "nombre": "canal 36",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/36",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol37",
+    "nombre": "canal 37",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/37",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol38",
+    "nombre": "canal 38",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/38",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol39",
+    "nombre": "canal 39",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/39",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol40",
+    "nombre": "canal 40",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/40",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol41",
+    "nombre": "canal 41",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/41",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol42",
+    "nombre": "canal 42",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/42",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol43",
+    "nombre": "canal 43",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/43",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol44",
+    "nombre": "canal 44",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/44",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol45",
+    "nombre": "canal 44",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/45",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol46",
+    "nombre": "canal 46",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/46",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol47",
+    "nombre": "canal 47",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/47",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol48",
+    "nombre": "canal 48",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/48",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol49",
+    "nombre": "canal 49",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/49",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol50",
+    "nombre": "canal 50",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/50",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol51",
+    "nombre": "canal 51",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/51",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol52",
+    "nombre": "canal 52",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/52",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol53",
+    "nombre": "canal 53",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/53",
+    "logo": "https://images.seeklogo.com/logo-png/61/1/la-liga-logo-png_seeklogo-614181.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol54",
+    "nombre": "canal 54",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/54",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol55",
+    "nombre": "canal 55",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/55",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol56",
+    "nombre": "canal 56",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/56",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol57",
+    "nombre": "canal 57",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/57",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol58",
+    "nombre": "canal 58",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/58",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol59",
+    "nombre": "canal 59",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/59",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol60",
+    "nombre": "canal 60",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/60",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol61",
+    "nombre": "canal 61",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/61",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol62",
+    "nombre": "canal 62",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/62",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol63",
+    "nombre": "canal 63",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/63",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol64",
+    "nombre": "canal 64",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/64",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol65",
+    "nombre": "canal 65",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/65",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol66",
+    "nombre": "canal 66",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/66",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol67",
+    "nombre": "canal 67",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/67",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol68",
+    "nombre": "canal 68",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/68",
+    "logo": "https://images.seeklogo.com/logo-png/36/1/tudn-logo-png_seeklogo-367833.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol69",
+    "nombre": "canal 69",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/69",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol70",
+    "nombre": "canal 70",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/70",
+    "logo": "https://images.seeklogo.com/logo-png/30/1/fox-sports-en-espanol-logo-png_seeklogo-301754.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol71",
+    "nombre": "canal 71",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/71",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol72",
+    "nombre": "canal 72",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/72",
+    "logo": "https://images.seeklogo.com/logo-png/26/1/nbc-universo-logo-png_seeklogo-261153.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol73",
+    "nombre": "canal 73",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/73",
+    "logo": "https://images.seeklogo.com/logo-png/45/1/telemundo-logo-png_seeklogo-454415.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol74",
+    "nombre": "canal 74",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/74",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol75",
+    "nombre": "canal 75",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/75",
+    "logo": "https://images.seeklogo.com/logo-png/51/1/tnt-sports-logo-png_seeklogo-519540.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol76",
+    "nombre": "canal 76",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/76",
+    "logo": "https://images.seeklogo.com/logo-png/4/1/espn-logo-png_seeklogo-49195.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol77",
+    "nombre": "canal 77",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/77",
+    "logo": "https://images.seeklogo.com/logo-png/34/1/tyc-sports-logo-png_seeklogo-340604.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol78",
+    "nombre": "canal 78",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/78",
+    "logo": "https://images.seeklogo.com/logo-png/27/1/fox-sports-logo-png_seeklogo-270420.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol79",
+    "nombre": "canal 79",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/79",
+    "logo": "https://images.seeklogo.com/logo-png/47/1/fox-sports-2-argentina-2023-logo-png_seeklogo-471070.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol80",
+    "nombre": "canal 80",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/80",
+    "logo": "https://images.seeklogo.com/logo-png/47/1/fox-sports-3-argentina-2023-logo-png_seeklogo-471071.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol81",
+    "nombre": "canal 81",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/81",
+    "logo": "https://images.seeklogo.com/logo-png/37/1/win-sport-logo-png_seeklogo-371670.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol82",
+    "nombre": "canal 82",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/82",
+    "logo": "https://images.seeklogo.com/logo-png/25/1/win-sports-logo-png_seeklogo-259337.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol83",
+    "nombre": "canal 83",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/83",
+    "logo": "https://images.seeklogo.com/logo-png/51/1/tnt-sports-logo-png_seeklogo-519540.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol84",
+    "nombre": "canal 84",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/84",
+    "logo": "https://images.seeklogo.com/logo-png/51/1/l1-logo-png_seeklogo-519696.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol85",
+    "nombre": "canal 85",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/85",
+    "logo": "https://images.seeklogo.com/logo-png/32/1/chilevision-2018-present-logo-png_seeklogo-326993.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol86",
+    "nombre": "canal 86",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/86",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol87",
+    "nombre": "canal 87",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/87",
+    "logo": "https://images.seeklogo.com/logo-png/4/1/espn-logo-png_seeklogo-49196.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol88",
+    "nombre": "canal 88",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/88",
+    "logo": "https://images.seeklogo.com/logo-png/26/1/espn2-logo-png_seeklogo-261969.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol89",
+    "nombre": "canal 89",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/89",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/espn-logo-png_seeklogo-537115.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol90",
+    "nombre": "canal 90",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/90",
+    "logo": "https://images.seeklogo.com/logo-png/53/1/espn-logo-png_seeklogo-537115.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol91",
+    "nombre": "canal 91",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/91",
+    "logo": "https://images.seeklogo.com/logo-png/52/1/espn-5-logo-png_seeklogo-522715.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol92",
+    "nombre": "canal 92",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/92",
+    "logo": "https://images.seeklogo.com/logo-png/52/1/espn-6-logo-png_seeklogo-522717.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol93",
+    "nombre": "canal 93",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/93",
+    "logo": "https://images.seeklogo.com/logo-png/52/1/espn-7-logo-png_seeklogo-522718.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol94",
+    "nombre": "canal 94",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/94",
+    "logo": "https://images.seeklogo.com/logo-png/62/1/dsports-logo-png_seeklogo-626310.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol95",
+    "nombre": "canal 95",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/95",
+    "logo": "https://images.seeklogo.com/logo-png/62/1/dsports-logo-png_seeklogo-626310.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol96",
+    "nombre": "canal 96",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/96",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol97",
+    "nombre": "canal 97",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/97",
+    "logo": "https://images.seeklogo.com/logo-png/4/1/espn-logo-png_seeklogo-49195.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol98",
+    "nombre": "canal 98",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/98",
+    "logo": "https://images.seeklogo.com/logo-png/4/1/espn-2-logo-png_seeklogo-49202.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol99",
+    "nombre": "canal 99",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/99",
+    "logo": "https://images.seeklogo.com/logo-png/26/1/espn-deportes-logo-png_seeklogo-261968.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol100",
+    "nombre": "canal 100",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/100",
+    "logo": "https://images.seeklogo.com/logo-png/4/1/espn-logo-png_seeklogo-49194.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol101",
+    "nombre": "canal 101",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/101",
+    "logo": "https://images.seeklogo.com/logo-png/28/1/fox-sports-hd-logo-png_seeklogo-284627.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol102",
+    "nombre": "canal 102",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/102",
+    "logo": "https://images.seeklogo.com/logo-png/36/1/fox-sports-2-logo-png_seeklogo-369602.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol103",
+    "nombre": "canal 103",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/103",
+    "logo": "https://images.seeklogo.com/logo-png/51/1/fox-sports-3-logo-png_seeklogo-510012.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol104",
+    "nombre": "canal 104",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/104",
+    "logo": "https://images.seeklogo.com/logo-png/32/1/fox-sports-logo-png_seeklogo-326645.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol105",
+    "nombre": "canal 105",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/105",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol106",
+    "nombre": "canal 106",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/106",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol107",
+    "nombre": "canal 107",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/107",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol108",
+    "nombre": "canal 108",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/108",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol109",
+    "nombre": "canal 109",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/109",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol110",
+    "nombre": "canal 110",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/110",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol111",
+    "nombre": "canal 111",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/111",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol112",
+    "nombre": "canal 112",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/112",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol113",
+    "nombre": "canal 113",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/113",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol114",
+    "nombre": "canal 114",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/114",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol115",
+    "nombre": "canal 115",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/115",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol116",
+    "nombre": "canal 116",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/116",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol117",
+    "nombre": "canal 117",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/117",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol118",
+    "nombre": "canal 118",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/118",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol119",
+    "nombre": "canal 119",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/119",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol120",
+    "nombre": "canal 120",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/120",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol121",
+    "nombre": "canal 121",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/121",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol122",
+    "nombre": "canal 122",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/122",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol123",
+    "nombre": "canal 123",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/123",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol124",
+    "nombre": "canal 124",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/124",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol125",
+    "nombre": "canal 125",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/125",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol126",
+    "nombre": "canal 126",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/126",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol127",
+    "nombre": "canal 127",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/127",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol128",
+    "nombre": "canal 128",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/128",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol129",
+    "nombre": "canal 129",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/129",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol130",
+    "nombre": "canal 130",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/130",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol131",
+    "nombre": "canal 131",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/131",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol132",
+    "nombre": "canal 132",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/132",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol133",
+    "nombre": "canal 133",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/133",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol134",
+    "nombre": "canal 134",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/134",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol135",
+    "nombre": "canal 135",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/135",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol136",
+    "nombre": "canal 136",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/136",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol137",
+    "nombre": "canal 137",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/137",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol138",
+    "nombre": "canal 138",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/138",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol139",
+    "nombre": "canal 139",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/139",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol140",
+    "nombre": "canal 140",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/140",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol141",
+    "nombre": "canal 141",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/141",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol142",
+    "nombre": "canal 142",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/142",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol143",
+    "nombre": "canal 143",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/143",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol144",
+    "nombre": "canal 144",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/144",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol145",
+    "nombre": "canal 145",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/145",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol146",
+    "nombre": "canal 146",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/146",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol147",
+    "nombre": "canal 147",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/147",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol148",
+    "nombre": "canal 148",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/148",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol149",
+    "nombre": "canal 149",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/149",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol150",
+    "nombre": "canal 150",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/150",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol151",
+    "nombre": "canal 151",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/151",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol152",
+    "nombre": "canal 152",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/152",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol153",
+    "nombre": "canal 153",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/153",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol154",
+    "nombre": "canal 154",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/154",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol155",
+    "nombre": "canal 155",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/155",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol156",
+    "nombre": "canal 156",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/156",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol157",
+    "nombre": "canal 157",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/157",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol158",
+    "nombre": "canal 158",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/158",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol159",
+    "nombre": "canal 159",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/159",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol160",
+    "nombre": "canal 160",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/160",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol161",
+    "nombre": "canal 161",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/161",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol162",
+    "nombre": "canal 162",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/162",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol163",
+    "nombre": "canal 163",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/163",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol164",
+    "nombre": "canal 164",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/164",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol165",
+    "nombre": "canal 165",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/165",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol166",
+    "nombre": "canal 166",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/166",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol167",
+    "nombre": "canal 167",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/167",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol168",
+    "nombre": "canal 168",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/168",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol169",
+    "nombre": "canal 169",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/169",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol170",
+    "nombre": "canal 170",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/170",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol171",
+    "nombre": "canal 171",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/171",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol172",
+    "nombre": "canal 172",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/172",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol173",
+    "nombre": "canal 173",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/173",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol174",
+    "nombre": "canal 174",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/174",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol175",
+    "nombre": "canal 175",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/175",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol176",
+    "nombre": "canal 176",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/176",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol177",
+    "nombre": "canal 177",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/177",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol178",
+    "nombre": "canal 178",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/178",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol179",
+    "nombre": "canal 179",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/179",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol180",
+    "nombre": "canal 180",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/180",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol181",
+    "nombre": "canal 181",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/181",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol182",
+    "nombre": "canal 182",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/182",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol183",
+    "nombre": "canal 183",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/183",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol184",
+    "nombre": "canal 184",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/184",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol185",
+    "nombre": "canal 185",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/185",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol186",
+    "nombre": "canal 186",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/186",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol187",
+    "nombre": "canal 187",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/187",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol188",
+    "nombre": "canal 188",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/188",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol189",
+    "nombre": "canal 189",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/189",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol190",
+    "nombre": "canal 190",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/190",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol191",
+    "nombre": "canal 191",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/191",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol192",
+    "nombre": "canal 192",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/192",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol193",
+    "nombre": "canal 193",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/193",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol194",
+    "nombre": "canal 194",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/194",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol195",
+    "nombre": "canal 195",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/195",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol196",
+    "nombre": "canal 196",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/196",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol197",
+    "nombre": "canal 197",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/197",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol198",
+    "nombre": "canal 198",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/198",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol199",
+    "nombre": "canal 199",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/199",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
+  {
+    "id": "bol200",
+    "nombre": "canal 200",
+    "categoria": "DEPORTES",
+    "url": "https://bolaloca.my/player/2/200",
+    "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
+    "fallbacks": []
+  },
       # canales capoplay──────────────────
 
       {
         "id": "cap01",
         "nombre": "canal1",
         "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal1.php",
+        "url": "javascript:(function(){const target='https://futbol-libres.su/directv-sports/';if(window.location.href!==target){window.location.href=target;return;}const s=document.createElement('style');s.innerHTML='html,body{background:#000!important;padding:0!important;margin:0!important;overflow:hidden!important;width:100vw!important;height:100vh!important;}.preframe,.preframe iframe{position:fixed!important;top:0!important;left:0!important;width:100vw!important;height:100vh!important;z-index:999999!important;max-width:100%!important;max-height:100%!important;}body>*:not(.main-frame):not(.subframe):not(.preframe){display:none!important;}header,footer,.title,.subiframe,h1,p,div:not(.preframe):not(.subframe):not(.main-frame){display:none!important;}';document.head.appendChild(s);const iframe=document.getElementById('embedIframe');if(iframe){const observer=new MutationObserver((mutations,obs)=>{try{const iframeDoc=iframe.contentDocument||iframe.contentWindow.document;if(iframeDoc&&iframeDoc.head){obs.disconnect();const scripts=iframeDoc.head.getElementsByTagName('script');for(let i=scripts.length-1;i>=0;i--){if(scripts[i].src.includes('p2p-engine')||scripts[i].src.includes('clappr-p2p-plugin')){scripts[i].remove();}}const p2pOverride=iframeDoc.createElement('script');p2pOverride.innerHTML='window.p2pEngine=null;window.SwarmCloud=null;';iframeDoc.head.appendChild(p2pOverride);}}catch(e){}});observer.observe(iframe,{attributes:true,childList:true,subtree:true});iframe.src=iframe.src;}})()",
         "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
         "fallbacks": []
       },
-      {
-        "id": "cap02",
-        "nombre": "canal2",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal2.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap03",
-        "nombre": "canal3",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal3.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap04",
-        "nombre": "canal4",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal4.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap05",
-        "nombre": "canal5",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal5.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap06",
-        "nombre": "canal6",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal6.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap07",
-        "nombre": "canal7",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal7.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap08",
-        "nombre": "canal8",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal8.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap09",
-        "nombre": "canal9",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal9.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap10",
-        "nombre": "canal10",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal10.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap11",
-        "nombre": "canal11",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal11.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap12",
-        "nombre": "canal12",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal12.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap13",
-        "nombre": "canal13",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal13.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap14",
-        "nombre": "canal14",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal14.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap15",
-        "nombre": "canal15",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal15.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap16",
-        "nombre": "canal16",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal16.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap17",
-        "nombre": "canal17",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal17.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap18",
-        "nombre": "canal18",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal18.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap19",
-        "nombre": "canal19",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal19.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap20",
-        "nombre": "canal20",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal20.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap21",
-        "nombre": "canal21",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal21.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap22",
-        "nombre": "canal22",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal22.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap23",
-        "nombre": "canal23",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal23.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap24",
-        "nombre": "canal24",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal24.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap25",
-        "nombre": "canal25",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal25.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap26",
-        "nombre": "canal26",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal26.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap27",
-        "nombre": "canal27",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal27.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap28",
-        "nombre": "canal28",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal28.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap29",
-        "nombre": "canal29",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal29.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap30",
-        "nombre": "canal30",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal30.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap31",
-        "nombre": "canal31",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal31.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap32",
-        "nombre": "canal32",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal32.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap33",
-        "nombre": "canal33",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal33.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap34",
-        "nombre": "canal34",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal34.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap35",
-        "nombre": "canal35",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal35.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap36",
-        "nombre": "canal36",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal36.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap37",
-        "nombre": "canal37",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal37.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap38",
-        "nombre": "canal38",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal38.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap39",
-        "nombre": "canal39",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal39.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap40",
-        "nombre": "canal40",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal40.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap41",
-        "nombre": "canal41",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal41.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap42",
-        "nombre": "canal42",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal42.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap43",
-        "nombre": "canal43",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal43.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap44",
-        "nombre": "canal44",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal44.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap45",
-        "nombre": "canal45",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal45.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap46",
-        "nombre": "canal46",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal46.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap47",
-        "nombre": "canal47",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal47.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap48",
-        "nombre": "canal48",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal48.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap49",
-        "nombre": "canal49",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal49.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      },
-      {
-        "id": "cap50",
-        "nombre": "canal50",
-        "categoria": "DEPORTES",
-        "url": "https://www.capoplay.net/canal50.php",
-        "logo": "https://cdn-icons-png.flaticon.com/512/53/53283.png",
-        "fallbacks": []
-      }
-
+      
           
 ]
 TDT_CANALES = [
@@ -1195,7 +2240,7 @@ TDT_CANALES = [
     {"id":"tdt398","nombre":"Canal TRO Colombia","categoria":"INTERNACIONAL","url":"https://liveingesta118.cdnmedia.tv/canaltro2live/smil:live.smil/playlist.m3u8","logo":"https://graph.facebook.com/canaltro/picture?width=200&height=200","fallbacks":[]},
     {"id":"tdt399","nombre":"Citytv Colombia","categoria":"INTERNACIONAL","url":"https://www.youtube-nocookie.com/embed/live_stream?channel=UCv5Oy_TJFvGKXjeNzzJE_PQ&autoplay=1","logo":"https://graph.facebook.com/citytv.com.co/picture?width=200&height=200","fallbacks":[]},
     {"id":"tdt400",
-    "nombre":"Todo Noticias Argentina",
+    "nombre":"TN Todo Noticias Argentina",
         "categoria":"NOTICIAS",
         "url":"https://www.youtube.com/embed/cb12KmMMDJA",
         "logo":"https://graph.facebook.com/todonoticias/picture?width=200&height=200",
@@ -1233,7 +2278,7 @@ TDT_CANALES = [
     {"id":"tdt406",
         "nombre":"A24 Argentina",
         "categoria":"NOTICIAS",
-        "url":"https://www.youtube.com/watch?v=ArKbAx1K-2U",
+        "url":"https://www.youtube.com/embed/ArKbAx1K-2U",
         "logo":"https://graph.facebook.com/A24com/picture?width=200&height=200",
         "fallbacks":[]},
     {"id":"tdt407",
@@ -1388,54 +2433,18 @@ TDT_CANALES = [
 
 
 FUENTES_M3U = [
-    {"nombre": "IPTV Animation", "url": "https://iptv-org.github.io/iptv/categories/animation.m3u"},
-    {"nombre": "IPTV Auto", "url": "https://iptv-org.github.io/iptv/categories/auto.m3u"},
-    {"nombre": "IPTV Business", "url": "https://iptv-org.github.io/iptv/categories/business.m3u"},
-    {"nombre": "IPTV Classic", "url": "https://iptv-org.github.io/iptv/categories/classic.m3u"},
-    {"nombre": "IPTV Comedy", "url": "https://iptv-org.github.io/iptv/categories/comedy.m3u"},
-    {"nombre": "IPTV Cooking", "url": "https://iptv-org.github.io/iptv/categories/cooking.m3u"},
-    {"nombre": "IPTV Culture", "url": "https://iptv-org.github.io/iptv/categories/culture.m3u"},
-    {"nombre": "IPTV Documentary", "url": "https://iptv-org.github.io/iptv/categories/documentary.m3u"},
-    {"nombre": "IPTV Education", "url": "https://iptv-org.github.io/iptv/categories/education.m3u"},
-    {"nombre": "IPTV Entertainment", "url": "https://iptv-org.github.io/iptv/categories/entertainment.m3u"},
-    {"nombre": "IPTV Family", "url": "https://iptv-org.github.io/iptv/categories/family.m3u"},
-    {"nombre": "IPTV General", "url": "https://iptv-org.github.io/iptv/categories/general.m3u"},
-    {"nombre": "IPTV Interactive", "url": "https://iptv-org.github.io/iptv/categories/interactive.m3u"},
-    {"nombre": "IPTV Kids", "url": "https://iptv-org.github.io/iptv/categories/kids.m3u"},
-    {"nombre": "IPTV Legislative", "url": "https://iptv-org.github.io/iptv/categories/legislative.m3u"},
-    {"nombre": "IPTV Lifestyle", "url": "https://iptv-org.github.io/iptv/categories/lifestyle.m3u"},
-    {"nombre": "IPTV Movies", "url": "https://iptv-org.github.io/iptv/categories/movies.m3u"},
-    {"nombre": "IPTV Music", "url": "https://iptv-org.github.io/iptv/categories/music.m3u"},
-    {"nombre": "IPTV News", "url": "https://iptv-org.github.io/iptv/categories/news.m3u"},
-    {"nombre": "IPTV Outdoor", "url": "https://iptv-org.github.io/iptv/categories/outdoor.m3u"},
-    {"nombre": "IPTV Public", "url": "https://iptv-org.github.io/iptv/categories/public.m3u"},
-    {"nombre": "IPTV Relax", "url": "https://iptv-org.github.io/iptv/categories/relax.m3u"},
-    {"nombre": "IPTV Religious", "url": "https://iptv-org.github.io/iptv/categories/religious.m3u"},
-    {"nombre": "IPTV Science", "url": "https://iptv-org.github.io/iptv/categories/science.m3u"},
-    {"nombre": "IPTV Series", "url": "https://iptv-org.github.io/iptv/categories/series.m3u"},
-    {"nombre": "IPTV Shop", "url": "https://iptv-org.github.io/iptv/categories/shop.m3u"},
-    {"nombre": "IPTV Sports", "url": "https://iptv-org.github.io/iptv/categories/sports.m3u"},
-    {"nombre": "IPTV Travel", "url": "https://iptv-org.github.io/iptv/categories/travel.m3u"},
-    {"nombre": "IPTV Weather", "url": "https://iptv-org.github.io/iptv/categories/weather.m3u"},
-    {"nombre": "IPTV XXX", "url": "https://iptv-org.github.io/iptv/categories/xxx.m3u"},
-    {"nombre": "IPTV Undefined", "url": "https://iptv-org.github.io/iptv/categories/undefined.m3u"},
-    {"nombre": "IPTV Argentina", "url": "https://iptv-org.github.io/iptv/countries/ar.m3u"},
-    {"nombre": "IPTV México", "url": "https://iptv-org.github.io/iptv/countries/mx.m3u"},
-    {"nombre": "IPTV Colombia", "url": "https://iptv-org.github.io/iptv/countries/co.m3u"},
-    {"nombre": "IPTV Chile", "url": "https://iptv-org.github.io/iptv/countries/cl.m3u"},
-    {"nombre": "IPTV Perú", "url": "https://iptv-org.github.io/iptv/countries/pe.m3u"},
-    {"nombre": "IPTV Venezuela", "url": "https://iptv-org.github.io/iptv/countries/ve.m3u"},
-    {"nombre": "IPTV Brasil", "url": "https://iptv-org.github.io/iptv/countries/br.m3u"},
-    {"nombre": "IPTV Uruguay", "url": "https://iptv-org.github.io/iptv/countries/uy.m3u"},
-    {"nombre": "IPTV España", "url": "https://iptv-org.github.io/iptv/countries/es.m3u"},
-    {"nombre": "IPTV Spanish Language", "url": "https://iptv-org.github.io/iptv/languages/spa.m3u"},
-    {"nombre": "TDTChannels TV (España/Global)", "url": "https://www.tdtchannels.com/lists/tv.m3u8"},
-    {"nombre": "TDTChannels Radio", "url": "https://www.tdtchannels.com/lists/radio.m3u8"},
+  {"nombre": "Gist Canales Personalizados", "url": "https://gist.githubusercontent.com/frantdse/f6989518c73826ade6734c63c367af4c/raw/"},
+  {"nombre": "TDTChannels TV (España/Global)", "url": "https://www.tdtchannels.com/lists/tv.m3u8"},
+  {"nombre": "IPTV Spanish Language", "url": "https://iptv-org.github.io/iptv/languages/spa.m3u"},
+  {"nombre": "IPTV XXX", "url": "https://iptv-org.github.io/iptv/categories/xxx.m3u"},
+  {"nombre": "IPTV Undefined", "url": "https://iptv-org.github.io/iptv/categories/undefined.m3u"},
+   
 ]
+
 FUENTES_SIN_FILTRO = []
 
 
-def buscar_canales_m3u(max_por_fuente=5000, max_total=20000):
+def buscar_canales_m3u(max_por_fuente=5000, max_total=10800):
     print("\n🔍 Escaneando fuentes M3U...")
     # Fix prevent TypeError: asegura que c sea dict y tenga "nombre"
     nombres_existentes = {
@@ -1590,11 +2599,409 @@ def actualizar_canales(ref):
     print(f"  💾 Guardado exitoso: {len(data)} canales totales en Firebase.")
 
 # ══════════════════════════════════════════════════════════════════════════
+#  MUNDIAL FIFA 2026 — FIXTURE OFICIAL
+# ══════════════════════════════════════════════════════════════════════════
+MUNDIAL_PARTIDOS = [
+    # GRUPO A
+    {"id":"ga01","grupo":"A","local":"México","visitante":"Sudáfrica","bandera_local":"🇲🇽","bandera_visitante":"🇿🇦","fecha":"2026-06-11","hora":"16:00","sede":"Estadio Ciudad de México"},
+    {"id":"ga02","grupo":"A","local":"Corea del Sur","visitante":"Por definir","bandera_local":"🇰🇷","bandera_visitante":"🏳️","fecha":"2026-06-11","hora":"23:00","sede":"Estadio Guadalajara"},
+    {"id":"ga03","grupo":"A","local":"Sudáfrica","visitante":"Por definir","bandera_local":"🇿🇦","bandera_visitante":"🏳️","fecha":"2026-06-18","hora":"13:00","sede":"Atlanta Stadium"},
+    {"id":"ga04","grupo":"A","local":"México","visitante":"Corea del Sur","bandera_local":"🇲🇽","bandera_visitante":"🇰🇷","fecha":"2026-06-19","hora":"22:00","sede":"Estadio Guadalajara"},
+    {"id":"ga05","grupo":"A","local":"México","visitante":"Por definir","bandera_local":"🇲🇽","bandera_visitante":"🏳️","fecha":"2026-06-25","hora":"20:00","sede":"Dallas Stadium"},
+    {"id":"ga06","grupo":"A","local":"Sudáfrica","visitante":"Corea del Sur","bandera_local":"🇿🇦","bandera_visitante":"🇰🇷","fecha":"2026-06-25","hora":"20:00","sede":"Kansas City Stadium"},
+    # GRUPO B
+    {"id":"gb01","grupo":"B","local":"Canadá","visitante":"Por definir (Europa)","bandera_local":"🇨🇦","bandera_visitante":"🏳️","fecha":"2026-06-12","hora":"16:00","sede":"Toronto Stadium"},
+    {"id":"gb02","grupo":"B","local":"Qatar","visitante":"Suiza","bandera_local":"🇶🇦","bandera_visitante":"🇨🇭","fecha":"2026-06-13","hora":"16:00","sede":"San Francisco Bay Area"},
+    {"id":"gb03","grupo":"B","local":"Suiza","visitante":"Por definir (Europa)","bandera_local":"🇨🇭","bandera_visitante":"🏳️","fecha":"2026-06-18","hora":"16:00","sede":"Los Angeles Stadium"},
+    {"id":"gb04","grupo":"B","local":"Canadá","visitante":"Qatar","bandera_local":"🇨🇦","bandera_visitante":"🇶🇦","fecha":"2026-06-18","hora":"19:00","sede":"BC Place Vancouver"},
+    {"id":"gb05","grupo":"B","local":"Canadá","visitante":"Suiza","bandera_local":"🇨🇦","bandera_visitante":"🇨🇭","fecha":"2026-06-26","hora":"20:00","sede":"Toronto Stadium"},
+    {"id":"gb06","grupo":"B","local":"Qatar","visitante":"Por definir (Europa)","bandera_local":"🇶🇦","bandera_visitante":"🏳️","fecha":"2026-06-26","hora":"20:00","sede":"San Francisco Bay Area"},
+    # GRUPO C
+    {"id":"gc01","grupo":"C","local":"Brasil","visitante":"Marruecos","bandera_local":"🇧🇷","bandera_visitante":"🇲🇦","fecha":"2026-06-13","hora":"19:00","sede":"Nueva York New Jersey"},
+    {"id":"gc02","grupo":"C","local":"Haití","visitante":"Escocia","bandera_local":"🇭🇹","bandera_visitante":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","fecha":"2026-06-13","hora":"22:00","sede":"Boston Stadium"},
+    {"id":"gc03","grupo":"C","local":"Brasil","visitante":"Haití","bandera_local":"🇧🇷","bandera_visitante":"🇭🇹","fecha":"2026-06-19","hora":"16:00","sede":"Miami Stadium"},
+    {"id":"gc04","grupo":"C","local":"Marruecos","visitante":"Escocia","bandera_local":"🇲🇦","bandera_visitante":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","fecha":"2026-06-19","hora":"19:00","sede":"Atlanta Stadium"},
+    {"id":"gc05","grupo":"C","local":"Brasil","visitante":"Escocia","bandera_local":"🇧🇷","bandera_visitante":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","fecha":"2026-06-26","hora":"20:00","sede":"Nueva York New Jersey"},
+    {"id":"gc06","grupo":"C","local":"Marruecos","visitante":"Haití","bandera_local":"🇲🇦","bandera_visitante":"🇭🇹","fecha":"2026-06-26","hora":"20:00","sede":"Boston Stadium"},
+    # GRUPO D
+    {"id":"gd01","grupo":"D","local":"Estados Unidos","visitante":"Paraguay","bandera_local":"🇺🇸","bandera_visitante":"🇵🇾","fecha":"2026-06-12","hora":"22:00","sede":"Los Angeles Stadium"},
+    {"id":"gd02","grupo":"D","local":"Australia","visitante":"Por definir (Europa)","bandera_local":"🇦🇺","bandera_visitante":"🏳️","fecha":"2026-06-13","hora":"01:00","sede":"BC Place Vancouver"},
+    {"id":"gd03","grupo":"D","local":"Estados Unidos","visitante":"Australia","bandera_local":"🇺🇸","bandera_visitante":"🇦🇺","fecha":"2026-06-18","hora":"22:00","sede":"Dallas Stadium"},
+    {"id":"gd04","grupo":"D","local":"Paraguay","visitante":"Por definir (Europa)","bandera_local":"🇵🇾","bandera_visitante":"🏳️","fecha":"2026-06-19","hora":"01:00","sede":"San Francisco Bay Area"},
+    {"id":"gd05","grupo":"D","local":"Estados Unidos","visitante":"Por definir (Europa)","bandera_local":"🇺🇸","bandera_visitante":"🏳️","fecha":"2026-06-26","hora":"20:00","sede":"Philadelphia Stadium"},
+    {"id":"gd06","grupo":"D","local":"Paraguay","visitante":"Australia","bandera_local":"🇵🇾","bandera_visitante":"🇦🇺","fecha":"2026-06-26","hora":"20:00","sede":"Houston Stadium"},
+    # GRUPO E
+    {"id":"ge01","grupo":"E","local":"Alemania","visitante":"Curazao","bandera_local":"🇩🇪","bandera_visitante":"🇨🇼","fecha":"2026-06-14","hora":"14:00","sede":"Houston Stadium"},
+    {"id":"ge02","grupo":"E","local":"Costa de Marfil","visitante":"Ecuador","bandera_local":"🇨🇮","bandera_visitante":"🇪🇨","fecha":"2026-06-14","hora":"20:00","sede":"Philadelphia Stadium"},
+    {"id":"ge03","grupo":"E","local":"Alemania","visitante":"Costa de Marfil","bandera_local":"🇩🇪","bandera_visitante":"🇨🇮","fecha":"2026-06-19","hora":"13:00","sede":"Seattle Stadium"},
+    {"id":"ge04","grupo":"E","local":"Curazao","visitante":"Ecuador","bandera_local":"🇨🇼","bandera_visitante":"🇪🇨","fecha":"2026-06-19","hora":"22:00","sede":"Houston Stadium"},
+    {"id":"ge05","grupo":"E","local":"Alemania","visitante":"Ecuador","bandera_local":"🇩🇪","bandera_visitante":"🇪🇨","fecha":"2026-06-27","hora":"20:00","sede":"Dallas Stadium"},
+    {"id":"ge06","grupo":"E","local":"Costa de Marfil","visitante":"Curazao","bandera_local":"🇨🇮","bandera_visitante":"🇨🇼","fecha":"2026-06-27","hora":"20:00","sede":"Atlanta Stadium"},
+    # GRUPO F
+    {"id":"gf01","grupo":"F","local":"Países Bajos","visitante":"Japón","bandera_local":"🇳🇱","bandera_visitante":"🇯🇵","fecha":"2026-06-14","hora":"17:00","sede":"Dallas Stadium"},
+    {"id":"gf02","grupo":"F","local":"Por definir (Europa)","visitante":"Túnez","bandera_local":"🏳️","bandera_visitante":"🇹🇳","fecha":"2026-06-14","hora":"23:00","sede":"Estadio Monterrey"},
+    {"id":"gf03","grupo":"F","local":"Países Bajos","visitante":"Por definir (Europa)","bandera_local":"🇳🇱","bandera_visitante":"🏳️","fecha":"2026-06-20","hora":"16:00","sede":"Philadelphia Stadium"},
+    {"id":"gf04","grupo":"F","local":"Túnez","visitante":"Japón","bandera_local":"🇹🇳","bandera_visitante":"🇯🇵","fecha":"2026-06-21","hora":"01:00","sede":"Estadio Monterrey"},
+    {"id":"gf05","grupo":"F","local":"Países Bajos","visitante":"Túnez","bandera_local":"🇳🇱","bandera_visitante":"🇹🇳","fecha":"2026-06-27","hora":"20:00","sede":"Seattle Stadium"},
+    {"id":"gf06","grupo":"F","local":"Por definir (Europa)","visitante":"Japón","bandera_local":"🏳️","bandera_visitante":"🇯🇵","fecha":"2026-06-27","hora":"20:00","sede":"Boston Stadium"},
+    # GRUPO G
+    {"id":"gg01","grupo":"G","local":"Bélgica","visitante":"Egipto","bandera_local":"🇧🇪","bandera_visitante":"🇪🇬","fecha":"2026-06-15","hora":"16:00","sede":"Seattle Stadium"},
+    {"id":"gg02","grupo":"G","local":"Irán","visitante":"Nueva Zelanda","bandera_local":"🇮🇷","bandera_visitante":"🇳🇿","fecha":"2026-06-15","hora":"22:00","sede":"Los Angeles Stadium"},
+    {"id":"gg03","grupo":"G","local":"Bélgica","visitante":"Irán","bandera_local":"🇧🇪","bandera_visitante":"🇮🇷","fecha":"2026-06-20","hora":"19:00","sede":"Miami Stadium"},
+    {"id":"gg04","grupo":"G","local":"Egipto","visitante":"Nueva Zelanda","bandera_local":"🇪🇬","bandera_visitante":"🇳🇿","fecha":"2026-06-20","hora":"22:00","sede":"Dallas Stadium"},
+    {"id":"gg05","grupo":"G","local":"Bélgica","visitante":"Nueva Zelanda","bandera_local":"🇧🇪","bandera_visitante":"🇳🇿","fecha":"2026-06-27","hora":"20:00","sede":"Kansas City Stadium"},
+    {"id":"gg06","grupo":"G","local":"Egipto","visitante":"Irán","bandera_local":"🇪🇬","bandera_visitante":"🇮🇷","fecha":"2026-06-27","hora":"20:00","sede":"Seattle Stadium"},
+    # GRUPO H
+    {"id":"gh01","grupo":"H","local":"España","visitante":"Cabo Verde","bandera_local":"🇪🇸","bandera_visitante":"🇨🇻","fecha":"2026-06-15","hora":"13:00","sede":"Atlanta Stadium"},
+    {"id":"gh02","grupo":"H","local":"Arabia Saudita","visitante":"Uruguay","bandera_local":"🇸🇦","bandera_visitante":"🇺🇾","fecha":"2026-06-15","hora":"19:00","sede":"Miami Stadium"},
+    {"id":"gh03","grupo":"H","local":"España","visitante":"Arabia Saudita","bandera_local":"🇪🇸","bandera_visitante":"🇸🇦","fecha":"2026-06-20","hora":"13:00","sede":"Dallas Stadium"},
+    {"id":"gh04","grupo":"H","local":"Cabo Verde","visitante":"Uruguay","bandera_local":"🇨🇻","bandera_visitante":"🇺🇾","fecha":"2026-06-21","hora":"01:00","sede":"Atlanta Stadium"},
+    {"id":"gh05","grupo":"H","local":"España","visitante":"Uruguay","bandera_local":"🇪🇸","bandera_visitante":"🇺🇾","fecha":"2026-06-28","hora":"20:00","sede":"Miami Stadium"},
+    {"id":"gh06","grupo":"H","local":"Arabia Saudita","visitante":"Cabo Verde","bandera_local":"🇸🇦","bandera_visitante":"🇨🇻","fecha":"2026-06-28","hora":"20:00","sede":"Atlanta Stadium"},
+    # GRUPO I
+    {"id":"gi01","grupo":"I","local":"Francia","visitante":"Senegal","bandera_local":"🇫🇷","bandera_visitante":"🇸🇳","fecha":"2026-06-16","hora":"16:00","sede":"Nueva York New Jersey"},
+    {"id":"gi02","grupo":"I","local":"Repechaje 2","visitante":"Noruega","bandera_local":"🏳️","bandera_visitante":"🇳🇴","fecha":"2026-06-16","hora":"19:00","sede":"Boston Stadium"},
+    {"id":"gi03","grupo":"I","local":"Francia","visitante":"Repechaje 2","bandera_local":"🇫🇷","bandera_visitante":"🏳️","fecha":"2026-06-21","hora":"16:00","sede":"Miami Stadium"},
+    {"id":"gi04","grupo":"I","local":"Senegal","visitante":"Noruega","bandera_local":"🇸🇳","bandera_visitante":"🇳🇴","fecha":"2026-06-21","hora":"20:00","sede":"Nueva York New Jersey"},
+    {"id":"gi05","grupo":"I","local":"Francia","visitante":"Noruega","bandera_local":"🇫🇷","bandera_visitante":"🇳🇴","fecha":"2026-06-28","hora":"20:00","sede":"Boston Stadium"},
+    {"id":"gi06","grupo":"I","local":"Senegal","visitante":"Repechaje 2","bandera_local":"🇸🇳","bandera_visitante":"🏳️","fecha":"2026-06-28","hora":"20:00","sede":"Nueva York New Jersey"},
+    # GRUPO J — ARGENTINA
+    {"id":"gj01","grupo":"J","local":"Argentina","visitante":"Argelia","bandera_local":"🇦🇷","bandera_visitante":"🇩🇿","fecha":"2026-06-16","hora":"22:00","sede":"Kansas City Stadium"},
+    {"id":"gj02","grupo":"J","local":"Austria","visitante":"Jordania","bandera_local":"🇦🇹","bandera_visitante":"🇯🇴","fecha":"2026-06-17","hora":"01:00","sede":"San Francisco Bay Area"},
+    {"id":"gj03","grupo":"J","local":"Argentina","visitante":"Austria","bandera_local":"🇦🇷","bandera_visitante":"🇦🇹","fecha":"2026-06-21","hora":"19:00","sede":"Philadelphia Stadium"},
+    {"id":"gj04","grupo":"J","local":"Argelia","visitante":"Jordania","bandera_local":"🇩🇿","bandera_visitante":"🇯🇴","fecha":"2026-06-22","hora":"01:00","sede":"Kansas City Stadium"},
+    {"id":"gj05","grupo":"J","local":"Argentina","visitante":"Jordania","bandera_local":"🇦🇷","bandera_visitante":"🇯🇴","fecha":"2026-06-29","hora":"20:00","sede":"Miami Stadium"},
+    {"id":"gj06","grupo":"J","local":"Argelia","visitante":"Austria","bandera_local":"🇩🇿","bandera_visitante":"🇦🇹","fecha":"2026-06-29","hora":"20:00","sede":"Boston Stadium"},
+    # GRUPO K
+    {"id":"gk01","grupo":"K","local":"Portugal","visitante":"Repechaje 1","bandera_local":"🇵🇹","bandera_visitante":"🏳️","fecha":"2026-06-17","hora":"14:00","sede":"Houston Stadium"},
+    {"id":"gk02","grupo":"K","local":"Uzbekistán","visitante":"Colombia","bandera_local":"🇺🇿","bandera_visitante":"🇨🇴","fecha":"2026-06-17","hora":"23:00","sede":"Estadio Ciudad de México"},
+    {"id":"gk03","grupo":"K","local":"Portugal","visitante":"Uzbekistán","bandera_local":"🇵🇹","bandera_visitante":"🇺🇿","fecha":"2026-06-22","hora":"16:00","sede":"Boston Stadium"},
+    {"id":"gk04","grupo":"K","local":"Repechaje 1","visitante":"Colombia","bandera_local":"🏳️","bandera_visitante":"🇨🇴","fecha":"2026-06-22","hora":"22:00","sede":"Houston Stadium"},
+    {"id":"gk05","grupo":"K","local":"Portugal","visitante":"Colombia","bandera_local":"🇵🇹","bandera_visitante":"🇨🇴","fecha":"2026-06-29","hora":"20:00","sede":"Estadio Ciudad de México"},
+    {"id":"gk06","grupo":"K","local":"Uzbekistán","visitante":"Repechaje 1","bandera_local":"🇺🇿","bandera_visitante":"🏳️","fecha":"2026-06-29","hora":"20:00","sede":"Dallas Stadium"},
+    # GRUPO L
+    {"id":"gl01","grupo":"L","local":"Inglaterra","visitante":"Croacia","bandera_local":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","bandera_visitante":"🇭🇷","fecha":"2026-06-17","hora":"17:00","sede":"Dallas Stadium"},
+    {"id":"gl02","grupo":"L","local":"Ghana","visitante":"Panamá","bandera_local":"🇬🇭","bandera_visitante":"🇵🇦","fecha":"2026-06-17","hora":"20:00","sede":"Toronto Stadium"},
+    {"id":"gl03","grupo":"L","local":"Inglaterra","visitante":"Ghana","bandera_local":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","bandera_visitante":"🇬🇭","fecha":"2026-06-22","hora":"19:00","sede":"Nueva York New Jersey"},
+    {"id":"gl04","grupo":"L","local":"Croacia","visitante":"Panamá","bandera_local":"🇭🇷","bandera_visitante":"🇵🇦","fecha":"2026-06-23","hora":"01:00","sede":"Seattle Stadium"},
+    {"id":"gl05","grupo":"L","local":"Inglaterra","visitante":"Panamá","bandera_local":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","bandera_visitante":"🇵🇦","fecha":"2026-06-30","hora":"20:00","sede":"Dallas Stadium"},
+    {"id":"gl06","grupo":"L","local":"Croacia","visitante":"Ghana","bandera_local":"🇭🇷","bandera_visitante":"🇬🇭","fecha":"2026-06-30","hora":"20:00","sede":"Toronto Stadium"},
+]
+
+def actualizar_mundial(ref):
+    print("\n🌍 Actualizando Mundial 2026...")
+    ahora = datetime.utcnow().isoformat()
+    data = {}
+    for p in MUNDIAL_PARTIDOS:
+        pid = p["id"]
+        # Preservar goles si ya existen en Firebase
+        try:
+            existing = ref.child(f"partidos/{pid}").get()
+            goles_local     = existing.get("goles_local")     if existing else None
+            goles_visitante = existing.get("goles_visitante") if existing else None
+            estado          = existing.get("estado","PRÓXIMO") if existing else "PRÓXIMO"
+        except Exception:
+            goles_local = goles_visitante = None
+            estado = "PRÓXIMO"
+
+        data[pid] = {
+            "grupo":             p["grupo"],
+            "local":             p["local"],
+            "visitante":         p["visitante"],
+            "bandera_local":     p["bandera_local"],
+            "bandera_visitante": p["bandera_visitante"],
+            "fecha":             p["fecha"],
+            "hora":              p["hora"],
+            "sede":              p.get("sede",""),
+            "estado":            estado,
+            "goles_local":       goles_local,
+            "goles_visitante":   goles_visitante,
+            "actualizado":       ahora,
+        }
+    ref.child("partidos").set(data)
+    print(f"  💾 {len(data)} partidos del Mundial guardados")
+
+# ══════════════════════════════════════════════════════════════════════════
+#  LIBERTADORES 2026
+# ══════════════════════════════════════════════════════════════════════════
+LIBERTADORES_GRUPOS = {
+    "A": [
+        {"nombre":"Flamengo",              "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Estudiantes LP",        "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Ind. Medellín",         "pais":"Colombia", "bandera":"🇨🇴"},
+        {"nombre":"Cusco FC",              "pais":"Perú",     "bandera":"🇵🇪"},
+    ],
+    "B": [
+        {"nombre":"Nacional",              "pais":"Uruguay",  "bandera":"🇺🇾"},
+        {"nombre":"Coquimbo Unido",        "pais":"Chile",    "bandera":"🇨🇱"},
+        {"nombre":"Deportes Tolima",       "pais":"Colombia", "bandera":"🇨🇴"},
+        {"nombre":"Universitario",         "pais":"Perú",     "bandera":"🇵🇪"},
+    ],
+    "C": [
+        {"nombre":"Bolívar",               "pais":"Bolivia",  "bandera":"🇧🇴"},
+        {"nombre":"Ind. Rivadavia",        "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Dep. La Guaira",        "pais":"Venezuela","bandera":"🇻🇪"},
+        {"nombre":"Athletico Paranaense",  "pais":"Brasil",   "bandera":"🇧🇷"},
+    ],
+    "D": [
+        {"nombre":"Boca Juniors",          "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Cruzeiro",              "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Universidad Católica",  "pais":"Chile",    "bandera":"🇨🇱"},
+        {"nombre":"Barcelona SC",          "pais":"Ecuador",  "bandera":"🇪🇨"},
+    ],
+    "E": [
+        {"nombre":"Peñarol",               "pais":"Uruguay",  "bandera":"🇺🇾"},
+        {"nombre":"Corinthians",           "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Santa Fe",              "pais":"Colombia", "bandera":"🇨🇴"},
+        {"nombre":"Platense",              "pais":"Argentina","bandera":"🇦🇷"},
+    ],
+    "F": [
+        {"nombre":"Palmeiras",             "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Cerro Porteño",         "pais":"Paraguay", "bandera":"🇵🇾"},
+        {"nombre":"Junior",                "pais":"Colombia", "bandera":"🇨🇴"},
+        {"nombre":"Sporting Cristal",      "pais":"Perú",     "bandera":"🇵🇪"},
+    ],
+    "G": [
+        {"nombre":"Liga de Quito",         "pais":"Ecuador",  "bandera":"🇪🇨"},
+        {"nombre":"Lanús",                 "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Always Ready",          "pais":"Bolivia",  "bandera":"🇧🇴"},
+        {"nombre":"Mirassol",              "pais":"Brasil",   "bandera":"🇧🇷"},
+    ],
+    "H": [
+        {"nombre":"Ind. del Valle",        "pais":"Ecuador",  "bandera":"🇪🇨"},
+        {"nombre":"Libertad",              "pais":"Paraguay", "bandera":"🇵🇾"},
+        {"nombre":"Rosario Central",       "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Universidad Central",   "pais":"Venezuela","bandera":"🇻🇪"},
+    ],
+}
+
+SUDAMERICANA_GRUPOS = {
+    "A": [
+        {"nombre":"América de Cali",       "pais":"Colombia", "bandera":"🇨🇴"},
+        {"nombre":"Tigre",                 "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Macará",                "pais":"Ecuador",  "bandera":"🇪🇨"},
+        {"nombre":"Alianza Atlético",      "pais":"Perú",     "bandera":"🇵🇪"},
+    ],
+    "B": [
+        {"nombre":"Atlético Mineiro",      "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Cienciano",             "pais":"Perú",     "bandera":"🇵🇪"},
+        {"nombre":"Acad. Puerto Cabello",  "pais":"Venezuela","bandera":"🇻🇪"},
+        {"nombre":"Juventud",              "pais":"Uruguay",  "bandera":"🇺🇾"},
+    ],
+    "C": [
+        {"nombre":"San Pablo",             "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Millonarios",           "pais":"Colombia", "bandera":"🇨🇴"},
+        {"nombre":"Boston River",          "pais":"Uruguay",  "bandera":"🇺🇾"},
+        {"nombre":"O'Higgins",             "pais":"Chile",    "bandera":"🇨🇱"},
+    ],
+    "D": [
+        {"nombre":"Santos",                "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"San Lorenzo",           "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Dep. Cuenca",           "pais":"Ecuador",  "bandera":"🇪🇨"},
+        {"nombre":"Recoleta",              "pais":"Paraguay", "bandera":"🇵🇾"},
+    ],
+    "E": [
+        {"nombre":"Racing",                "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"Caracas FC",            "pais":"Venezuela","bandera":"🇻🇪"},
+        {"nombre":"Independiente",         "pais":"Bolivia",  "bandera":"🇧🇴"},
+        {"nombre":"Botafogo",              "pais":"Brasil",   "bandera":"🇧🇷"},
+    ],
+    "F": [
+        {"nombre":"Gremio",                "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Palestino",             "pais":"Chile",    "bandera":"🇨🇱"},
+        {"nombre":"City Torque",           "pais":"Uruguay",  "bandera":"🇺🇾"},
+        {"nombre":"Dep. Riestra",          "pais":"Argentina","bandera":"🇦🇷"},
+    ],
+    "G": [
+        {"nombre":"Olimpia",               "pais":"Paraguay", "bandera":"🇵🇾"},
+        {"nombre":"Vasco da Gama",         "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Audax Italiano",        "pais":"Chile",    "bandera":"🇨🇱"},
+        {"nombre":"Barracas Central",      "pais":"Argentina","bandera":"🇦🇷"},
+    ],
+    "H": [
+        {"nombre":"River Plate",           "pais":"Argentina","bandera":"🇦🇷"},
+        {"nombre":"RB Bragantino",         "pais":"Brasil",   "bandera":"🇧🇷"},
+        {"nombre":"Blooming",              "pais":"Bolivia",  "bandera":"🇧🇴"},
+        {"nombre":"Carabobo",              "pais":"Venezuela","bandera":"🇻🇪"},
+    ],
+}
+
+def actualizar_conmebol(ref):
+    print("\n🏆 Actualizando CONMEBOL...")
+    ahora = datetime.utcnow().isoformat()
+
+    # Libertadores — preservar partidos y resultados si ya existen
+    try:
+        existing_lib = ref.child("libertadores").get() or {}
+    except Exception:
+        existing_lib = {}
+
+    lib_data = {
+        "grupos": {g: {"equipos": eqs} for g, eqs in LIBERTADORES_GRUPOS.items()},
+        "partidos": existing_lib.get("partidos", {}),
+        "bracket":  existing_lib.get("bracket", {}),
+        "calendario": {
+            "fecha1_inicio":  "2026-04-07",
+            "fecha6_fin":     "2026-05-28",
+            "octavos_ida":    "2026-08-11",
+            "octavos_vuelta": "2026-08-18",
+            "cuartos_ida":    "2026-09-08",
+            "cuartos_vuelta": "2026-09-15",
+            "semis_ida":      "2026-10-13",
+            "semis_vuelta":   "2026-10-20",
+            "final":          "2026-11-28",
+            "sede_final":     "Estadio Centenario, Montevideo",
+        },
+        "actualizado": ahora,
+    }
+    ref.child("libertadores").set(lib_data)
+    print("  💾 Libertadores guardada (8 grupos)")
+
+    # Sudamericana
+    try:
+        existing_sud = ref.child("sudamericana").get() or {}
+    except Exception:
+        existing_sud = {}
+
+    sud_data = {
+        "grupos": {g: {"equipos": eqs} for g, eqs in SUDAMERICANA_GRUPOS.items()},
+        "partidos": existing_sud.get("partidos", {}),
+        "bracket":  existing_sud.get("bracket", {}),
+        "calendario": {
+            "fecha1_inicio": "2026-04-07",
+            "fecha6_fin":    "2026-05-28",
+            "octavos_ida":   "2026-08-11",
+            "final":         "2026-11-21",
+            "sede_final":    "Por confirmar",
+        },
+        "actualizado": ahora,
+    }
+    ref.child("sudamericana").set(sud_data)
+    print("  💾 Sudamericana guardada (8 grupos)")
+
+    # Recopa
+    ref.child("recopa").set({
+        "descripcion": "Se disputará entre el campeón de Libertadores 2026 y el campeón de Sudamericana 2026",
+        "final_libertadores": "2026-11-28",
+        "final_sudamericana": "2026-11-21",
+        "sede_recopa": "2027 - Por confirmar",
+        "actualizado": ahora,
+    })
+    print("  💾 Recopa guardada")
+
+# ══════════════════════════════════════════════════════════════════════════
+#  EVENTOS DEPORTIVOS DEL DÍA
+# ══════════════════════════════════════════════════════════════════════════
+def scrapear_eventos(ref):
+    """
+    Scrapea https://streamtp-x-y-z.ws/eventos.html
+    y guarda los eventos en Firebase bajo /eventos_dia
+    """
+    print("\n⚽ Scrapeando eventos deportivos...")
+    URL = "https://streamtp-x-y-z.ws/eventos.html"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "es-AR,es;q=0.9",
+        "Referer": "https://streamtp-x-y-z.ws/",
+    }
+
+    try:
+        r = requests.get(URL, headers=headers, timeout=20)
+        r.raise_for_status()
+    except Exception as e:
+        print(f"  ❌ No se pudo conectar a eventos.html: {e}")
+        return
+
+    soup = BeautifulSoup(r.text, "html.parser")
+    eventos = []
+
+    # Buscar todos los .event divs
+    event_divs = soup.select(".event")
+
+    for div in event_divs:
+        # Hora + título en .event-name
+        name_el = div.select_one(".event-name")
+        if not name_el:
+            continue
+
+        # Solo el texto directo (sin hijos como el span de idioma)
+        full_text = name_el.get_text(separator=" ", strip=True)
+
+        # Separar hora del título: "HH:MM - Título del partido"
+        import re as _re
+        match = _re.match(r"^(\d{1,2}:\d{2})\s*[-–]\s*(.+)$", full_text)
+        hora   = match.group(1).strip() if match else ""
+        titulo = match.group(2).strip() if match else full_text
+
+        # Link del stream
+        link_el = div.select_one(".iframe-link")
+        link = link_el.get("value", "").strip() if link_el else ""
+
+        # Estado en vivo
+        status_el = div.select_one(".status-button")
+        en_vivo = "status-live" in (status_el.get("class", []) if status_el else [])
+
+        # Idioma (bandera img alt)
+        idioma_el = name_el.select_one("img")
+        idioma = idioma_el.get("alt", "").strip() if idioma_el else ""
+
+        # Categoría inferida del título
+        t = titulo.lower()
+        if any(x in t for x in ["libertadores"]):
+            categoria = "Libertadores"
+        elif any(x in t for x in ["sudamericana"]):
+            categoria = "Sudamericana"
+        elif any(x in t for x in ["mundial", "fifa", "selección", "seleccion"]):
+            categoria = "Mundial"
+        elif any(x in t for x in ["nba", "basquet", "basket"]):
+            categoria = "Basquet"
+        elif any(x in t for x in ["tenis", "atp", "wta"]):
+            categoria = "Tenis"
+        elif any(x in t for x in ["f1", "formula", "nascar", "moto"]):
+            categoria = "Motor"
+        elif any(x in t for x in ["boxeo", "ufc", "mma", "pelea"]):
+            categoria = "Boxeo"
+        elif any(x in t for x in ["rugby", "nfl"]):
+            categoria = "Rugby"
+        elif any(x in t for x in ["liga", "premier", "bundesliga", "serie a", "laliga"]):
+            categoria = "Fútbol"
+        else:
+            categoria = "Otros"
+
+        if titulo:
+            eventos.append({
+                "hora": hora,
+                "titulo": titulo,
+                "link": link,
+                "idioma": idioma,
+                "enVivo": en_vivo,
+                "categoria": categoria,
+            })
+
+    # Guardar en Firebase
+    ahora = datetime.utcnow().isoformat()
+    data = {
+        "actualizadoEn": ahora,
+        "total": len(eventos),
+        "eventos": eventos,
+    }
+
+    try:
+        ref.child("eventos_dia").set(data)
+        print(f"  💾 {len(eventos)} eventos guardados en Firebase")
+    except Exception as e:
+        print(f"  ❌ Error guardando eventos: {e}")
+
+
+# ══════════════════════════════════════════════════════════════════════════
 #  MAIN
 # ══════════════════════════════════════════════════════════════════════════
 def main():
     print("=" * 55)
-    print("  🏆 streamx tv — Scraper Automático Completo")
+    print("  🏆 MundialEnVivo AR — Scraper Automático Completo")
     print(f"  🕐 {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
     print("=" * 55)
 
@@ -1603,8 +3010,9 @@ def main():
         exit(1)
 
     actualizar_canales(ref)
-    
-    
+    actualizar_mundial(ref)
+    actualizar_conmebol(ref)
+    scrapear_eventos(ref)
 
     print("\n" + "=" * 55)
     print("  ✅ TODO ACTUALIZADO EN FIREBASE")

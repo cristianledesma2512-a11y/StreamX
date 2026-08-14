@@ -1,10 +1,4 @@
 ```
-# Dependencies
-node_modules/
-
 # Environment
-.env.local
-
-# Editors
-.vscode/
+.env
 ```

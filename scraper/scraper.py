@@ -27,7 +27,7 @@ def conectar_firebase():
             raise Exception("No se encontró FIREBASE_SERVICE_ACCOUNT")
         cred = credentials.Certificate(json.loads(sa))
         firebase_admin.initialize_app(cred, {
-            "databaseURL": "https://streamx-53ace-default-rtdb.firebaseio.com/"
+            "databaseURL": "https://mundialenvivo-ar-default-rtdb.firebaseio.com/"
         })
         return rtdb.reference("/")
     except Exception as e:
@@ -2588,18 +2588,21 @@ def main():
     print("  🏆 streamx tv — Scraper Automático Completo")
     print(f"  🕐 {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
     print("=" * 55)
-
+    print("\n⚠️  SCRAPER PAUSADO - Los canales se gestionan desde el panel de control")
+    print("   La base de datos ahora usa: mundialenvivo-ar-default-rtdb.firebaseio.com")
+    print("   Las categorías son dinámicas según servidores IPTV (grp_cat_*)\n")
+    
     ref = conectar_firebase()
     if not ref:
         exit(1)
 
-    actualizar_canales(ref)
+    # Scraper pausado - los canales se administran manualmente desde el panel
+    # actualizar_canales(ref)
     
-    
-
     print("\n" + "=" * 55)
-    print("  ✅ TODO ACTUALIZADO EN FIREBASE")
+    print("  ✅ SCRAPER PAUSADO - Esperando gestión manual desde panel")
     print("=" * 55)
+
 
 if __name__ == "__main__":
     main()

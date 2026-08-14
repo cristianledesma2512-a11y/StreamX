@@ -1,5 +1,4 @@
-node_modules/
+```
+# Environment
 .env
-*.log
-logs/
-.DS_Store
+```

@@ -1,5 +1,10 @@
+```
+# Dependencies
 node_modules/
-.env
-*.log
-logs/
-.DS_Store
+
+# Environment
+.env.local
+
+# Editors
+.vscode/
+```

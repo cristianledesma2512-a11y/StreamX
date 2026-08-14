@@ -33,7 +33,7 @@ app.use(helmet({
                     'cdn.tailwindcss.com', 'cdn.jsdelivr.net', '*.jsdelivr.net',
                     'www.gstatic.com', '*.googleapis.com', '*.firebaseio.com'],
       scriptSrcAttr: ["'unsafe-inline'"],
-      styleSrc:    ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'fonts.googleapis.com'],
+      styleSrc:    ["'self'", "'unsafe-inline'", 'cdn.tailwindcss.com', 'cdn.jsdelivr.net', 'fonts.googleapis.com'],
       fontSrc:     ["'self'", 'fonts.gstatic.com'],
       imgSrc:      ["'self'", 'data:', 'https:', 'blob:'],
       frameSrc:    ["'self'", 'https:'],

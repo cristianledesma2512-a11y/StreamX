@@ -4,7 +4,10 @@
 <%- include('partials/head', { title: 'TV en Vivo — StreamX' }) %>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<link href="https://cdn.jsdelivr.net/npm/video.js@8.21.2/dist/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/video.js@8.21.2/dist/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@videojs/http-streaming@3.10.1/dist/videojs-http-streaming.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.0/dist/dash.all.min.js"></script>
 <style>
 :root{
   --az:#09090b;--az2:#18181b;--cel:#8b5cf6;--dor:#a78bfa;
@@ -73,6 +76,8 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans
 /* ── PLAYER HERO ── */
 #player-hero{position:relative;background:#000;width:100%;aspect-ratio:16/9;max-height:210px;flex-shrink:0;}
 #video-el{width:100%;height:100%;display:block;background:#000;}
+.video-js{width:100%;height:100%;background:#000;}
+.video-js .vjs-big-play-button{display:none !important;}
 #iframe-el{width:100%;height:100%;border:none;display:none;}
 #hero-overlay{position:absolute;inset:0;pointer-events:none;}
 #hero-badge{position:absolute;top:8px;left:10px;background:var(--roj);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:1px;}
@@ -501,6 +506,7 @@ let todosCanales = [];
 let favoritos    = JSON.parse(localStorage.getItem("mnv_favs") || "[]");
 let historial    = JSON.parse(localStorage.getItem("mnv_hist") || "[]");
 let hlsInstance  = null;
+let streamPlayer = null;
 let canalActivo  = null;
 let urlActual    = "";
 let fbActual     = [];
@@ -751,16 +757,79 @@ function cargarIframe(src, subtitulo) {
   heroSub.textContent    = subtitulo || "En vivo";
 }
 
-// ── Cargar HLS nativo ─────────────────────────────────────────────────────
+function getMediaType(url) {
+  if (!url) return "direct";
+  const lower = url.toLowerCase();
+  if (lower.includes("m3u8") || lower.includes("playlist") || lower.includes("manifest")) return "hls";
+  if (lower.includes(".mpd") || lower.includes("dash")) return "dash";
+  if (lower.includes(".mp4") || lower.includes(".webm") || lower.includes(".ogg") || lower.includes(".mov") || lower.includes(".m4v") || lower.includes(".mkv")) return "direct";
+  return "generic";
+}
+
+function getMimeType(url) {
+  const lower = (url || "").toLowerCase();
+  if (lower.includes("m3u8")) return "application/x-mpegURL";
+  if (lower.includes(".mpd") || lower.includes("dash")) return "application/dash+xml";
+  if (lower.includes(".mp4")) return "video/mp4";
+  if (lower.includes(".webm")) return "video/webm";
+  if (lower.includes(".ogg") || lower.includes(".ogv")) return "video/ogg";
+  if (lower.includes(".m4v")) return "video/x-m4v";
+  return "video/mp4";
+}
+
+function prepararReproductor() {
+  if (!window.videojs) return null;
+  if (!streamPlayer || streamPlayer.isDisposed?.()) {
+    streamPlayer = videojs(videoEl, {
+      controls: true,
+      autoplay: true,
+      preload: "auto",
+      fluid: true,
+      liveui: true,
+      playsinline: true,
+      html5: { vhs: { withCredentials: false } }
+    });
+  }
+  return streamPlayer;
+}
+
+function detenerReproductor() {
+  if (hlsInstance) {
+    hlsInstance.destroy();
+    hlsInstance = null;
+  }
+  if (streamPlayer && !streamPlayer.isDisposed?.()) {
+    streamPlayer.dispose();
+    streamPlayer = null;
+  }
+  videoEl.removeAttribute("src");
+  videoEl.load();
+}
+
 function cargarHLS(url, urls, idx, nombre) {
   if (iframeEl._ytCleanup) { iframeEl._ytCleanup(); iframeEl._ytCleanup = null; }
   videoEl.style.display  = "block";
   iframeEl.style.display = "none";
   iframeEl.src           = "";
-  if (hlsInstance) { hlsInstance.destroy(); hlsInstance = null; }
+  detenerReproductor();
 
-  if (Hls.isSupported()) {
-    const hls = new Hls({ enableWorker: true, lowLatencyMode: true, maxBufferLength: 20 });
+  const tipo = getMediaType(url);
+  const player = prepararReproductor();
+
+  if (tipo === "dash" && window.dashjs) {
+    const dashPlayer = dashjs.MediaPlayer().create();
+    dashPlayer.initialize(videoEl, url, true);
+    dashPlayer.on(dashjs.MediaPlayer.events.ERROR, () => {
+      setTimeout(() => intentarPlay(urls, idx + 1, nombre), 800);
+    });
+    mostrarSpinner(false);
+    heroSub.textContent = "En vivo";
+    videoEl.play().catch(() => {});
+    return;
+  }
+
+  if (window.Hls && Hls.isSupported() && (tipo === "hls" || tipo === "generic")) {
+    const hls = new Hls({ enableWorker: true, lowLatencyMode: true, maxBufferLength: 20, backBufferLength: 90, debug: false });
     hlsInstance = hls;
     hls.loadSource(url);
     hls.attachMedia(videoEl);
@@ -768,6 +837,7 @@ function cargarHLS(url, urls, idx, nombre) {
       mostrarSpinner(false); heroSub.textContent = "En vivo"; videoEl.play().catch(()=>{});
       if (data.levels && data.levels.length > 1) {
         qualityEl.style.display = "flex";
+        qualityEl.innerHTML = "";
         const btnA = document.createElement("div"); btnA.className = "q-btn a"; btnA.textContent = "Auto";
         btnA.onclick = () => { hls.currentLevel = -1; qualityEl.querySelectorAll(".q-btn").forEach(b=>b.classList.remove("a")); btnA.classList.add("a"); };
         qualityEl.appendChild(btnA);
@@ -780,15 +850,45 @@ function cargarHLS(url, urls, idx, nombre) {
       }
     });
     hls.on(Hls.Events.ERROR, (e, data) => {
-      if (data.fatal) { hls.destroy(); hlsInstance = null; setTimeout(()=>intentarPlay(urls, idx+1, nombre), 800); }
+      if (data.fatal) {
+        hls.destroy();
+        hlsInstance = null;
+        setTimeout(() => intentarPlay(urls, idx + 1, nombre), 800);
+      }
     });
-    videoEl.addEventListener("waiting", () => mostrarSpinner(true),  { once: false });
+    videoEl.addEventListener("waiting", () => mostrarSpinner(true), { once: false });
     videoEl.addEventListener("playing", () => mostrarSpinner(false), { once: false });
-  } else if (videoEl.canPlayType("application/vnd.apple.mpegurl")) {
+    return;
+  }
+
+  if (player) {
+    player.src({ src: url, type: getMimeType(url) });
+    player.ready(() => {
+      mostrarSpinner(false);
+      heroSub.textContent = "En vivo";
+      player.play().catch(() => {});
+    });
+    player.on("error", () => {
+      setTimeout(() => intentarPlay(urls, idx + 1, nombre), 800);
+    });
+    return;
+  }
+
+  if (videoEl.canPlayType(getMimeType(url))) {
     videoEl.src = url;
-    videoEl.addEventListener("loadedmetadata", () => { mostrarSpinner(false); videoEl.play().catch(()=>{}); }, { once: true });
-    videoEl.addEventListener("error", () => { setTimeout(()=>intentarPlay(urls, idx+1, nombre), 800); }, { once: true });
-  } else { mostrarSpinner(false); mostrarError(true); }
+    videoEl.addEventListener("loadedmetadata", () => {
+      mostrarSpinner(false);
+      videoEl.play().catch(() => {});
+      heroSub.textContent = "En vivo";
+    }, { once: true });
+    videoEl.addEventListener("error", () => {
+      setTimeout(() => intentarPlay(urls, idx + 1, nombre), 800);
+    }, { once: true });
+    return;
+  }
+
+  mostrarSpinner(false);
+  mostrarError(true);
 }
 
 document.getElementById("btn-retry").onclick = () => { if(urlActual && canalActivo) reproducir(urlActual, canalActivo, fbActual); };
